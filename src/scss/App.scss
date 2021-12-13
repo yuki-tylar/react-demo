@@ -1,0 +1,48 @@
+@import './variables';
+@import './base';
+@import './typography';
+
+body {
+  min-height: 100vh;
+  background: #232323;
+  color: white;
+}
+
+.app-body {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  max-width: $maxWidth;
+  margin: auto;
+}
+
+.app-bar {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45px;
+  @media (min-width: $breakpointMd) {
+    height: 80px;
+  }
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background: rgba($color: $colorGsBlack, $alpha: 0.2);
+  width: 100%;
+  height: 70px;
+  @media (min-width: $breakpointMd) {
+    height: 100px;
+  }
+
+  .bottom-bar-inner {
+    width: 100%;
+    height: 100%;
+    max-width: $maxWidth;
+    margin: auto;
+  }
+}
