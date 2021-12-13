@@ -1,0 +1,369 @@
+@import './variables';
+
+$iSpacingStartP: 0;
+$iSpacingEndP: 20;
+$stepSpacingP: 5;
+
+$iSpacingStartPc: 0;
+$iSpacingEndPc: 10;
+$stepSpacingPc: 10;
+
+@for $i from $iSpacingStartP through $iSpacingEndP {
+  .mt-#{$i * $stepSpacingP}p,
+  .my-#{$i * $stepSpacingP}p,
+  .m-#{$i * $stepSpacingP}p {
+    margin-top: #{$i * $stepSpacingP}px;
+  }
+  .mb-#{$i * $stepSpacingP}p,
+  .my-#{$i * $stepSpacingP}p,
+  .m-#{$i * $stepSpacingP}p {
+    margin-bottom: #{$i * $stepSpacingP}px;
+  }
+  .ml-#{$i * $stepSpacingP}p,
+  .mx-#{$i * $stepSpacingP}p,
+  .m-#{$i * $stepSpacingP}p {
+    margin-left: #{$i * $stepSpacingP}px;
+  }
+  .mr-#{$i * $stepSpacingP}p,
+  .mx-#{$i * $stepSpacingP}p,
+  .m-#{$i * $stepSpacingP}p {
+    margin-right: #{$i * $stepSpacingP}px;
+  }
+
+  .pt-#{$i * $stepSpacingP}p,
+  .py-#{$i * $stepSpacingP}p,
+  .p-#{$i * $stepSpacingP}p {
+    padding-top: #{$i * $stepSpacingP}px;
+  }
+  .pb-#{$i * $stepSpacingP}p,
+  .py-#{$i * $stepSpacingP}p,
+  .p-#{$i * $stepSpacingP}p {
+    padding-bottom: #{$i * $stepSpacingP}px;
+  }
+  .pl-#{$i * $stepSpacingP}p,
+  .px-#{$i * $stepSpacingP}p,
+  .p-#{$i * $stepSpacingP}p {
+    padding-left: #{$i * $stepSpacingP}px;
+  }
+  .pr-#{$i * $stepSpacingP}p,
+  .px-#{$i * $stepSpacingP}p,
+  .p-#{$i * $stepSpacingP}p {
+    padding-right: #{$i * $stepSpacingP}px;
+  }
+}
+
+
+@for $i from $iSpacingStartPc through $iSpacingEndPc {
+  .mt-#{$i * $stepSpacingPc}pc,
+  .my-#{$i * $stepSpacingPc}pc,
+  .m-#{$i * $stepSpacingPc}pc {
+    margin-top: percentage($i * $stepSpacingPc / 100);
+  }
+  .mb-#{$i * $stepSpacingPc}pc,
+  .my-#{$i * $stepSpacingPc}pc,
+  .m-#{$i * $stepSpacingPc}pc {
+    margin-bottom: percentage($i * $stepSpacingPc / 100);
+  }
+  .ml-#{$i * $stepSpacingPc}pc,
+  .mx-#{$i * $stepSpacingPc}pc,
+  .m-#{$i * $stepSpacingPc}pc {
+    margin-left: percentage($i * $stepSpacingPc / 100);
+  }
+  .mr-#{$i * $stepSpacingPc}pc,
+  .mx-#{$i * $stepSpacingPc}pc,
+  .m-#{$i * $stepSpacingPc}pc {
+    margin-right: percentage($i * $stepSpacingPc / 100);
+  }
+
+  .pt-#{$i * $stepSpacingPc}pc,
+  .py-#{$i * $stepSpacingPc}pc,
+  .p-#{$i * $stepSpacingPc}pc {
+    padding-top: percentage($i * $stepSpacingPc / 100);
+  }
+  .pb-#{$i * $stepSpacingPc}pc,
+  .py-#{$i * $stepSpacingPc}pc,
+  .p-#{$i * $stepSpacingPc}pc {
+    padding-bottom: percentage($i * $stepSpacingPc / 100);
+  }
+  .pl-#{$i * $stepSpacingPc}pc,
+  .px-#{$i * $stepSpacingPc}pc,
+  .p-#{$i * $stepSpacingPc}pc {
+    padding-left: percentage($i * $stepSpacingPc / 100);
+  }
+  .pr-#{$i * $stepSpacingPc}pc,
+  .px-#{$i * $stepSpacingPc}pc,
+  .p-#{$i * $stepSpacingPc}pc {
+    padding-right: percentage($i * $stepSpacingPc / 100);
+  }
+}
+
+@media (min-width: $breakpointMd) {
+  @for $i from $iSpacingStartP through $iSpacingEndP {
+    .mt-md-#{$i * $stepSpacingP}p,
+    .my-md-#{$i * $stepSpacingP}p,
+    .m-md-#{$i * $stepSpacingP}p {
+      margin-top: #{$i * $stepSpacingP}px;
+    }
+    .mb-md-#{$i * $stepSpacingP}p,
+    .my-md-#{$i * $stepSpacingP}p,
+    .m-md-#{$i * $stepSpacingP}p {
+      margin-bottom: #{$i * $stepSpacingP}px;
+    }
+    .ml-md-#{$i * $stepSpacingP}p,
+    .mx-md-#{$i * $stepSpacingP}p,
+    .m-md-#{$i * $stepSpacingP}p {
+      margin-left: #{$i * $stepSpacingP}px;
+    }
+    .mr-md-#{$i * $stepSpacingP}p,
+    .mx-md-#{$i * $stepSpacingP}p,
+    .m-md-#{$i * $stepSpacingP}p {
+      margin-right: #{$i * $stepSpacingP}px;
+    }
+
+    .pt-md-#{$i * $stepSpacingP}p,
+    .py-md-#{$i * $stepSpacingP}p,
+    .p-md-#{$i * $stepSpacingP}p {
+      padding-top: #{$i * $stepSpacingP}px;
+    }
+    .pb-md-#{$i * $stepSpacingP}p,
+    .py-md-#{$i * $stepSpacingP}p,
+    .p-md-#{$i * $stepSpacingP}p {
+      padding-bottom: #{$i * $stepSpacingP}px;
+    }
+    .pl-md-#{$i * $stepSpacingP}p,
+    .px-md-#{$i * $stepSpacingP}p,
+    .p-md-#{$i * $stepSpacingP}p {
+      padding-left: #{$i * $stepSpacingP}px;
+    }
+    .pr-md-#{$i * $stepSpacingP}p,
+    .px-md-#{$i * $stepSpacingP}p,
+    .p-md-#{$i * $stepSpacingP}p {
+      padding-right: #{$i * $stepSpacingP}px;
+    }
+  }
+
+  @for $i from $iSpacingStartPc through $iSpacingEndPc {
+    .mt-md-#{$i * $stepSpacingPc}pc,
+    .my-md-#{$i * $stepSpacingPc}pc,
+    .m-md-#{$i * $stepSpacingPc}pc {
+      margin-top: percentage($i * $stepSpacingPc / 100);
+    }
+    .mb-md-#{$i * $stepSpacingPc}pc,
+    .my-md-#{$i * $stepSpacingPc}pc,
+    .m-md-#{$i * $stepSpacingPc}pc {
+      margin-bottom: percentage($i * $stepSpacingPc / 100);
+    }
+    .ml-md-#{$i * $stepSpacingPc}pc,
+    .mx-md-#{$i * $stepSpacingPc}pc,
+    .m-md-#{$i * $stepSpacingPc}pc {
+      margin-left: percentage($i * $stepSpacingPc / 100);
+    }
+    .mr-md-#{$i * $stepSpacingPc}pc,
+    .mx-md-#{$i * $stepSpacingPc}pc,
+    .m-md-#{$i * $stepSpacingPc}pc {
+      margin-right: percentage($i * $stepSpacingPc / 100);
+    }
+
+    .pt-md-#{$i * $stepSpacingPc}pc,
+    .py-md-#{$i * $stepSpacingPc}pc,
+    .p-md-#{$i * $stepSpacingPc}pc {
+      padding-top: percentage($i * $stepSpacingPc / 100);
+    }
+    .pb-md-#{$i * $stepSpacingPc}pc,
+    .py-md-#{$i * $stepSpacingPc}pc,
+    .p-md-#{$i * $stepSpacingPc}pc {
+      padding-bottom: percentage($i * $stepSpacingPc / 100);
+    }
+    .pl-md-#{$i * $stepSpacingPc}pc,
+    .px-md-#{$i * $stepSpacingPc}pc,
+    .p-md-#{$i * $stepSpacingPc}pc {
+      padding-left: percentage($i * $stepSpacingPc / 100);
+    }
+    .pr-md-#{$i * $stepSpacingPc}pc,
+    .px-md-#{$i * $stepSpacingPc}pc,
+    .p-md-#{$i * $stepSpacingPc}pc {
+      padding-right: percentage($i * $stepSpacingPc / 100);
+    }
+  }
+}
+
+@media (min-width: $breakpointLg) {
+  @for $i from $iSpacingStartP through $iSpacingEndP {
+    .mt-lg-#{$i * $stepSpacingP}p,
+    .my-lg-#{$i * $stepSpacingP}p,
+    .m-lg-#{$i * $stepSpacingP}p {
+      margin-top: #{$i * $stepSpacingP}px;
+    }
+    .mb-lg-#{$i * $stepSpacingP}p,
+    .my-lg-#{$i * $stepSpacingP}p,
+    .m-lg-#{$i * $stepSpacingP}p {
+      margin-bottom: #{$i * $stepSpacingP}px;
+    }
+    .ml-lg-#{$i * $stepSpacingP}p,
+    .mx-lg-#{$i * $stepSpacingP}p,
+    .m-lg-#{$i * $stepSpacingP}p {
+      margin-left: #{$i * $stepSpacingP}px;
+    }
+    .mr-lg-#{$i * $stepSpacingP}p,
+    .mx-lg-#{$i * $stepSpacingP}p,
+    .m-lg-#{$i * $stepSpacingP}p {
+      margin-right: #{$i * $stepSpacingP}px;
+    }
+
+    .pt-lg-#{$i * $stepSpacingP}p,
+    .py-lg-#{$i * $stepSpacingP}p,
+    .p-lg-#{$i * $stepSpacingP}p {
+      padding-top: #{$i * $stepSpacingP}px;
+    }
+    .pb-lg-#{$i * $stepSpacingP}p,
+    .py-lg-#{$i * $stepSpacingP}p,
+    .p-lg-#{$i * $stepSpacingP}p {
+      padding-bottom: #{$i * $stepSpacingP}px;
+    }
+    .pl-lg-#{$i * $stepSpacingP}p,
+    .px-lg-#{$i * $stepSpacingP}p,
+    .p-lg-#{$i * $stepSpacingP}p {
+      padding-left: #{$i * $stepSpacingP}px;
+    }
+    .pr-lg-#{$i * $stepSpacingP}p,
+    .px-lg-#{$i * $stepSpacingP}p,
+    .p-lg-#{$i * $stepSpacingP}p {
+      padding-right: #{$i * $stepSpacingP}px;
+    }
+  }
+
+  @for $i from $iSpacingStartPc through $iSpacingEndPc {
+    .mt-lg-#{$i * $stepSpacingPc}pc,
+    .my-lg-#{$i * $stepSpacingPc}pc,
+    .m-lg-#{$i * $stepSpacingPc}pc {
+      margin-top: percentage($i * $stepSpacingPc / 100);
+    }
+    .mb-lg-#{$i * $stepSpacingPc}pc,
+    .my-lg-#{$i * $stepSpacingPc}pc,
+    .m-lg-#{$i * $stepSpacingPc}pc {
+      margin-bottom: percentage($i * $stepSpacingPc / 100);
+    }
+    .ml-lg-#{$i * $stepSpacingPc}pc,
+    .mx-lg-#{$i * $stepSpacingPc}pc,
+    .m-lg-#{$i * $stepSpacingPc}pc {
+      margin-left: percentage($i * $stepSpacingPc / 100);
+    }
+    .mr-lg-#{$i * $stepSpacingPc}pc,
+    .mx-lg-#{$i * $stepSpacingPc}pc,
+    .m-lg-#{$i * $stepSpacingPc}pc {
+      margin-right: percentage($i * $stepSpacingPc / 100);
+    }
+
+    .pt-lg-#{$i * $stepSpacingPc}pc,
+    .py-lg-#{$i * $stepSpacingPc}pc,
+    .p-lg-#{$i * $stepSpacingPc}pc {
+      padding-top: percentage($i * $stepSpacingPc / 100);
+    }
+    .pb-lg-#{$i * $stepSpacingPc}pc,
+    .py-lg-#{$i * $stepSpacingPc}pc,
+    .p-lg-#{$i * $stepSpacingPc}pc {
+      padding-bottom: percentage($i * $stepSpacingPc / 100);
+    }
+    .pl-lg-#{$i * $stepSpacingPc}pc,
+    .px-lg-#{$i * $stepSpacingPc}pc,
+    .p-lg-#{$i * $stepSpacingPc}pc {
+      padding-left: percentage($i * $stepSpacingPc / 100);
+    }
+    .pr-lg-#{$i * $stepSpacingPc}pc,
+    .px-lg-#{$i * $stepSpacingPc}pc,
+    .p-lg-#{$i * $stepSpacingPc}pc {
+      padding-right: percentage($i * $stepSpacingPc / 100);
+    }
+  }
+}
+
+@media (min-width: $breakpointXl) {
+  @for $i from $iSpacingStartP through $iSpacingEndP {
+    .mt-xl-#{$i * $stepSpacingP}p,
+    .my-xl-#{$i * $stepSpacingP}p,
+    .m-xl-#{$i * $stepSpacingP}p {
+      margin-top: #{$i * $stepSpacingP}px;
+    }
+    .mb-xl-#{$i * $stepSpacingP}p,
+    .my-xl-#{$i * $stepSpacingP}p,
+    .m-xl-#{$i * $stepSpacingP}p {
+      margin-bottom: #{$i * $stepSpacingP}px;
+    }
+    .ml-xl-#{$i * $stepSpacingP}p,
+    .mx-xl-#{$i * $stepSpacingP}p,
+    .m-xl-#{$i * $stepSpacingP}p {
+      margin-left: #{$i * $stepSpacingP}px;
+    }
+    .mr-xl-#{$i * $stepSpacingP}p,
+    .mx-xl-#{$i * $stepSpacingP}p,
+    .m-xl-#{$i * $stepSpacingP}p {
+      margin-right: #{$i * $stepSpacingP}px;
+    }
+
+    .pt-xl-#{$i * $stepSpacingP}p,
+    .py-xl-#{$i * $stepSpacingP}p,
+    .p-xl-#{$i * $stepSpacingP}p {
+      padding-top: #{$i * $stepSpacingP}px;
+    }
+    .pb-xl-#{$i * $stepSpacingP}p,
+    .py-xl-#{$i * $stepSpacingP}p,
+    .p-xl-#{$i * $stepSpacingP}p {
+      padding-bottom: #{$i * $stepSpacingP}px;
+    }
+    .pl-xl-#{$i * $stepSpacingP}p,
+    .px-xl-#{$i * $stepSpacingP}p,
+    .p-xl-#{$i * $stepSpacingP}p {
+      padding-left: #{$i * $stepSpacingP}px;
+    }
+    .pr-xl-#{$i * $stepSpacingP}p,
+    .px-xl-#{$i * $stepSpacingP}p,
+    .p-xl-#{$i * $stepSpacingP}p {
+      padding-right: #{$i * $stepSpacingP}px;
+    }
+  }
+
+  @for $i from $iSpacingStartPc through $iSpacingEndPc {
+    .mt-xl-#{$i * $stepSpacingPc}pc,
+    .my-xl-#{$i * $stepSpacingPc}pc,
+    .m-xl-#{$i * $stepSpacingPc}pc {
+      margin-top: percentage($i * $stepSpacingPc / 100);
+    }
+    .mb-xl-#{$i * $stepSpacingPc}pc,
+    .my-xl-#{$i * $stepSpacingPc}pc,
+    .m-xl-#{$i * $stepSpacingPc}pc {
+      margin-bottom: percentage($i * $stepSpacingPc / 100);
+    }
+    .ml-xl-#{$i * $stepSpacingPc}pc,
+    .mx-xl-#{$i * $stepSpacingPc}pc,
+    .m-xl-#{$i * $stepSpacingPc}pc {
+      margin-left: percentage($i * $stepSpacingPc / 100);
+    }
+    .mr-xl-#{$i * $stepSpacingPc}pc,
+    .mx-xl-#{$i * $stepSpacingPc}pc,
+    .m-xl-#{$i * $stepSpacingPc}pc {
+      margin-right: percentage($i * $stepSpacingPc / 100);
+    }
+
+    .pt-xl-#{$i * $stepSpacingPc}pc,
+    .py-xl-#{$i * $stepSpacingPc}pc,
+    .p-xl-#{$i * $stepSpacingPc}pc {
+      padding-top: percentage($i * $stepSpacingPc / 100);
+    }
+    .pb-xl-#{$i * $stepSpacingPc}pc,
+    .py-xl-#{$i * $stepSpacingPc}pc,
+    .p-xl-#{$i * $stepSpacingPc}pc {
+      padding-bottom: percentage($i * $stepSpacingPc / 100);
+    }
+    .pl-xl-#{$i * $stepSpacingPc}pc,
+    .px-xl-#{$i * $stepSpacingPc}pc,
+    .p-xl-#{$i * $stepSpacingPc}pc {
+      padding-left: percentage($i * $stepSpacingPc / 100);
+    }
+    .pr-xl-#{$i * $stepSpacingPc}pc,
+    .px-xl-#{$i * $stepSpacingPc}pc,
+    .p-xl-#{$i * $stepSpacingPc}pc {
+      padding-right: percentage($i * $stepSpacingPc / 100);
+    }
+  }
+}
+  

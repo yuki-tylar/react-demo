@@ -1,9 +1,23 @@
-import React, { Component, createRef, CSSProperties, PointerEvent, ReactElement, RefObject, SyntheticEvent, TouchEvent } from "react";
+import { Component, createRef, CSSProperties, PointerEvent, ReactElement, RefObject } from "react";
 
+export enum PageViewDirection {
+  horizontal,
+  vertical
+}
+
+interface PageViewProps {
+  children: ReactElement<PageViewItem>[];
+  direction?: PageViewDirection;
+  threshold?: number;
+}
+
+interface PageViewItemProps {
+  child?: ReactElement;
+}
 export default class PageView extends Component<PageViewProps> {
  
   get el(): HTMLElement | null { return this._el.current; }
-  get vertical(): boolean { return this.direction == PageViewDirection.vertical; }
+  get vertical(): boolean { return this.direction === PageViewDirection.vertical; }
   get elLength(): number { return this.vertical ? this.el!.clientHeight || 0 : this.el!.clientWidth || 0; }
   get movementRatio(): number { return Math.abs(this.movement / this.elLength); }
   get movementDirection(): 1 | -1 {return this.movement > 0 ? 1 : -1; }
@@ -24,8 +38,8 @@ export default class PageView extends Component<PageViewProps> {
   constructor(props: PageViewProps) {
     super(props);
     this._el = createRef();
-    this.direction = props.direction != undefined ? props.direction : PageViewDirection.vertical;
-    this.threshold = props.threshold != undefined ? 
+    this.direction = props.direction !== undefined ? props.direction : PageViewDirection.vertical;
+    this.threshold = props.threshold !== undefined ? 
       props.threshold > 1 ? 1 : 
       props.threshold < 0 ? 0 :
       props.threshold : 
@@ -60,7 +74,7 @@ export default class PageView extends Component<PageViewProps> {
   }
 
   private _timerAutoScroll: any;
-  onScroll = (e: SyntheticEvent) => {
+  onScroll = () => {
     if(!this.animated && !this.scrolledByPointer && this.el) {
       clearTimeout(this._timerAutoScroll);
       
@@ -76,7 +90,7 @@ export default class PageView extends Component<PageViewProps> {
     }
   }
 
-  private onPointerDown = (e: PointerEvent) => {
+  private onPointerDown = () => {
     if(this.el) {
       this.touched = true;
       this.movement = 0;
@@ -97,12 +111,12 @@ export default class PageView extends Component<PageViewProps> {
     }
   }
 
-  private onPointerUp = (e: PointerEvent) => {
+  private onPointerUp = () => {
     if(this.el) {
       const currentScrollPosition = this.vertical ? this.el.scrollTop : this.el.scrollLeft;
       this.movement = currentScrollPosition - this.initialScrollPosition;  
   
-      if(this.touched && this.scrolledByPointer && this.movement != 0) {
+      if(this.touched && this.scrolledByPointer && this.movement !== 0) {
         let next: number;
   
         if (Math.abs(this.lastVelocity) > 0.5) {
@@ -111,7 +125,7 @@ export default class PageView extends Component<PageViewProps> {
           next = this.current + (Math.floor(this.movementRatio) + (this.movementRatio % 1 >= this.threshold ? 1 : 0)) * this.movementDirection;
         }
         next = next <= 0 ? 0 : next >= this.el.children.length - 1 ? this.el.children.length - 1 : next;
-        this.animateTo(next, next != this.current ? 300 : 100);
+        this.animateTo(next, next !== this.current ? 300 : 100);
   
         this.current = next;
       }
@@ -164,21 +178,6 @@ export class PageViewItem extends Component<PageViewItemProps> {
       </div>
     )
   }
-}
-
-export enum PageViewDirection {
-  horizontal,
-  vertical
-}
-
-interface PageViewProps {
-  children: ReactElement<PageViewItem>[];
-  direction?: PageViewDirection;
-  threshold?: number;
-}
-
-interface PageViewItemProps {
-  child?: ReactElement;
 }
 
 function _scrollVerticalTo(el: HTMLElement, to: number) {
