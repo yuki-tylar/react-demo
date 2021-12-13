@@ -1,0 +1,95 @@
+
+$iRoundedStart: 0;
+$iRoundedEnd: 3;
+$stepRoundedP: 4;
+
+$iSizeStartP: 6;
+$iSizeEndP: 12;
+$stepSizeP: 5;
+
+$iSizeStartPc: 3;
+$iSizeEndPc: 5;
+$stepSizePc: 20;
+
+.square {
+  &:after {
+    display: block;
+    content: '';
+    padding-top: 100%;
+  }
+}
+
+.circle {
+  position: relative;
+  border-radius: 100000px;
+  overflow: hidden;
+  &:after {
+    display: block;
+    content: '';
+    padding-top: 100%;
+  }
+}
+
+@for $i from $iRoundedStart through $iRoundedEnd {
+  .rounded-#{$i * $stepRoundedP}p { border-radius: ($i * $stepRoundedP)px; }  
+}
+
+@for $i from $iSizeStartP through $iSizeEndP {
+  .w-#{$i * $stepSizeP}p { width: #{$i * $stepSizeP}px; }
+  .h-#{$i * $stepSizeP}p { height: #{$i * $stepSizeP}px; }
+}
+
+@for $i from $iSizeStartPc through $iSizeEndPc {
+  .w-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
+  .h-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+}
+
+
+@media (min-width: $breakpointMd) {
+  @for $i from $iRoundedStart through $iRoundedEnd {
+    .rounded-md-#{$i * $stepRoundedP}p { border-radius: #{$i * $stepRoundedP}px; }  
+  }
+
+  @for $i from $iSizeStartP through $iSizeEndP {
+    .w-md-#{$i * $stepSizeP}p { width: #{$i * $stepSizeP}px; }
+    .h-md-#{$i * $stepSizeP}p { height: #{$i * $stepSizeP}px; }
+  }
+  
+  @for $i from $iSizeStartPc through $iSizeEndPc {
+    .w-md-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
+    .h-md-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+  }
+}
+
+@media (min-width: $breakpointLg) {
+  @for $i from $iRoundedStart through $iRoundedEnd {
+    .rounded-lg-#{$i * $stepRoundedP}p { border-radius: #{$i * $stepRoundedP}px; }  
+  }
+
+  @for $i from $iSizeStartP through $iSizeEndP {
+    .w-lg-#{$i * $stepSizeP}p { width: #{$i * $stepSizeP}px; }
+    .h-lg-#{$i * $stepSizeP}p { height: #{$i * $stepSizeP}px; }
+  }
+
+  @for $i from $iSizeStartPc through $iSizeEndPc {
+    .w-lg-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
+    .h-lg-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+  }
+}
+
+@media (min-width: $breakpointXl) {
+  @for $i from $iRoundedStart through $iRoundedEnd {
+    .rounded-xl-#{$i * $stepRoundedP}p { border-radius: #{$i * $stepRoundedP}px; }  
+  }
+
+  @for $i from $iSizeStartP through $iSizeEndP {
+    .width-xl-#{$i * $stepSizeP}p { width: #{$i * $stepSizeP}px; }
+    .height-xl-#{$i * $stepSizeP}p { height: #{$i * $stepSizeP}px; }
+  }
+
+  @for $i from $iSizeStartPc through $iSizeEndPc {
+    .width-xl-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
+    .height-xl-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+  }
+
+}

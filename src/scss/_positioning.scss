@@ -1,0 +1,206 @@
+@import './variables';
+
+/** uded for top | left | right | bottom @for {start} thorough {end} */
+$iPositioningStart: 0; 
+$iPositioningEnd: 50;
+$stepPositioningP: 5;
+$stepPositioningPc: 2;
+
+@mixin displayFlex() {
+  display: flex;
+  align-items: center;
+}
+
+.d-block { display: block; }
+.d-inline { display: inline; }
+.d-flex { @include displayFlex(); }
+
+.pos-relative { position: relative; }
+.pos-absolute { position: absolute; }
+.pos-fixed { position: fixed; }
+[class*=pos-sticky] { position: sticky; top: 0; }
+.pos-sticky-bottom { bottom: 0;}
+
+.main-axis-start { justify-content: start; }
+.cross-axis-start { align-items: start; }
+.main-axis-center { justify-content: center; }
+.cross-axis-center { align-items: center; }
+.main-axis-stretch { justify-content: stretch; }
+.cross-axis-stretch { align-items: stretch; }
+.main-axis-end { justify-content: end; }
+.cross-axis-end { align-items: end; }
+
+@for $i from $iPositioningStart through $iPositioningEnd {
+  .top-#{$i * $stepPositioningP}p {
+    top: #{$i * $stepPositioningP}px;
+  }
+  .left-#{$i * $stepPositioningP}p {
+    left: #{$i * $stepPositioningP}px;
+  }
+  .right-#{$i * $stepPositioningP}p {
+    right: #{$i * $stepPositioningP}px;
+  }
+  .bottom-#{$i * $stepPositioningP}p {
+    bottom: #{$i * $stepPositioningP}px;
+  }
+  .top-#{$i * $stepPositioningPc}pc {
+    top: percentage($i * $stepPositioningPc / 100);
+  }
+  .left-#{$i * $stepPositioningPc}pc {
+    left: percentage($i * $stepPositioningPc / 100);
+  }
+  .right-#{$i * $stepPositioningPc}pc {
+    right: percentage($i * $stepPositioningPc / 100);
+  }
+  .bottom-#{$i * $stepPositioningPc}pc {
+    bottom: percentage($i * $stepPositioningPc / 100);
+  }
+}
+
+@media (min-width: $breakpointMd) {
+  .d-md-block { display: block; }
+  .d-md-inline { display: inline; }
+  .d-md-flex { @include displayFlex(); }
+
+  .pos-md-relative { position: relative; }
+  .pos-md-absolute { position: absolute; }
+  .pos-md-fixed { position: fixed; }
+  [class*=pos-md-sticky] { position: sticky; top: 0; }
+  .pos-md-sticky-bottom { bottom: 0;}
+
+  .main-axis-md-start { justify-content: start; }
+  .cross-axis-md-start { align-items: start; }
+  .main-axis-md-center { justify-content: center; }
+  .cross-axis-md-center { align-items: center; }
+  .main-axis-md-stretch { justify-content: stretch; }
+  .cross-axis-md-stretch { align-items: stretch; }
+  .main-axis-md-end { justify-content: end; }
+  .cross-axis-md-end { align-items: end; }
+
+  .text-md-left { text-align: left; }
+  .text-md-center { text-align: center; }
+  .text-md-right { text-align: right; }
+
+  @for $i from $iPositioningStart through $iPositioningEnd {
+    .top-md-#{$i * $stepPositioningP}p {
+      top: #{$i * $stepPositioningP}px;
+    }
+    .left-md-#{$i * $stepPositioningP}p {
+      left: #{$i * $stepPositioningP}px;
+    }
+    .right-md-#{$i * $stepPositioningP}p {
+      right: #{$i * $stepPositioningP}px;
+    }
+    .bottom-md-#{$i * $stepPositioningP}p {
+      bottom: #{$i * $stepPositioningP}px;
+    }
+    .top-md-#{$i * $stepPositioningPc}pc {
+      top: percentage($i * $stepPositioningPc / 100);
+    }
+    .left-md-#{$i * $stepPositioningPc}pc {
+      left: percentage($i * $stepPositioningPc / 100);
+    }
+    .right-md-#{$i * $stepPositioningPc}pc {
+      right: percentage($i * $stepPositioningPc / 100);
+    }
+    .bottom-md-#{$i * $stepPositioningPc}pc {
+      bottom: percentage($i * $stepPositioningPc / 100);
+    }
+  }
+}
+
+@media (min-width: $breakpointLg) {
+  .d-lg-block { display: block; }
+  .d-lg-inline { display: inline; }
+  .d-lg-flex { @include displayFlex(); }
+
+  .pos-lg-relative { position: relative; }
+  .pos-lg-absolute { position: absolute; }
+  .pos-lg-fixed { position: fixed; }
+  [class*=pos-lg-sticky] { position: sticky; top: 0; }
+  .pos-lg-sticky-bottom { bottom: 0;}
+
+  .main-axis-lg-start { justify-content: start; }
+  .cross-axis-lg-start { align-items: start; }
+  .main-axis-lg-center { justify-content: center; }
+  .cross-axis-lg-center { align-items: center; }
+  .main-axis-lg-stretch { justify-content: stretch; }
+  .cross-axis-lg-stretch { align-items: stretch; }
+  .main-axis-lg-end { justify-content: end; }
+  .cross-axis-lg-end { align-items: end; }
+
+  @for $i from $iPositioningStart through $iPositioningEnd {
+    .top-lg-#{$i * $stepPositioningP}p {
+      top: #{$i * $stepPositioningP}px;
+    }
+    .left-lg-#{$i * $stepPositioningP}p {
+      left: #{$i * $stepPositioningP}px;
+    }
+    .right-lg-#{$i * $stepPositioningP}p {
+      right: #{$i * $stepPositioningP}px;
+    }
+    .bottom-lg-#{$i * $stepPositioningP}p {
+      bottom: #{$i * $stepPositioningP}px;
+    }
+    .top-lg-#{$i * $stepPositioningPc}pc {
+      top: percentage($i * $stepPositioningPc / 100);
+    }
+    .left-lg-#{$i * $stepPositioningPc}pc {
+      left: percentage($i * $stepPositioningPc / 100);
+    }
+    .right-lg-#{$i * $stepPositioningPc}pc {
+      right: percentage($i * $stepPositioningPc / 100);
+    }
+    .bottom-lg-#{$i * $stepPositioningPc}pc {
+      bottom: percentage($i * $stepPositioningPc / 100);
+    }
+  }
+}
+
+@media (min-width: $breakpointXl) {
+  .d-xl-block { display: block; }
+  .d-xl-inline { display: inline; }
+  .d-xl-flex { @include displayFlex(); }
+
+  .pos-xl-relative { position: relative; }
+  .pos-xl-absolute { position: absolute; }
+  .pos-xl-fixed { position: fixed; }
+  [class*=pos-xl-sticky] { position: sticky; top: 0; }
+  .pos-xl-sticky-bottom { bottom: 0;}
+
+  .main-axis-xl-start { justify-content: start; }
+  .cross-axis-xl-start { align-items: start; }
+  .main-axis-xl-center { justify-content: center; }
+  .cross-axis-xl-center { align-items: center; }
+  .main-axis-xl-stretch { justify-content: stretch; }
+  .cross-axis-xl-stretch { align-items: stretch; }
+  .main-axis-xl-end { justify-content: end; }
+  .cross-axis-xl-end { align-items: end; }
+
+  @for $i from $iPositioningStart through $iPositioningEnd {
+    .top-xl-#{$i * $stepPositioningP}p {
+      top: #{$i * $stepPositioningP}px;
+    }
+    .left-xl-#{$i * $stepPositioningP}p {
+      left: #{$i * $stepPositioningP}px;
+    }
+    .right-xl-#{$i * $stepPositioningP}p {
+      right: #{$i * $stepPositioningP}px;
+    }
+    .bottom-xl-#{$i * $stepPositioningP}p {
+      bottom: #{$i * $stepPositioningP}px;
+    }
+    .top-xl-#{$i * $stepPositioningPc}pc {
+      top: percentage($i * $stepPositioningPc / 100);
+    }
+    .left-xl-#{$i * $stepPositioningPc}pc {
+      left: percentage($i * $stepPositioningPc / 100);
+    }
+    .right-xl-#{$i * $stepPositioningPc}pc {
+      right: percentage($i * $stepPositioningPc / 100);
+    }
+    .bottom-xl-#{$i * $stepPositioningPc}pc {
+      bottom: percentage($i * $stepPositioningPc / 100);
+    }
+  }
+}

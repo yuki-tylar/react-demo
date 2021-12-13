@@ -56,6 +56,17 @@ ol,
 .body-small { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
 caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
 
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.clamp-2line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
 @media (min-width: #{$breakpointMd}) {
   .headline1-md { @include typography(60px, 64px, $fontWeightBold, -0.5px); }
   .headline2-md { @include typography(48px, 54px, $fontWeightBold, 0px); }
@@ -69,6 +80,10 @@ caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); 
   .body2-md { @include typography(14px, 22px, $fontWeightRegular, -0.2px); }
   .body-small-md { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
   .caption-md { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
+
+  .text-md-left { text-align: left; }
+  .text-md-center { text-align: center; }
+  .text-md-right { text-align: right; }
 }
 
 
@@ -85,6 +100,10 @@ caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); 
   .body2-lg { @include typography(14px, 22px, $fontWeightRegular, -0.2px); }
   .body-small-lg { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
   .caption-lg { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
+
+  .text-lg-left { text-align: left; }
+  .text-lg-center { text-align: center; }
+  .text-lg-right { text-align: right; }
 }
 
 @media (min-width: #{$breakpointXl}) {
@@ -100,4 +119,8 @@ caption, .caption { @include typography(12px, 16px, $fontWeightRegular, 0.2px); 
   .body2-xl { @include typography(14px, 22px, $fontWeightRegular, -0.2px); }
   .body-small-xl { @include typography(13px, 16px, $fontWeightMedium, 0.2px); }
   .caption-xl { @include typography(12px, 16px, $fontWeightRegular, 0.2px); }
+
+  .text-xl-left { text-align: left; }
+  .text-xl-center { text-align: center; }
+  .text-xl-right { text-align: right; }
 }
