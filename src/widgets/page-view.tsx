@@ -1,4 +1,4 @@
-import { Component, createRef, CSSProperties, PointerEvent, ReactElement, RefObject } from "react";
+import { Component, createRef, CSSProperties, PointerEvent, PropsWithChildren, RefObject } from "react";
 
 export enum PageViewDirection {
   horizontal,
@@ -6,15 +6,11 @@ export enum PageViewDirection {
 }
 
 interface PageViewProps {
-  children: ReactElement<PageViewItem>[];
   direction?: PageViewDirection;
   threshold?: number;
 }
 
-interface PageViewItemProps {
-  child?: ReactElement;
-}
-export default class PageView extends Component<PageViewProps> {
+export class PageView extends Component<PropsWithChildren<PageViewProps>> {
  
   get el(): HTMLElement | null { return this._el.current; }
   get vertical(): boolean { return this.direction === PageViewDirection.vertical; }
@@ -61,7 +57,7 @@ export default class PageView extends Component<PageViewProps> {
       }
       setTimeout(() => { 
         this.animated = false;
-      }, time);
+      }, time + 100);
     }
   }
 
@@ -91,7 +87,7 @@ export default class PageView extends Component<PageViewProps> {
   }
 
   private onPointerDown = () => {
-    if(this.el) {
+    if(this.el && !this.animated) {
       this.touched = true;
       this.movement = 0;
       this.initialScrollPosition = this.vertical ? this.el.scrollTop : this.el.scrollLeft;  
@@ -125,13 +121,13 @@ export default class PageView extends Component<PageViewProps> {
           next = this.current + (Math.floor(this.movementRatio) + (this.movementRatio % 1 >= this.threshold ? 1 : 0)) * this.movementDirection;
         }
         next = next <= 0 ? 0 : next >= this.el.children.length - 1 ? this.el.children.length - 1 : next;
-        this.animateTo(next, next !== this.current ? 300 : 100);
+        this.animateTo(next, next !== this.current ? 250 : 100);
   
         this.current = next;
       }
   
-      this.scrolledByPointer = false;
       this.touched = false;
+      this.scrolledByPointer = false;
       this.movement = 0;
       this.lastVelocity = 0;
       this.lastPointerMoveData = null;
@@ -164,7 +160,7 @@ export default class PageView extends Component<PageViewProps> {
   }
 }
 
-export class PageViewItem extends Component<PageViewItemProps> {
+export class PageViewItem extends Component<PropsWithChildren<{}>> {
   render() {
     const style: CSSProperties = {
       position: 'relative',
@@ -174,7 +170,7 @@ export class PageViewItem extends Component<PageViewItemProps> {
     }
     return (
       <div style={style}>
-        {this.props.child}
+        {this.props.children}
       </div>
     )
   }
