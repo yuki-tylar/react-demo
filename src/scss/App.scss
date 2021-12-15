@@ -14,9 +14,10 @@ body {
 .app-body {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   max-width: $maxWidth;
   margin: auto;
+  overflow: hidden;
 }
 
 .app-bar {
