@@ -43,6 +43,8 @@
     ]
   },
   "devDependencies": {
+    "lorem-ipsum": "^2.0.4",
+    "react-lorem-ipsum": "^1.4.9",
     "sass": "^1.45.0"
   }
 }

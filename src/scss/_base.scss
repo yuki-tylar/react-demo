@@ -5,17 +5,28 @@
   -webkit-user-drag: none;
 }
 
+.overflow-hidden { overflow: hidden;}
+.overflow-auto { overflow: auto; }
 
-// @media (min-width: $breakpointMd) {
+.list-unstyled {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+[class*=border-] {
+  border-width: 1px;
+  border-style: solid;
+}
 
-// }
+@media (min-width: $breakpointMd) {
+}
 
-// @media (min-width: $breakpointLg) {
+@media (min-width: $breakpointLg) {
 
-// }
+}
 
-// @media (min-width: $breakpointXl) {
+@media (min-width: $breakpointXl) {
 
-// }
+}
 
 

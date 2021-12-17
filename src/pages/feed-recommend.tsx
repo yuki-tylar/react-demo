@@ -1,55 +1,86 @@
-import { motion } from "framer-motion";
-import { Component, useRef } from "react";
+import { AnimatePresence, AnimateSharedLayout, motion, useDragControls } from "framer-motion";
+import { useRef, useState } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { gestureService } from "../service/gesture-service";
 import { Card } from "../widgets/card";
-import { FittedBox } from "../widgets/fitted-box";
+import { ChildView } from "../widgets/child-view-container";
+import { Overlay } from "../widgets/overlay";
 import { PageView, PageViewItem } from "../widgets/page-view";
+import { contents } from "../_temp/contents";
+import { User } from "./user";
 
-const contents = [
-  {
-    id: '1Dig8Edg',
-    image: 'assets/sample.png',
-    user: {
-      name: 'Takayuki',
-      profileImage: 'assets/sample-human.jpeg'
-    },
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
+
+const variantsForOverlay = {
+  enter: {
+    opacity: 0,
   },
-  {
-    id: 'ki8#0dferd',
-    image: 'assets/sample2.webp',
-    user: {
-      name: 'Takayuki',
-      profileImage: 'assets/sample-human.jpeg'
-    },
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
+  center: {
+    opacity: 1,
   },
-  {
-    id: '9Ekid74#d',
-    image: 'assets/sample3.webp',
-    user: {
-      name: 'Takayuki',
-      profileImage: 'assets/sample-human.jpeg'
-    },
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
+  exit: {
+    opacity: 0,
   }
-];
+}
 
-export function FeedRecommend(props: any) {
+const variantsForUserView = {
+  enter: (height: number) => {
+    return {
+      y: 100,
+      opacity: 0,
+    }
+  },
+  center: {
+    zIndex: 1,
+    y: 0,
+    opacity: 1,
+  },
+  exit: (height: number) => {
+    return {
+      y: 100,
+      opacity: 0,
+      zIndex: 1,
+    }
+  },
+}
 
-  const refContent = useRef<HTMLDivElement>(null);
-  const panThreshold = 0.4;
 
-  let initialY = 0;
+export function FeedRecommend(props: { scrollable: boolean }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const path = location.pathname.replace(/^\/|\/$/g, '').split('/');
+  let userId: string;
+  if (path.length >= 3 && path[1] == 'user') {
+    userId = path[2];
+  }
+
+  const content = contents.find(content => content.user.id == userId);
+  const user = content?.user;
+
   return (
-    <PageView  >
-      {contents.map((content: any,) => {
-        return (
-          <PageViewItem key={content.id}>
-            <Card.FeedItem key={content.id} data={content} />
-          </PageViewItem>
-        );
-      })}
-    </PageView>
-  )
+    <>
+      <div style={{ height: '100vh' }}>
+        <PageView
+          scrollable={props.scrollable}
+        >
+          {contents.map((content: any,) => {
+            return (
+              <PageViewItem key={content.id}>
+                <Card.FeedItem key={content.id} data={content} />
+              </PageViewItem>
+            );
+          })}
+        </PageView>
+      </div>
 
+      <AnimatePresence exitBeforeEnter>
+        {
+          user ?
+            <ChildView goback={() => { navigate(-1); }}>
+              <User user={user} />
+            </ChildView> : null
+        }
+      </AnimatePresence>
+    </>
+  )
 }
