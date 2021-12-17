@@ -1,34 +1,59 @@
 @import './variables';
 @import './base';
+@import './typography';
 @import './spacing';
 @import './positioning';
-@import './typography';
 @import './box_shape';
+@import './color';
 
 body {
   min-height: 100vh;
-  background: #232323;
-  color: white;
+  background: $colorGsBackground;
+  color: $colorGsBody;
+  -webkit-overflow-scrolling: touch;
 }
 
-.app-body {
+.overlay {
+  position: fixed;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
+  background: rgba($colorGsBlack, 0.8);
+
+}
+
+.app-body-feed {
   position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   max-width: $maxWidth;
   margin: auto;
   overflow: hidden;
 }
 
-.app-bar {
-  position: absolute;
+.app-child-body {
+  z-index: 100;
+  position: fixed;
+  width: calc(100vw - 30px);
+  height: calc(100vh - 30px);
+  border-radius: 16px;
+  overflow: hidden;
+  top: 15px;
+  left: 15px;
+  background: $colorGsBackground;
+}
+
+.app-bar-feed {
+  position: fixed;
   z-index: 10;
   top: 0;
   left: 0;
-  width: 100%;
+  background: rgba($color: $colorGsWhite, $alpha: 0.2);
+  width: 100vw;
   height: 45px;
   @media (min-width: $breakpointMd) {
-    height: 80px;
+    height: 60px;
   }
 }
 
@@ -36,11 +61,11 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  background: rgba($color: $colorGsBlack, $alpha: 0.2);
+  background: rgba($color: $colorGsWhite, $alpha: 0.2);
   width: 100%;
   height: 70px;
   @media (min-width: $breakpointMd) {
-    height: 100px;
+    height: 80px;
   }
 
   .bottom-bar-inner {

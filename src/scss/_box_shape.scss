@@ -3,11 +3,11 @@ $iRoundedStart: 0;
 $iRoundedEnd: 3;
 $stepRoundedP: 4;
 
-$iSizeStartP: 6;
+$iSizeStartP: 1;
 $iSizeEndP: 20;
 $stepSizeP: 5;
 
-$iSizeStartPc: 3;
+$iSizeStartPc: 2;
 $iSizeEndPc: 5;
 $stepSizePc: 20;
 
@@ -31,7 +31,7 @@ $stepSizePc: 20;
 }
 
 @for $i from $iRoundedStart through $iRoundedEnd {
-  .rounded-#{$i * $stepRoundedP}p { border-radius: ($i * $stepRoundedP)px; }  
+  .rounded-#{$i * $stepRoundedP}p { border-radius: #{$i * $stepRoundedP}px; }  
 }
 
 @for $i from $iSizeStartP through $iSizeEndP {
@@ -40,8 +40,8 @@ $stepSizePc: 20;
 }
 
 @for $i from $iSizeStartPc through $iSizeEndPc {
-  .w-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
-  .h-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+  .w-#{$i * $stepSizePc}pc { width: percentage(calc($i * $stepSizePc / 100)); }
+  .h-#{$i * $stepSizePc}pc { height: percentage(calc($i * $stepSizePc / 100)); }
 }
 
 
@@ -56,8 +56,8 @@ $stepSizePc: 20;
   }
   
   @for $i from $iSizeStartPc through $iSizeEndPc {
-    .w-md-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
-    .h-md-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+    .w-md-#{$i * $stepSizePc}pc { width: percentage(calc($i * $stepSizePc / 100)); }
+    .h-md-#{$i * $stepSizePc}pc { height: percentage(calc($i * $stepSizePc / 100)); }
   }
 }
 
@@ -72,8 +72,8 @@ $stepSizePc: 20;
   }
 
   @for $i from $iSizeStartPc through $iSizeEndPc {
-    .w-lg-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
-    .h-lg-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+    .w-lg-#{$i * $stepSizePc}pc { width: percentage(calc($i * $stepSizePc / 100)); }
+    .h-lg-#{$i * $stepSizePc}pc { height: percentage(calc($i * $stepSizePc / 100)); }
   }
 }
 
@@ -88,8 +88,8 @@ $stepSizePc: 20;
   }
 
   @for $i from $iSizeStartPc through $iSizeEndPc {
-    .width-xl-#{$i * $stepSizePc}pc { width: percentage($i * $stepSizePc / 100); }
-    .height-xl-#{$i * $stepSizePc}pc { height: percentage($i * $stepSizePc / 100); }
+    .width-xl-#{$i * $stepSizePc}pc { width: percentage(calc($i * $stepSizePc / 100)); }
+    .height-xl-#{$i * $stepSizePc}pc { height: percentage(calc($i * $stepSizePc / 100)); }
   }
 
 }

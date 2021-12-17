@@ -13,6 +13,7 @@ $stepPositioningPc: 2;
 
 .d-block { display: block; }
 .d-inline { display: inline; }
+.d-inline-block { display: inline-block; }
 .d-flex { @include displayFlex(); }
 
 .pos-relative { position: relative; }
@@ -44,22 +45,23 @@ $stepPositioningPc: 2;
     bottom: #{$i * $stepPositioningP}px;
   }
   .top-#{$i * $stepPositioningPc}pc {
-    top: percentage($i * $stepPositioningPc / 100);
+    top: percentage(calc($i * $stepPositioningPc / 100));
   }
   .left-#{$i * $stepPositioningPc}pc {
-    left: percentage($i * $stepPositioningPc / 100);
+    left: percentage(calc($i * $stepPositioningPc / 100));
   }
   .right-#{$i * $stepPositioningPc}pc {
-    right: percentage($i * $stepPositioningPc / 100);
+    right: percentage(calc($i * $stepPositioningPc / 100));
   }
   .bottom-#{$i * $stepPositioningPc}pc {
-    bottom: percentage($i * $stepPositioningPc / 100);
+    bottom: percentage(calc($i * $stepPositioningPc / 100));
   }
 }
 
 @media (min-width: $breakpointMd) {
   .d-md-block { display: block; }
   .d-md-inline { display: inline; }
+  .d-md-inline-block { display: inline-block; }
   .d-md-flex { @include displayFlex(); }
 
   .pos-md-relative { position: relative; }
@@ -95,16 +97,16 @@ $stepPositioningPc: 2;
       bottom: #{$i * $stepPositioningP}px;
     }
     .top-md-#{$i * $stepPositioningPc}pc {
-      top: percentage($i * $stepPositioningPc / 100);
+      top: percentage(calc($i * $stepPositioningPc / 100));
     }
     .left-md-#{$i * $stepPositioningPc}pc {
-      left: percentage($i * $stepPositioningPc / 100);
+      left: percentage(calc($i * $stepPositioningPc / 100));
     }
     .right-md-#{$i * $stepPositioningPc}pc {
-      right: percentage($i * $stepPositioningPc / 100);
+      right: percentage(calc($i * $stepPositioningPc / 100));
     }
     .bottom-md-#{$i * $stepPositioningPc}pc {
-      bottom: percentage($i * $stepPositioningPc / 100);
+      bottom: percentage(calc($i * $stepPositioningPc / 100));
     }
   }
 }
@@ -112,6 +114,7 @@ $stepPositioningPc: 2;
 @media (min-width: $breakpointLg) {
   .d-lg-block { display: block; }
   .d-lg-inline { display: inline; }
+  .d-lg-inline-block { display: inline-block; }
   .d-lg-flex { @include displayFlex(); }
 
   .pos-lg-relative { position: relative; }
@@ -143,16 +146,16 @@ $stepPositioningPc: 2;
       bottom: #{$i * $stepPositioningP}px;
     }
     .top-lg-#{$i * $stepPositioningPc}pc {
-      top: percentage($i * $stepPositioningPc / 100);
+      top: percentage(calc($i * $stepPositioningPc / 100));
     }
     .left-lg-#{$i * $stepPositioningPc}pc {
-      left: percentage($i * $stepPositioningPc / 100);
+      left: percentage(calc($i * $stepPositioningPc / 100));
     }
     .right-lg-#{$i * $stepPositioningPc}pc {
-      right: percentage($i * $stepPositioningPc / 100);
+      right: percentage(calc($i * $stepPositioningPc / 100));
     }
     .bottom-lg-#{$i * $stepPositioningPc}pc {
-      bottom: percentage($i * $stepPositioningPc / 100);
+      bottom: percentage(calc($i * $stepPositioningPc / 100));
     }
   }
 }
@@ -160,6 +163,7 @@ $stepPositioningPc: 2;
 @media (min-width: $breakpointXl) {
   .d-xl-block { display: block; }
   .d-xl-inline { display: inline; }
+  .d-xl-inline-block { display: inline-block; }
   .d-xl-flex { @include displayFlex(); }
 
   .pos-xl-relative { position: relative; }
@@ -191,16 +195,16 @@ $stepPositioningPc: 2;
       bottom: #{$i * $stepPositioningP}px;
     }
     .top-xl-#{$i * $stepPositioningPc}pc {
-      top: percentage($i * $stepPositioningPc / 100);
+      top: percentage(calc($i * $stepPositioningPc / 100));
     }
     .left-xl-#{$i * $stepPositioningPc}pc {
-      left: percentage($i * $stepPositioningPc / 100);
+      left: percentage(calc($i * $stepPositioningPc / 100));
     }
     .right-xl-#{$i * $stepPositioningPc}pc {
-      right: percentage($i * $stepPositioningPc / 100);
+      right: percentage(calc($i * $stepPositioningPc / 100));
     }
     .bottom-xl-#{$i * $stepPositioningPc}pc {
-      bottom: percentage($i * $stepPositioningPc / 100);
+      bottom: percentage(calc($i * $stepPositioningPc / 100));
     }
   }
 }

@@ -1,110 +1,149 @@
 import { createElement, useRef, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 import { FeedRecommend } from "./feed-recommend";
 import { FeedEvent } from "./feed-event";
+import { gestureService } from "../service/gesture-service";
+import { User } from "./user";
+import { Overlay } from "../widgets/overlay";
 
-const routes = [
-  { path: 'recommend', component: FeedRecommend, data: { title: 'Recommends' } },
-  { path: 'event', component: FeedEvent, data: { title: 'Events' } },
+interface RouteDataItem {
+  id: string;
+  path: string;
+  component: (props: { scrollable: boolean }) => JSX.Element;
+  data: { [k: string]: any };
+}
+
+interface FeedBaseProps {
+  direction: number;
+  page: number;
+  directionLocked: 'x' | 'y' | null;
+}
+
+const routes: RouteDataItem[] = [
+  { id: 'recommend', path: 'recommend/*', component: FeedRecommend, data: { title: 'Recommends', darkmode: true } },
+  { id: 'event', path: 'event/*', component: FeedEvent, data: { title: 'Events' } },
 ];
 
+
 const variantsRouter = {
-  enter: (data: {direction: number, width: number}) => {
+  enter: (data: { direction: number, width: number }) => {
     return {
-      x: data.direction > 0 ? data.width : -data.width ,
+      x: data.direction > 0 ? data.width : -data.width,
       opacity: 0,
     }
   },
   center: {
-    zIndex: 1,
     x: 0,
     opacity: 1,
   },
-  exit: (data: {direction: number, width: number}) => {
+  exit: (data: { direction: number, width: number }) => {
+    console.log(data.direction);
     return {
       x: data.direction > 0 ? -data.width : data.width,
       opacity: 1,
-      zIndex: 0,
     }
   },
 }
 
-const swipeConfidenceThreshold = 1000;
-const swipePower = (offset: number, velocity: number) => {
-  return Math.abs(offset) * velocity;
-};
-
-function FeedAnimator(props: { component: any, direction: number, changePage: (direction: number) => void }) {
-  const ref = useRef<HTMLDivElement>(null);
-  let direction = 'x';
-
-  return (
-    <motion.div
-      ref ={ref}
-      style={{ height: '100%' }}
-      custom={{direction: props.direction, width: (ref.current?.clientWidth || 1000)}}
-      variants={variantsRouter}
-      initial="enter"
-      animate="center"
-      exit="exit"
-      transition={{
-        x: { type: 'spring', stiffness: 300, damping: 30 },
-        opacity: { duration: 0.2 }
-      }}
-      drag={'x'}
-      dragConstraints={{ left: 0, right: 0, bottom: 0 }}
-      dragElastic={1}
-      dragDirectionLock
-      onDirectionLock={d => direction = d }
-      onDragEnd={(e, { offset, velocity }) => {
-        if(direction == 'x') {
-          const swipe = swipePower(offset.x, velocity.x);
-          if (swipe < -swipeConfidenceThreshold) {
-            console.log('changePage');
-            props.changePage(1);
-          } else if (swipe > swipeConfidenceThreshold) {
-            console.log('changePage');
-            props.changePage(-1);
-          }  
-        }
-      }}
-    >
-      {createElement(props.component)}
-    </motion.div>
-
-  )
-}
 
 export function FeedBase() {
   const location = useLocation();
   const navigate = useNavigate();
+  const ref = useRef<HTMLDivElement>(null);
 
-  const initialPage = routes.findIndex(route => location.pathname === ('/' + route.path));
-  const [state, setState] = useState({ direction: 0, page: initialPage || 0 });
+  const initialPage = routes.findIndex(route => location.pathname.match(new RegExp('^/' + route.id)));
+  const [state, setState] = useState<FeedBaseProps>({
+    direction: 0,
+    page: initialPage || 0,
+    directionLocked: null,
+  });
 
   const changePage = (direction: number) => {
     const nextPage = (state.page + direction + routes.length) % routes.length;
-    setState({ direction: direction, page: nextPage });
-    navigate(routes[nextPage].path);
+    setState({ ...state, direction: direction, page: nextPage, directionLocked: null });
+    navigate(routes[nextPage].id)
   }
+
+  const currentRoute = routes[state.page];
+
+  const path = location.pathname.replace(/^\/|\/$/g, '').split('/');
+  const onRoot = !!path[0].match(currentRoute.id) && path.length === 1;
+
+  const title = currentRoute.data.title;
+  const darkmode = currentRoute.data.darkmode;
 
   return (
     <>
-      <div className="app-body">
-        <div className="app-bar d-flex main-axis-center">
-          <h2 className="headline4 headline3-md" onClick={() => { changePage(1) }}>
-            {routes[state.page].data.title}
+      {/* routes for root */}
+      <div
+        ref={ref}
+        className="app-body-feed"
+      >
+        <motion.div
+          className="app-bar-feed d-flex main-axis-center"
+          animate={onRoot ? 'shown' : 'hidden'}
+          variants={{
+            shown: { transform: 'translateY(0%)'},
+            hidden: { transform: 'translateY(-100%)'}
+          }}
+        >
+          <h2
+            className={'headline4 headline3-md' + (darkmode ? ' text-white' : ' text-body')}
+            onClick={() => { changePage(1) }}
+          >
+            {title}
           </h2>
-        </div>
+        </motion.div>
         <AnimatePresence initial={false} exitBeforeEnter>
-          <Routes location={location} key={location.pathname}>
+          <Routes location={location} key={routes[state.page].id}>
             {routes.map(route =>
               <Route
-                key={route.path}
+                key={route.id}
                 path={route.path}
-                element={<FeedAnimator component={route.component} direction={state.direction} changePage={changePage}></FeedAnimator>}
-              ></Route>
+                element={
+                  <motion.div
+                    className="pos-relative"
+                    custom={{ direction: state.direction, width: (ref.current?.clientWidth || 1000) }}
+                    variants={variantsRouter}
+                    initial='enter'
+                    animate='center'
+                    exit='exit'
+                    transition={{
+                      x: { type: 'spring', stiffness: 300, damping: 30 },
+                      opacity: { duration: 0.2 }
+                    }}
+                    drag={onRoot ? 'x' : false}
+                    dragConstraints={{ left: 0, right: 0, bottom: 0, top: 0 }}
+                    dragElastic={1}
+                    dragDirectionLock
+                    onDirectionLock={d => {
+                      if (state.directionLocked !== d) {
+                        setState({ ...state, directionLocked: d });
+                      }
+                    }}
+                    onDrag={(e, info) => {
+                      const direction = info.delta.x > 0 ? -1 : info.delta.x < 0 ? 1 : 0;
+                      if (direction !== 0 && state.direction != direction) {
+                        setState({ ...state, direction });
+                      }
+                    }}
+                    onDragEnd={(e, { offset, velocity }) => {
+                      if (state.directionLocked === 'x') {
+                        const direction = gestureService.getSwipeDirection(offset.x, velocity.x);
+                        if (direction !== 0) {
+                          changePage(direction);
+                        }
+                      }
+                    }}
+                  >
+                    {createElement(
+                      route.component,
+                      { scrollable: state.directionLocked === 'y' && onRoot }
+                    )}
+                  </motion.div>
+                }
+              />
             )}
           </Routes>
         </AnimatePresence>

@@ -1,29 +1,25 @@
+import { motion } from "framer-motion";
 import { Component, createRef, CSSProperties, PointerEvent, PropsWithChildren, RefObject } from "react";
 
-export enum PageViewDirection {
-  horizontal,
-  vertical
-}
-
+type PageViewDirection = 'x' | 'y';
 interface PageViewProps {
   direction?: PageViewDirection;
+  scrollable?: boolean;
   threshold?: number;
 }
 
 export class PageView extends Component<PropsWithChildren<PageViewProps>> {
  
   get el(): HTMLElement | null { return this._el.current; }
-  get vertical(): boolean { return this.direction === PageViewDirection.vertical; }
+  get vertical(): boolean { return this.direction === 'y'; }
   get elLength(): number { return this.vertical ? this.el!.clientHeight || 0 : this.el!.clientWidth || 0; }
-  get movementRatio(): number { return Math.abs(this.movement / this.elLength); }
-  get movementDirection(): 1 | -1 {return this.movement > 0 ? 1 : -1; }
 
   private _el: RefObject<HTMLDivElement>;
   private direction: PageViewDirection;
   private threshold: number = 0.2;
   private current: number = 0;
-  private movement: number = 0;
   private initialScrollPosition: number = 0;
+  private initialPointerPosition: number = 0;
   private lastPointerMoveData: {movement: number; timestamp: number} | null = null;
   private lastVelocity: number = 0;
 
@@ -34,7 +30,7 @@ export class PageView extends Component<PropsWithChildren<PageViewProps>> {
   constructor(props: PageViewProps) {
     super(props);
     this._el = createRef();
-    this.direction = props.direction !== undefined ? props.direction : PageViewDirection.vertical;
+    this.direction = props.direction !== undefined ? props.direction : 'y';
     this.threshold = props.threshold !== undefined ? 
       props.threshold > 1 ? 1 : 
       props.threshold < 0 ? 0 :
@@ -86,39 +82,44 @@ export class PageView extends Component<PropsWithChildren<PageViewProps>> {
     }
   }
 
-  private onPointerDown = () => {
+  private onPointerDown = (e: PointerEvent) => {
     if(this.el && !this.animated) {
       this.touched = true;
-      this.movement = 0;
-      this.initialScrollPosition = this.vertical ? this.el.scrollTop : this.el.scrollLeft;  
+      this.initialScrollPosition = this.vertical ? this.el.scrollTop : this.el.scrollLeft;
+      this.initialPointerPosition = this.vertical ? e.screenY : e.screenX;
     }
   }
 
   private onPointerMove = (e: PointerEvent) => {
-    if(this.touched && this.el) {
+    if(this.touched && this.el && this.props.scrollable ) {
       this.scrolledByPointer = true;
-      
-      const movement = this.vertical ? e.movementY : e.movementX;
+      const movement = (this.vertical ? e.screenY : e.screenX) - this.initialPointerPosition;
   
-      this.el.scrollBy({top: this.vertical ? -movement : 0, left: this.vertical ? 0 : -movement});
+      this.el.scrollTo({
+        ...this.vertical && {top : this.initialScrollPosition - movement},
+        ...!this.vertical && {left: this.initialScrollPosition - movement}
+      });
 
       this.lastVelocity = this.lastPointerMoveData ?( (movement - this.lastPointerMoveData.movement) / (e.timeStamp - this.lastPointerMoveData.timestamp)) : 0;
       this.lastPointerMoveData = {movement: movement, timestamp: e.timeStamp};
     }
   }
 
-  private onPointerUp = () => {
+  private onPointerUp = (e: PointerEvent) => {
     if(this.el) {
       const currentScrollPosition = this.vertical ? this.el.scrollTop : this.el.scrollLeft;
-      this.movement = currentScrollPosition - this.initialScrollPosition;  
+      const movement = currentScrollPosition - this.initialScrollPosition;  
   
-      if(this.touched && this.scrolledByPointer && this.movement !== 0) {
+      if(this.touched && this.scrolledByPointer && movement !== 0) {
+        const movementRatio = Math.abs(movement / this.elLength);
+        const movementDirection = movement > 0 ? 1 : -1;
+
         let next: number;
   
         if (Math.abs(this.lastVelocity) > 0.5) {
-          next = this.current + this.movementDirection;
+          next = this.current + movementDirection;
         } else {
-          next = this.current + (Math.floor(this.movementRatio) + (this.movementRatio % 1 >= this.threshold ? 1 : 0)) * this.movementDirection;
+          next = this.current + (Math.floor(movementRatio) + (movementRatio % 1 >= this.threshold ? 1 : 0)) * movementDirection;
         }
         next = next <= 0 ? 0 : next >= this.el.children.length - 1 ? this.el.children.length - 1 : next;
         this.animateTo(next, next !== this.current ? 250 : 100);
@@ -128,7 +129,6 @@ export class PageView extends Component<PropsWithChildren<PageViewProps>> {
   
       this.touched = false;
       this.scrolledByPointer = false;
-      this.movement = 0;
       this.lastVelocity = 0;
       this.lastPointerMoveData = null;
       this.initialScrollPosition = 0; 
@@ -137,16 +137,16 @@ export class PageView extends Component<PropsWithChildren<PageViewProps>> {
 
   render() {
     const style: CSSProperties = {
-      position: 'absolute',
+      position: 'relative',
       width: '100%',
       height: '100%',
       touchAction: 'none',
-      overflow: 'auto',
+      overflow: this.props.scrollable ? 'auto' : 'hidden',
       display: 'flex',
       flexDirection: this.vertical ? 'column' : 'row'
     };
     return (
-      <div 
+      <motion.div 
       ref={this._el}
       style={style}
       onPointerDown={this.onPointerDown}
@@ -155,7 +155,7 @@ export class PageView extends Component<PropsWithChildren<PageViewProps>> {
       onScroll={this.onScroll}
       >
         {this.props.children}
-      </div>
+      </motion.div>
     )
   }
 }

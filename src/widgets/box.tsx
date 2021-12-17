@@ -1,27 +1,38 @@
-import { CSSProperties, PropsWithChildren } from "react"
+import { Component, CSSProperties, PropsWithChildren } from "react"
 
-const style: CSSProperties = {
+export class AspectRatio extends Component<PropsWithChildren<{ratio: number}>> {
+  render() {
+    return (
+      <div className="pos-relative">
+        {this.props.children}
+        <div style={{paddingTop: this.props.ratio * 100 + '%'}}></div>
+      </div>
+    )
+  }
+}
+const styleFittedBox: CSSProperties = {
   position: 'relative',
   width: '100%',
   height: '100%',
 }
 
+
 export const FittedBox = {
-  div: (props: PropsWithChildren<IFittedBoxProps>) => {
+  Div: (props: PropsWithChildren<IFittedBoxProps>) => {
     const _style: CSSProperties = {
-      ...style,
+      ...styleFittedBox,
       ...props.style && props.style,
     }
     return (
-      <div style={_style}>
+      <div style={_style} className={props.className}>
         {props.children}
       </div>
     )
   },
 
-  img: (props: IFittedImageProps) => {
+  Img: (props: IFittedImageProps) => {
     const _style: CSSProperties = {
-      ...style,
+      ...styleFittedBox,
       ...props.style && props.style
 
     }
@@ -41,6 +52,7 @@ export const FittedBox = {
 
 export interface IFittedBoxProps  {
   style?: CSSProperties;
+  className?: string;
 }
 
 export interface IFittedImageProps extends IFittedBoxProps {
@@ -50,4 +62,4 @@ export interface IFittedImageProps extends IFittedBoxProps {
   draggable?: boolean;
 }
 
-export * as FittedImage from './fitted-box';
+export * as FittedImage from './box';
