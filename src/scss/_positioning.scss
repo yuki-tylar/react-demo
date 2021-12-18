@@ -30,6 +30,10 @@ $stepPositioningPc: 2;
 .cross-axis-stretch { align-items: stretch; }
 .main-axis-end { justify-content: end; }
 .cross-axis-end { align-items: end; }
+.main-axis-between { justify-content: space-between; }
+.main-axis-item-2 { flex: 0 0 48%; }
+.main-axis-item-3 { flex: 0 0 32%; }
+
 
 @for $i from $iPositioningStart through $iPositioningEnd {
   .top-#{$i * $stepPositioningP}p {
@@ -78,6 +82,10 @@ $stepPositioningPc: 2;
   .cross-axis-md-stretch { align-items: stretch; }
   .main-axis-md-end { justify-content: end; }
   .cross-axis-md-end { align-items: end; }
+  .main-axis-md-between { justify-content: space-between; }
+
+  .main-axis-item-md-2 { flex: 0 0 48%; }
+  .main-axis-item-md-3 { flex: 0 0 32%; }
 
   .text-md-left { text-align: left; }
   .text-md-center { text-align: center; }
@@ -131,6 +139,10 @@ $stepPositioningPc: 2;
   .cross-axis-lg-stretch { align-items: stretch; }
   .main-axis-lg-end { justify-content: end; }
   .cross-axis-lg-end { align-items: end; }
+  .main-axis-lg-between { justify-content: space-between; }
+
+  .main-axis-item-lg-2 { flex: 0 0 48%; }
+  .main-axis-item-lg-3 { flex: 0 0 32%; }
 
   @for $i from $iPositioningStart through $iPositioningEnd {
     .top-lg-#{$i * $stepPositioningP}p {
@@ -180,6 +192,10 @@ $stepPositioningPc: 2;
   .cross-axis-xl-stretch { align-items: stretch; }
   .main-axis-xl-end { justify-content: end; }
   .cross-axis-xl-end { align-items: end; }
+  .main-axis-lg-between { justify-content: space-between; }
+
+  .main-axis-item-xl-2 { flex: 0 0 48%; }
+  .main-axis-item-xl-3 { flex: 0 0 32%; }
 
   @for $i from $iPositioningStart through $iPositioningEnd {
     .top-xl-#{$i * $stepPositioningP}p {

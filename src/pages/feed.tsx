@@ -1,16 +1,15 @@
 import { createElement, useRef, useState } from "react";
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { FeedRecommend } from "./feed-recommend";
 import { FeedEvent } from "./feed-event";
 import { gestureService } from "../service/gesture-service";
-import { User } from "./user";
-import { Overlay } from "../widgets/overlay";
+import { FeedProfile } from "./feed-profile";
 
 interface RouteDataItem {
   id: string;
   path: string;
-  component: (props: { scrollable: boolean }) => JSX.Element;
+  component: (props: FeedRootProps) => JSX.Element;
   data: { [k: string]: any };
 }
 
@@ -20,9 +19,14 @@ interface FeedBaseProps {
   directionLocked: 'x' | 'y' | null;
 }
 
+export interface FeedRootProps {
+  scrollable: boolean;
+}
+
 const routes: RouteDataItem[] = [
   { id: 'recommend', path: 'recommend/*', component: FeedRecommend, data: { title: 'Recommends', darkmode: true } },
   { id: 'event', path: 'event/*', component: FeedEvent, data: { title: 'Events' } },
+  { id: 'profile', path: 'profile/*', component: FeedProfile, data: {title: 'People'} },
 ];
 
 
@@ -76,9 +80,16 @@ export function FeedBase() {
   return (
     <>
       {/* routes for root */}
-      <div
+      <motion.div
         ref={ref}
         className="app-body-feed"
+        initial={false}
+        animate={darkmode ? 'dark' : 'light'}
+        variants={{
+          dark: {backgroundColor: '#04122D'},
+          light: {backgroundColor: '#EFF3F7'}
+        }}
+
       >
         <motion.div
           className="app-bar-feed d-flex main-axis-center"
@@ -147,7 +158,7 @@ export function FeedBase() {
             )}
           </Routes>
         </AnimatePresence>
-      </div>
+      </motion.div>
 
       <div className="bottom-bar">
         <div className="bottom-bar-inner">

@@ -5,7 +5,6 @@ import { FeedBase } from './pages/feed';
 
 export default class App extends Component {
   render() {
-    
     return (
       <>
         <BrowserRouter>

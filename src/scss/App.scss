@@ -27,8 +27,8 @@ body {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  max-width: $maxWidth;
-  margin: auto;
+  padding: 0 calc((100vw - $maxWidth) / 2);
+  box-sizing: border-box;
   overflow: hidden;
 }
 

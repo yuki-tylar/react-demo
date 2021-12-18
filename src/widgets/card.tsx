@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import moment from 'moment';
 import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
 import { AspectRatio, FittedBox } from './box';
@@ -78,6 +79,27 @@ export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: b
   }
 }
 
+export class UserItem extends Component<{ data: any }> {
+  render() {
+    return (
+      <div
+        style={{ touchAction: 'pan-y' }}
+        className="rounded-8p overflow-hidden bg-black border-line"
+      >
+        <AspectRatio ratio={6 / 4}>
+          <FittedBox.Img
+            image={this.props.data.profileImage}
+            style={{
+              objectFit: 'cover',
+              position: 'absolute'
+            }}
+          />
+        </AspectRatio>
+      </div>
+    );
+  }
+}
+
 export class EventItem extends Component<{ data: any }> {
   render() {
     return (
@@ -110,8 +132,8 @@ export class EventItem extends Component<{ data: any }> {
             </ul>
           </div>
           <div className="pos-absolute w-100pc bottom-0p px-15p pb-15p" style={{ boxSizing: 'border-box' }}>
-            <div className="subtitle2 mb-10p">
-              {/* {this.props.data.date} */}
+            <div className="subtitle2 mb-10p text-white">
+              {moment(this.props.data.date).format('MMM DD YYYY hh:mm')}
             </div>
             <h6 className="clamp-2line text-white">
               {this.props.data.name}
