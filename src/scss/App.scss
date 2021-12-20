@@ -10,7 +10,7 @@ $appearanceTransitionDuration: 500ms;
 
 body {
   width: 100vw;
-  height: 100vh;
+
 
   background: #0F2027;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
@@ -19,7 +19,7 @@ body {
 }
 
 .app-container {
-  position: relative;
+  position: fixed;
   width: min(100%, $maxWidth);
   height: 100vh;
   margin: 0 auto;

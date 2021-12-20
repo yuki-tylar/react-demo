@@ -36,7 +36,7 @@ export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: b
 
   render() {
     return (
-      <div className="pos-relative bg-black" style={{width: '100%', height: '100vh'}}>
+      <div className="pos-relative bg-black" style={{width: '100%', height: window.innerHeight + 'px'}}>
         <FittedBox.Img
           style={{ objectFit: 'cover', position: 'absolute', top: 0, left: 0, filter: 'blur(18px) brightness(0.7)' }}
           image={this.props.data.image}

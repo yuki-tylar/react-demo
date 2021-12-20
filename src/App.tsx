@@ -20,9 +20,13 @@ export default function App() {
 };
 
 function _App(props: PropsWithReduxSetting) {
+  console.log(window.innerHeight);
   return (
     <>
-      <div className={`app-container ${props.setting.appearance}`}>
+      <div 
+      className={`app-container ${props.setting.appearance}`}
+      style={{height: window.innerHeight + 'px'}}
+      >
         <BrowserRouter>
           <Routes>
             {
