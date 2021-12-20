@@ -1,8 +1,18 @@
 import { Component } from 'react';
 import './scss/App.scss';
 import { Route, BrowserRouter, Routes, Navigate, Link } from 'react-router-dom';
-import { FeedBase } from './pages/feed';
+import { Feed } from './feed/base';
 import { Explore } from './pages/explore';
+import { RouteItem } from './definition/routes';
+import { AppBarBottom } from './app-bar-bottom';
+
+const routes: RouteItem[] = [
+  { path: '/*', element: <Feed /> },
+  { path: '/explore/*', element: <Explore /> },
+  { path: '/message/*', element: <Explore /> },
+  { path: '/auth/*', element: <Explore /> },
+  { path: '/', element: <Navigate to='/recommend' /> }
+];
 
 export default class App extends Component {
   render() {
@@ -10,24 +20,24 @@ export default class App extends Component {
       <div className='app-container'>
         <BrowserRouter>
           <Routes>
-            <Route path='/*' element={<FeedBase />} />
-            <Route key="explore" path='/explore' element={<Explore />}>
-            </Route>
-            <Route path='/messages/*' />
-            <Route path='/auth/*' />
-            <Route path="/" element={<Navigate to="/recommend" />} />
+            {
+              routes.map(route =>
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              )
+            }
           </Routes>
 
           <div className="bottom-bar">
-            <div className="bottom-bar-inner">
-              <Link to="/explore">ex</Link>
-              <Link to="/">feed</Link>
-            </div>
+            <AppBarBottom/>
           </div>
 
-        </BrowserRouter>
+        </BrowserRouter >
 
-      </div>
+      </div >
     );
   }
 };

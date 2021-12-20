@@ -48,8 +48,6 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-
-  
 }
 
 .app-child-body {
@@ -92,5 +90,6 @@ body {
     height: 100%;
     max-width: $maxWidth;
     margin: auto;
+    box-sizing: border-box;
   }
 }

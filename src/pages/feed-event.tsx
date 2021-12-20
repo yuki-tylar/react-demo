@@ -5,7 +5,7 @@ import { fetchEvents } from "../redux/slice-events";
 import { eventConnector, PropsWithReduxEvent } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
-import { FeedRootProps } from "./feed";
+import { FeedRootProps } from "../feed/base";
 import { SwipeScreenChanger } from "./feed/swipe-detector";
 
 interface FeedEventProps extends PropsWithReduxEvent, FeedRootProps { }
