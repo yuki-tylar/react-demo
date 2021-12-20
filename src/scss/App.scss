@@ -7,36 +7,55 @@
 @import './color';
 
 body {
-  min-height: 100vh;
-  background: $colorGsBackground;
+  width: 100vw;
+  height: 100vh;
+
   color: $colorGsBody;
+
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   -webkit-overflow-scrolling: touch;
 }
 
-.overlay {
-  position: fixed;
-  top: -5%;
-  left: -5%;
-  width: 110%;
-  height: 110%;
-  background: rgba($colorGsBlack, 0.8);
+.app-container {
+  position: relative;
+  width: min(100%, $maxWidth);
+  height: 100vh;
+  margin: 0 auto;
+}
 
+.overlay {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background: rgba($colorGsBlack, 0.8);
 }
 
 .app-body-feed {
   position: relative;
   width: 100%;
-  min-height: 100vh;
-  max-width: $maxWidth;
-  margin: auto;
-  overflow: hidden;
+  height: 100%;
+  overflow: auto;
+}
+
+.app-child-container {
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  
 }
 
 .app-child-body {
-  z-index: 100;
   position: fixed;
-  width: calc(100vw - 30px);
-  height: calc(100vh - 30px);
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
   border-radius: 16px;
   overflow: hidden;
   top: 15px;
@@ -45,12 +64,12 @@ body {
 }
 
 .app-bar-feed {
-  position: fixed;
+  position: absolute;
   z-index: 10;
   top: 0;
   left: 0;
-  background: rgba($color: $colorGsWhite, $alpha: 0.2);
-  width: 100vw;
+  // background: rgba($color: $colorGsWhite, $alpha: 0.2);
+  width: 100%;
   height: 45px;
   @media (min-width: $breakpointMd) {
     height: 60px;

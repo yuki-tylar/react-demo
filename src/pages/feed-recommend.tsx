@@ -1,86 +1,104 @@
-import { AnimatePresence, AnimateSharedLayout, motion, useDragControls } from "framer-motion";
-import { useRef, useState } from "react";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { createElement, useEffect, useRef, useState } from "react";
+import { ScaleLoader } from "react-spinners";
+import { Axis, Direction } from "../definition/general";
+import { fetchContents } from "../redux/slice-contents";
+import { rProfileAction } from '../redux/slice-profiles';
+import { contentConnector, PropsWithReduxContent } from "../redux/store";
 import { gestureService } from "../service/gesture-service";
 import { Card } from "../widgets/card";
-import { ChildView } from "../widgets/child-view-container";
-import { Overlay } from "../widgets/overlay";
-import { PageView, PageViewItem } from "../widgets/page-view";
-import { contents } from "../_temp/contents";
-import { User } from "./user";
+import { FeedRootProps } from "./feed";
+import { SwipeScreenChanger } from "./feed/swipe-detector";
 
 
-const variantsForOverlay = {
-  enter: {
-    opacity: 0,
-  },
-  center: {
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  }
+interface FeedRecommendProps extends PropsWithReduxContent, FeedRootProps { }
+
+export function FeedRecommend(props: FeedRootProps) {
+  return createElement(contentConnector(_FeedRecommend), props);
 }
+function _FeedRecommend(props: FeedRecommendProps) {
+  let [state, setState] = useState({ scrollable: true });
 
-const variantsForUserView = {
-  enter: (height: number) => {
-    return {
-      y: 100,
-      opacity: 0,
-    }
-  },
-  center: {
-    zIndex: 1,
-    y: 0,
-    opacity: 1,
-  },
-  exit: (height: number) => {
-    return {
-      y: 100,
-      opacity: 0,
-      zIndex: 1,
-    }
-  },
-}
+  let loading: boolean = props.content.loading;
+  let currentIndex = 0;
 
+  let elScroll: HTMLDivElement|null;
 
-export function FeedRecommend(props: { scrollable: boolean }) {
-  const location = useLocation();
-  const navigate = useNavigate();
-
-  const path = location.pathname.replace(/^\/|\/$/g, '').split('/');
-  let userId: string;
-  if (path.length >= 3 && path[1] == 'user') {
-    userId = path[2];
+  const checkScrollable = (axis: Axis) => {
+    setState({ ...state, scrollable: axis === 'y' })
   }
 
-  const content = contents.find(content => content.user.id == userId);
-  const user = content?.user;
+  useEffect(() => {
+    if (!loading && !props.content.initialized) {
+      fetchContents(props.dispatch, { sort: 'name', order: -1, skip: 0, limit: 8 })
+    }
+  });
+
+  const animateTo = (direction: Direction = 0, duration: number = 200) => {
+    const el = document.querySelector('.app-body-feed');
+    if(el) {
+      let indexNext = currentIndex + direction;
+      indexNext = indexNext < 0 ? 0 : indexNext > props.content.data.length ? props.content.data.length : indexNext;
+
+      let time = 0;
+      const h = el.clientHeight;
+      const scrollCurrent = el.scrollTop;
+      const scrollNext = h * indexNext;
+
+      while(time <= duration) {
+        const scrollTo = scrollCurrent + Math.sin(time / duration * Math.PI / 2) * (scrollNext - scrollCurrent);
+        setTimeout(_scrollVerticalTo, time, el, scrollTo);
+        time++;
+      }
+
+      currentIndex = indexNext;
+    }
+  }
 
   return (
     <>
-      <div style={{ height: '100vh' }}>
-        <PageView
-          scrollable={props.scrollable}
+      <SwipeScreenChanger
+        allowAxis='x'
+        onAxisLocked={checkScrollable}
+        onSwipeDetected={props.changePage}
+        direction={props.direction}
+      >
+        <motion.div
+          style={{ minHeight: '100%', touchAction: 'none', }}
+          onPanStart={() => {
+            elScroll = document.querySelector('.app-body-feed');
+          }}
+          onPan={(e, info) => {
+            if(elScroll) {
+              elScroll.scrollBy({top: -info.delta.y});
+            }
+          }}
+          onPanEnd={(e, info) => {
+            const direction = gestureService.getSwipeDirection(info.offset.y, info.velocity.y);
+            animateTo(direction);
+          }}
         >
-          {contents.map((content: any,) => {
-            return (
-              <PageViewItem key={content.id}>
-                <Card.FeedItem key={content.id} data={content} />
-              </PageViewItem>
-            );
-          })}
-        </PageView>
-      </div>
-
-      <AnimatePresence exitBeforeEnter>
-        {
-          user ?
-            <ChildView goback={() => { navigate(-1); }}>
-              <User user={user} />
-            </ChildView> : null
-        }
-      </AnimatePresence>
+          {
+            loading ?
+              <div className="text-center subtitle1 pt-70p">
+                <ScaleLoader color='#838790'></ScaleLoader>
+              </div> :
+              props.content.data.map((content: any,) => {
+                return (
+                  <Card.FeedItem
+                    key={content.id}
+                    data={content}
+                    selectUser={() => { props.dispatch(rProfileAction.select({ data: content.user })); }}
+                  />
+                );
+              })
+          }
+        </motion.div>
+      </SwipeScreenChanger>
     </>
   )
+}
+
+function _scrollVerticalTo(el: HTMLElement, to: number) {
+  el.scrollTop = to;
 }

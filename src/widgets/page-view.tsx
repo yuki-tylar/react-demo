@@ -138,12 +138,9 @@ export class PageView extends Component<PropsWithChildren<PageViewProps>> {
   render() {
     const style: CSSProperties = {
       position: 'relative',
-      width: '100%',
-      height: '100%',
+      
       touchAction: 'none',
-      overflow: this.props.scrollable ? 'auto' : 'hidden',
-      display: 'flex',
-      flexDirection: this.vertical ? 'column' : 'row'
+      
     };
     return (
       <motion.div 
