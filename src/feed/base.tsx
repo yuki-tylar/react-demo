@@ -1,4 +1,4 @@
-import { createElement, useRef, useState } from "react";
+import { createElement, useState } from "react";
 import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from "framer-motion";
 import { FeedRecommend } from "../pages/feed-recommend";
@@ -34,7 +34,6 @@ const routesChild: RouteItemWithComponent[] = [
 export function Feed() {
   const location = useLocation();
   const navigate = useNavigate();
-  const ref = useRef<HTMLDivElement>(null);
 
   const initialPage = routes.findIndex(route => location.pathname.match(new RegExp('^/' + route.path)));
   const [state, setState] = useState<State>({
@@ -71,23 +70,14 @@ export function Feed() {
         }}
       >
         <h2
-          className={'headline4 headline3-md' + (darkmode ? ' text-white' : ' text-body')}
+          className={'headline4 headline3-md'}
           onClick={() => { changePage(1) }}
         >
           {title}, {currentRoute.path}
         </h2>
       </motion.div>
 
-      <motion.div
-        ref={ref}
-        className="app-body-feed"
-        initial={false}
-        animate={darkmode ? 'dark' : 'light'}
-        variants={{
-          dark: { backgroundColor: '#04122D' },
-          light: { backgroundColor: '#EFF3F7' }
-        }}
-      >
+      <div className="app-body-feed">
         <AnimatePresence initial={false} exitBeforeEnter>
           <Routes location={location} key={currentRoute.path}>
             {routes.map(route =>
@@ -100,7 +90,7 @@ export function Feed() {
             <Route path="*" element={<Navigate to="recommend"/>} />
           </Routes>
         </AnimatePresence>
-      </motion.div>
+      </div>
 
       <AnimatePresence>
         <Routes location={location} key={location.pathname}>

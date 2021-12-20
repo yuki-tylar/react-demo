@@ -1,10 +1,11 @@
-import { Component } from 'react';
+import { Component, createElement } from 'react';
 import './scss/App.scss';
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import { Feed } from './feed/base';
 import { Explore } from './pages/explore';
 import { RouteItem } from './definition/routes';
 import { AppBarBottom } from './app-bar-bottom';
+import { PropsWithReduxSetting, settingConnector } from './redux/store';
 
 const routes: RouteItem[] = [
   { path: '/*', element: <Feed /> },
@@ -14,39 +15,33 @@ const routes: RouteItem[] = [
   { path: '/', element: <Navigate to='/recommend' /> }
 ];
 
-export default class App extends Component {
-  render() {
-    return (
-      <div className='app-container'>
+export default function App() {
+  return createElement(settingConnector(_App));
+};
+
+function _App(props: PropsWithReduxSetting) {
+  return (
+    <>
+      <div className={`app-container ${props.setting.appearance}`}>
         <BrowserRouter>
-          <_App />
+          <Routes>
+            {
+              routes.map(route =>
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  element={route.element}
+                />
+              )
+            }
+          </Routes>
 
           <div className="bottom-bar">
             <AppBarBottom />
           </div>
 
         </BrowserRouter >
-
       </div >
-    );
-  }
-};
-
-function _App() {
-
-  return (
-    <>
-      <Routes>
-        {
-          routes.map(route =>
-            <Route
-              key={route.path}
-              path={route.path}
-              element={route.element}
-            />
-          )
-        }
-      </Routes>
     </>
   );
 }

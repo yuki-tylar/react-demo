@@ -1,17 +1,18 @@
 
-import { createElement, useEffect, useState } from "react";
+import { createElement, useEffect } from "react";
 import { ScaleLoader } from "react-spinners";
 import { fetchEvents } from "../redux/slice-events";
-import { eventConnector, PropsWithReduxEvent } from "../redux/store";
+import { connector, PropsWithRedux } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
 import { FeedRootProps } from "../feed/base";
 import { SwipeScreenChanger } from "./feed/swipe-detector";
+import { rSettingAction } from "../redux/slice-settings";
 
-interface FeedEventProps extends PropsWithReduxEvent, FeedRootProps { }
+interface FeedEventProps extends PropsWithRedux, FeedRootProps { }
 
 export function FeedEvent(props: any) {
-  return createElement(eventConnector(_FeedEvent), props);
+  return createElement(connector(_FeedEvent), props);
 }
 
 function _FeedEvent(props: FeedEventProps) {
@@ -20,6 +21,10 @@ function _FeedEvent(props: FeedEventProps) {
   useEffect(() => {
     if (!loading && !props.event.initialized) {
       fetchEvents(props.dispatch, { sort: 'date', order: 1, skip: 0, limit: 3 });
+    }
+
+    if(props.setting.appearance == 'dark') {
+      props.dispatch(rSettingAction.changeAppearance('light'));
     }
   });
 

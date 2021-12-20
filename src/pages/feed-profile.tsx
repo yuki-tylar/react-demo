@@ -2,16 +2,17 @@ import { createElement, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 import { fetchProfiles, rProfileAction } from "../redux/slice-profiles";
-import { profileConnector, PropsWithReduxProfile } from "../redux/store";
+import { connector, PropsWithRedux } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
 import { FeedRootProps } from "../feed/base";
 import { SwipeScreenChanger } from "./feed/swipe-detector";
+import { rSettingAction } from "../redux/slice-settings";
 
-interface FeedProfileProps extends PropsWithReduxProfile, FeedRootProps { }
+interface FeedProfileProps extends PropsWithRedux, FeedRootProps { }
 
 export function FeedProfile(props: FeedRootProps) {
-  return createElement(profileConnector(_FeedProfile), props);
+  return createElement(connector(_FeedProfile), props);
 }
 
 function _FeedProfile(props: FeedProfileProps) {
@@ -22,6 +23,10 @@ function _FeedProfile(props: FeedProfileProps) {
     if (!loading && !props.profile.initialized) {
       fetchProfiles(props.dispatch, { sort: 'name', order: -1, skip: 0, limit: 8 })
     }
+
+    if(props.setting.appearance == 'dark') {
+      props.dispatch(rSettingAction.changeAppearance('light'));
+    }  
   })
 
   return (

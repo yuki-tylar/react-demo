@@ -28,12 +28,12 @@ export class AppBarBottom extends Component {
 class AppBarBottomIcon extends Component<{ linkTo: string; icon: string; label: string; }> {
   render() {
     return (
-      <Link to={this.props.linkTo}>
+      <Link to={this.props.linkTo} style={{color: 'inherit'}}>
         <div 
-        className="d-inline-block w-20p icon-black"
+        className="d-inline-block w-20p icon"
         dangerouslySetInnerHTML={{__html: this.props.icon}}
         ></div>
-        <div className="text-body caption body-small-md">{this.props.label}</div>
+        <div className="caption body-small-md">{this.props.label}</div>
       </Link>
     );
   }
