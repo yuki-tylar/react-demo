@@ -4,17 +4,18 @@ import { ScaleLoader } from "react-spinners";
 import { Axis, Direction } from "../definition/general";
 import { fetchContents } from "../redux/slice-contents";
 import { rProfileAction } from '../redux/slice-profiles';
-import { contentConnector, PropsWithReduxContent } from "../redux/store";
+import { connector, PropsWithRedux } from "../redux/store";
 import { gestureService } from "../service/gesture-service";
 import { Card } from "../widgets/card";
 import { FeedRootProps } from "../feed/base";
 import { SwipeScreenChanger } from "./feed/swipe-detector";
+import { rSettingAction } from "../redux/slice-settings";
 
 
-interface FeedRecommendProps extends PropsWithReduxContent, FeedRootProps { }
+interface FeedRecommendProps extends PropsWithRedux, FeedRootProps { }
 
 export function FeedRecommend(props: FeedRootProps) {
-  return createElement(contentConnector(_FeedRecommend), props);
+  return createElement(connector(_FeedRecommend), props);
 }
 function _FeedRecommend(props: FeedRecommendProps) {
   let [state, setState] = useState({ scrollable: true });
@@ -31,6 +32,10 @@ function _FeedRecommend(props: FeedRecommendProps) {
   useEffect(() => {
     if (!loading && !props.content.initialized) {
       fetchContents(props.dispatch, { sort: 'name', order: -1, skip: 0, limit: 8 })
+    }
+
+    if(props.setting.appearance == 'light') {
+      props.dispatch(rSettingAction.changeAppearance('dark'));
     }
   });
 

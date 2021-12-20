@@ -5,16 +5,16 @@ import { Link, Outlet } from "react-router-dom";
 export function Explore(props: PropsWithChildren<{}>) {
 
   return (
-    <div className="text-white">
+    <div>
       <ul>
         <li>
           <Link to="test">
-            <span className="text-white">Link to explore/test</span>
+            <span>Link to explore/test</span>
           </Link>
         </li>
         <li>
           <Link to="">
-            <span className="text-white">Link to explore</span>
+            <span>Link to explore</span>
 
           </Link>
         </li>
