@@ -5,7 +5,7 @@ import { fetchProfiles, rProfileAction } from "../redux/slice-profiles";
 import { profileConnector, PropsWithReduxProfile } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
-import { FeedRootProps } from "./feed";
+import { FeedRootProps } from "../feed/base";
 import { SwipeScreenChanger } from "./feed/swipe-detector";
 
 interface FeedProfileProps extends PropsWithReduxProfile, FeedRootProps { }
