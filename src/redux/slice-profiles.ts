@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { _getProfileById, _getProfiles } from "../_temp/users";
+import { AppDispatch, StoreState } from "./store";
 
-type ProfileState = {
-  initialized: boolean;
-  data: any[];
+interface StoreEventState extends StoreState {
+  selected: any
 }
 
-const initialState: ProfileState = {
+const initialState: StoreEventState = {
+  selected: null,
+  loading: false,
+  error: null,
   initialized: false,
   data: [],
 }
@@ -14,22 +18,46 @@ export const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    addProfile: (state, action: PayloadAction<any>) => {
-      const newState = {...state, initialized: true};
-      switch(action.type) {
-        case ProfileReducerItem.ADD: newState.data.push(action.payload); break;
-        case ProfileReducerItem.ADD_AT_FIRST: newState.data.unshift(action.payload); break;
-        default: newState.data.push(action.payload);
-      }
-      return newState;
+    fetchStart: (state) => {
+      return { ...state, loading: true }
+    },
+    fetchDone: (state, action: PayloadAction<{ data: any[] }>) => {
+      const _data = state.data.concat(action.payload.data);
+      return { ...state, loading: false, initialized: true, data: _data, error: null }
+    },
+    fetchError: (state) => {
+      return { ...state, loading: false, error: rProfileError.FETCH_ERROR }
+    },
+    select: (state, action: PayloadAction<{data: any}>) => {
+      return { ...state, selected: action.payload.data }
     }
   }
 });
 
-export const { addProfile } = profileSlice.actions;
+export const fetchProfiles = async (dispatch: AppDispatch, query: {sort?: string, order?: -1|1, limit?: number, skip?: number }): Promise<void> => {
+  dispatch(rProfileAction.fetchStart());
+  try {
+    const data = await _getProfiles(query);
+    dispatch(rProfileAction.fetchDone({ data }));
+  } catch(error) {
+    dispatch(rProfileAction.fetchError());
+  }
+}
+
+export const fetchProfileById = async (dispatch: AppDispatch, id: string): Promise<void> => {
+  dispatch(rProfileAction.fetchStart());
+  try {
+    const data = await _getProfileById(id);
+    dispatch(rProfileAction.fetchDone({data: [data]}));
+  } catch(error) {
+    dispatch(rProfileAction.fetchError());
+  }
+}
+
+
+export const rProfileAction = profileSlice.actions;
 export const profileReducer = profileSlice.reducer;
 
-export const ProfileReducerItem = {
-  ADD: 'ADD',
-  ADD_AT_FIRST: 'ADD_AT_FIRST',
+export const rProfileError = {
+  FETCH_ERROR: 'Could not get profiles',
 }

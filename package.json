@@ -5,19 +5,19 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.1",
     "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.37",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.14",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-redux": "^7.1.20",
-    "framer-motion": "^4.1.7",
+    "framer-motion": "^5.5.5",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
-    "react-router-dom": "^6.1.1",
+    "react-router-dom": "^6.2.1",
     "react-scripts": "^4.0.3",
     "react-spinners": "^0.11.0",
     "redux": "^4.1.2",
@@ -25,9 +25,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "lorem-ipsum": "^2.0.4",
+    "react-app-rewired": "^2.1.8",
     "react-lorem-ipsum": "^1.4.9",
     "sass": "^1.45.0"
   }

@@ -1,4 +1,45 @@
-export const events = [
+import { _getProfilesById } from "./users";
+
+export function _getEvents(query: { sort?: string, order?: -1 | 1, limit?: number, skip?: number }): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      let results: any[] = events;
+      const sort = query.sort;
+      if (sort) {
+        const order = query.order === -1 ? -1 : 1
+        results = results.sort((a: any, b: any) => {
+          if (a[sort] instanceof Date) {
+            return (a[sort].getTime() - b[sort].getTime()) * order;
+          } else if (typeof a[sort] === 'number') {
+            return (a[sort] - b[sort]) * order;
+          } else if (typeof a[sort] === 'string') {
+            return a[sort].toUpperCase().localeCompare(b[sort].toUpperCase()) * order;
+          } else {
+            return 1;
+          }
+        });
+      }
+      results = results.slice(query.skip || 0, query.limit || 10000);
+
+      let idAttendees: any[] = [];
+      results.forEach(item => {
+        idAttendees = idAttendees.concat(item.attendees);
+      });
+      idAttendees = Array.from(new Set(idAttendees));
+      const users = await _getProfilesById(idAttendees);
+
+      results = results.map(item => {
+        // item.date = moment(item.date).format();
+        item.attendees = users.filter(user => item.attendees.find((attendee: string) => attendee === user.id));
+        return item;
+      });
+
+      resolve(results);
+    }, 1000);
+  });
+}
+
+const events = [
   {
     id: 'e1',
     name: 'A EVENT',
@@ -6,64 +47,12 @@ export const events = [
     date: new Date(2021, 11, 31, 12),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-
-    ]
+    attendees: ['u1', 'u2', 'u4']
   },
   {
     id: 'e2',
@@ -72,64 +61,12 @@ export const events = [
     date: new Date(2022, 5, 12, 15),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-
-    ]
+    attendees: ['u2', 'u7', 'u1', 'u10', 'u14'],
   },
   {
     id: 'e3',
@@ -138,64 +75,12 @@ export const events = [
     date: new Date(2022, 2, 15, 16),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-
-    ]
+    attendees: ['u12', 'u9', 'u15', 'u2', 'u10', 'u1'],
   },
   {
     id: 'e4',
@@ -204,64 +89,13 @@ export const events = [
     date: new Date(2021, 1, 1, 12),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
+    attendees: ['u12', 'u9', 'u15', 'u2'],
 
-    ]
   },
   {
     id: 'e5',
@@ -270,64 +104,13 @@ export const events = [
     date: new Date(2022, 1, 18, 5),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
+    attendees: ['u1', 'u14', 'u12', 'u7', 'u9', 'u4', 'u2', 'u5', 'u6', 'u11', 'u13', 'u10', 'u3', 'u8'],
 
-    ]
   },
   {
     id: 'e6',
@@ -336,64 +119,12 @@ export const events = [
     date: new Date(2022, 9, 12, 10),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-
-    ]
+    attendees: [],
   },
   {
     id: 'e7',
@@ -402,64 +133,12 @@ export const events = [
     date: new Date(2022, 8, 11, 5),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-
-    ]
+    attendees: ['u8'],
   },
   {
     id: 'e8',
@@ -468,63 +147,12 @@ export const events = [
     date: new Date(2022, 8, 9, 2),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
-      {id: '79kudifer', name: 'test tag 1'},
-      {id: '784k876Cr', name: 'test tag 2'},
-      {id: '0okDeifer', name: 'test tag 3'},
-      {id: '78iklifer', name: 'test tag 4'},
+      { id: '79kudifer', name: 'test tag 1' },
+      { id: '784k876Cr', name: 'test tag 2' },
+      { id: '0okDeifer', name: 'test tag 3' },
+      { id: '78iklifer', name: 'test tag 4' },
     ],
-    attendees: [
-      {
-        id: 'u1',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u2',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u3',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u4',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u5',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u6',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u7',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u8',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u9',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
-      {
-        id: 'u10',
-        name: 'Takayuki',
-        profileImage: 'assets/sample-human.jpeg',
-      },
+    attendees: ['u2', 'u1', 'u8', 'u12', 'u4', 'u5', 'u6'],
 
-    ]
   },
 ]

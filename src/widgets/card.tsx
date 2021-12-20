@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import moment from 'moment';
 import { Component, createRef } from 'react';
 import { Link } from 'react-router-dom';
@@ -14,6 +13,7 @@ interface IFeedItemProps {
     },
     description: string;
   }
+  selectUser: () => void;
 
 }
 export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: boolean; }> {
@@ -36,7 +36,7 @@ export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: b
 
   render() {
     return (
-      <FittedBox.Div className="bg-black">
+      <div className="pos-relative bg-black" style={{width: '100vw', height: '100vh'}}>
         <FittedBox.Img
           style={{ objectFit: 'cover', position: 'absolute', top: 0, left: 0, filter: 'blur(18px) brightness(0.7)' }}
           image={this.props.data.image}
@@ -60,12 +60,11 @@ export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: b
           >{this.props.data.description}</p>
         </div>
         <div className="pos-absolute right-15p top-36pc">
-          <Link to={`user/${this.props.data.user.id}`}>
-            <div
-              className="circle w-45p w-md-60p"
-
-
-            >
+          <Link
+            to='user'
+            onClick={this.props.selectUser}
+          >
+            <div className="circle w-45p w-md-60p">
               <FittedBox.Img
                 style={{ objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
                 image={this.props.data.user.profileImage}
@@ -74,7 +73,7 @@ export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: b
           </Link>
         </div>
 
-      </FittedBox.Div>
+      </div>
     );
   }
 }
@@ -151,8 +150,8 @@ export class EventItem extends Component<{ data: any }> {
                   this.props.data.attendees.map((attendee: { id: string, name: string, profileImage: string }, i: number) => {
                     if (i < 4) {
                       return (
-                        <div key={attendee.id} className="w-10p d-inline-block">
-                          <div className="pos-absolute circle w-30p">
+                        <div key={attendee.id} className="w-15p d-inline-block">
+                          <div className="pos-absolute circle w-30p border-label">
                             <FittedBox.Img image={attendee.profileImage} style={{ position: 'absolute', objectFit: 'cover' }} />
                           </div>
                         </div>
