@@ -22,7 +22,7 @@ function _FeedRecommend(props: FeedRecommendProps) {
   let loading: boolean = props.content.loading;
   let currentIndex = 0;
 
-  let elScroll: HTMLDivElement|null;
+  let elScroll: HTMLDivElement | null;
 
   const checkScrollable = (axis: Axis) => {
     setState({ ...state, scrollable: axis === 'y' })
@@ -36,7 +36,7 @@ function _FeedRecommend(props: FeedRecommendProps) {
 
   const animateTo = (direction: Direction = 0, duration: number = 200) => {
     const el = document.querySelector('.app-body-feed');
-    if(el) {
+    if (el) {
       let indexNext = currentIndex + direction;
       indexNext = indexNext < 0 ? 0 : indexNext > props.content.data.length ? props.content.data.length : indexNext;
 
@@ -45,7 +45,7 @@ function _FeedRecommend(props: FeedRecommendProps) {
       const scrollCurrent = el.scrollTop;
       const scrollNext = h * indexNext;
 
-      while(time <= duration) {
+      while (time <= duration) {
         const scrollTo = scrollCurrent + Math.sin(time / duration * Math.PI / 2) * (scrollNext - scrollCurrent);
         setTimeout(_scrollVerticalTo, time, el, scrollTo);
         time++;
@@ -69,8 +69,8 @@ function _FeedRecommend(props: FeedRecommendProps) {
             elScroll = document.querySelector('.app-body-feed');
           }}
           onPan={(e, info) => {
-            if(elScroll) {
-              elScroll.scrollBy({top: -info.delta.y});
+            if (elScroll) {
+              elScroll.scrollBy({ top: -info.delta.y });
             }
           }}
           onPanEnd={(e, info) => {

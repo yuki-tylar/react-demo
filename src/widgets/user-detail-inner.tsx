@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { profileConnector, PropsWithReduxProfile } from "../redux/store";
 import { FittedBox } from "./box";
 
-export function User(props: {}) {
+export function UserDetailInner(props: {}) {
   return createElement(profileConnector(_User), props);
 }
 

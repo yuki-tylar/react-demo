@@ -8,6 +8,10 @@ export type RouteItem = {
   children?: RouteItem[];
 }
 
+export interface RouteItemWithComponent extends RouteItem {
+  component: ComponentType;
+}
+
 export interface RouteFeedItem extends RouteItem {
   component: ComponentType;
   data: { 

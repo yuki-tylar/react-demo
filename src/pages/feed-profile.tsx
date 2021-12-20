@@ -17,6 +17,7 @@ export function FeedProfile(props: FeedRootProps) {
 function _FeedProfile(props: FeedProfileProps) {
   let loading: boolean = props.profile.loading;
 
+
   useEffect(() => {
     if (!loading && !props.profile.initialized) {
       fetchProfiles(props.dispatch, { sort: 'name', order: -1, skip: 0, limit: 8 })

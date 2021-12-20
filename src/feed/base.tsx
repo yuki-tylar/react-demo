@@ -1,13 +1,13 @@
-import { Component, createElement, RefObject, useRef, useState } from "react";
-import { Routes, Route, useLocation, useNavigate, Location, NavigateFunction } from 'react-router-dom';
+import { createElement, useRef, useState } from "react";
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from "framer-motion";
 import { FeedRecommend } from "../pages/feed-recommend";
 import { FeedEvent } from "../pages/feed-event";
 import { FeedProfile } from "../pages/feed-profile";
-import { ChildView } from "../widgets/child-view-container";
-import { User } from "../widgets/user-detail-inner";
-import { RouteFeedItem } from "../definition/routes";
+import { RouteFeedItem, RouteItemWithComponent } from "../definition/routes";
 import { Direction } from "../definition/general";
+import { ChildView } from "../widgets/child-view-container";
+import { UserDetailInner } from "../widgets/user-detail-inner";
 
 
 interface State {
@@ -26,6 +26,11 @@ const routes: RouteFeedItem[] = [
   { path: 'profile', component: FeedProfile, data: { title: 'People' } },
 ];
 
+const routesChild: RouteItemWithComponent[] = [
+  { path: ':feedtype/user', component: UserDetailInner, },
+]
+
+
 export function Feed() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -43,10 +48,10 @@ export function Feed() {
     navigate(routes[nextPage].path)
   }
 
-  const currentRoute = routes[state.page];
+  const currentRoute = routes[state.page > 0 ? state.page : 0];
 
   const path = location.pathname.replace(/^\/|\/$/g, '').split('/');
-  const onRoot = !!path[0].match(currentRoute.path) && path.length === 1;
+  const onRoot = path.length === 1;
 
   if (!onRoot && state.direction !== 0) {
     setState({ ...state, direction: 0 })
@@ -73,7 +78,6 @@ export function Feed() {
         </h2>
       </motion.div>
 
-      {/* routes for root */}
       <motion.div
         ref={ref}
         className="app-body-feed"
@@ -93,17 +97,26 @@ export function Feed() {
                 element={createElement(route.component, { changePage: changePage, direction: state.direction })}
               />
             )}
+            <Route path="*" element={<Navigate to="recommend"/>} />
           </Routes>
         </AnimatePresence>
       </motion.div>
 
       <AnimatePresence>
         <Routes location={location} key={location.pathname}>
-          <Route key={`${location.pathname}-user`} path={`/:feedtype/user`} element={
-            <ChildView>
-              <User></User>
-            </ChildView>
-          } />
+          {
+            routesChild.map(route => 
+              <Route 
+                key={route.path} 
+                path={route.path} 
+                element={
+                  <ChildView>
+                    {createElement(route.component)}
+                  </ChildView>
+                } 
+              />
+            )
+          }
         </Routes>
       </AnimatePresence>
     </>

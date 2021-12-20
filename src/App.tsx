@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import './scss/App.scss';
-import { Route, BrowserRouter, Routes, Navigate, Link } from 'react-router-dom';
+import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import { Feed } from './feed/base';
 import { Explore } from './pages/explore';
 import { RouteItem } from './definition/routes';
@@ -19,20 +19,10 @@ export default class App extends Component {
     return (
       <div className='app-container'>
         <BrowserRouter>
-          <Routes>
-            {
-              routes.map(route =>
-                <Route
-                  key={route.path}
-                  path={route.path}
-                  element={route.element}
-                />
-              )
-            }
-          </Routes>
+          <_App />
 
           <div className="bottom-bar">
-            <AppBarBottom/>
+            <AppBarBottom />
           </div>
 
         </BrowserRouter >
@@ -41,4 +31,23 @@ export default class App extends Component {
     );
   }
 };
+
+function _App() {
+
+  return (
+    <>
+      <Routes>
+        {
+          routes.map(route =>
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.element}
+            />
+          )
+        }
+      </Routes>
+    </>
+  );
+}
 

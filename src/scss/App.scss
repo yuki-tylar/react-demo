@@ -31,7 +31,7 @@ body {
   left: 0%;
   width: 100%;
   height: 100%;
-  background: rgba($colorGsBlack, 0.8);
+  background: rgba($colorGsBlack, 0.5);
 }
 
 .app-body-feed {
@@ -52,12 +52,12 @@ body {
 
 .app-child-body {
   position: fixed;
-  width: calc(100% - 30px);
+  width: min(calc(100% - 30px), $maxWidth - 30px);
   height: calc(100% - 30px);
   border-radius: 16px;
   overflow: hidden;
   top: 15px;
-  left: 15px;
+  left: max(15px, calc((100% - ($maxWidth - 30px)) / 2 ) );
   background: $colorGsBackground;
 }
 
@@ -78,9 +78,10 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  background: rgba($color: $colorGsWhite, $alpha: 0.2);
+  background: rgba($color: $colorGsWhite, $alpha: 0.4);
   width: 100%;
   height: 70px;
+  backdrop-filter: blur(15px);
   @media (min-width: $breakpointMd) {
     height: 80px;
   }
@@ -91,5 +92,9 @@ body {
     max-width: $maxWidth;
     margin: auto;
     box-sizing: border-box;
+  }
+
+  .icon-black path{
+    fill: black!important;
   }
 }

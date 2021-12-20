@@ -13,9 +13,11 @@ const variants = {
     y: 0,
     opacity: 1,
   },
-  exit: {
-    y: 600,
-    opacity: 0,
+  exit: (height: number) => {
+    return {
+      y: height ? height : 600,
+      opacity: 0,  
+    }
   },
 }
 
@@ -41,7 +43,7 @@ export function ChildView(props: PropsWithChildren<{}>) {
       <motion.div
         ref={refContainer}
         className="app-child-body"
-        layout
+        custom={window.innerHeight}
         variants={variants}
         initial="enter"
         animate="center"
@@ -66,7 +68,7 @@ export function ChildView(props: PropsWithChildren<{}>) {
         <div className="pos-relative h-100pc">
           <motion.div
             className="pos-absolute w-100pc d-flex main-axis-center pt-15p pb-20p"
-            style={{ zIndex: 5 }}
+            style={{ zIndex: 5, touchAction: 'none' }}
             onPointerDown={(e) => {
               setState({ ...state, closable: true })
               dragControls.start(e, {snapToCursor: false } );
