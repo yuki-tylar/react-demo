@@ -1,7 +1,12 @@
-import { Component } from "react";
+import { Component, createElement } from "react";
 import { Link } from "react-router-dom";
+import { authConnector, PropsWithReduxAuth } from "./redux/store";
+import { FittedBox } from "./widgets/box";
 
-export class AppBarBottom extends Component {
+export function AppBarBottom() {
+  return createElement(authConnector(_AppBarBottom));
+}
+export class _AppBarBottom extends Component<PropsWithReduxAuth> {
   render() {
     return (
       <ul className="bottom-bar-inner d-flex main-axis-between list-unstyled px-30p">
@@ -18,21 +23,35 @@ export class AppBarBottom extends Component {
           <AppBarBottomIcon linkTo="/explore" icon={iconMessage} label="Message" />
         </li>
         <li className="text-center">
-          <AppBarBottomIcon linkTo="/explore" icon={iconProfile} label="Profile" />
+          <AppBarBottomIcon
+            linkTo="/login"
+            icon={this.props.auth.data?.profileImage ? null : iconProfile}
+            image={this.props.auth.data?.profileImage}
+            label={this.props.auth.status === 'loggedIn' && this.props.auth.data ? 'Profile' : 'Login'}
+          />
         </li>
       </ul>
     );
   }
 }
 
-class AppBarBottomIcon extends Component<{ linkTo: string; icon: string; label: string; }> {
+class AppBarBottomIcon extends Component<{ linkTo: string; icon?: string|null; image?: string, label: string; }> {
   render() {
     return (
-      <Link to={this.props.linkTo} style={{color: 'inherit'}}>
-        <div 
-        className="d-inline-block w-20p icon"
-        dangerouslySetInnerHTML={{__html: this.props.icon}}
-        ></div>
+      <Link to={this.props.linkTo} style={{ color: 'inherit' }}>
+        {
+          this.props.icon ?
+            <div
+              className="d-inline-block w-20p icon"
+              dangerouslySetInnerHTML={{ __html: this.props.icon }}
+            ></div> : null
+        }
+        {
+          this.props.image ?
+            <div className="d-inline-block w-20p h-20p rounded-4p overflow-hidden">
+              <FittedBox.Img image={this.props.image}></FittedBox.Img>
+            </div> : null
+        }
         <div className="caption body-small-md">{this.props.label}</div>
       </Link>
     );

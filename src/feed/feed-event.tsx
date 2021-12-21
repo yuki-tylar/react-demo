@@ -5,8 +5,8 @@ import { fetchEvents } from "../redux/slice-events";
 import { connector, PropsWithRedux } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
-import { FeedRootProps } from "../feed/base";
-import { SwipeScreenChanger } from "./feed/swipe-detector";
+import { FeedRootProps } from "./base";
+import { SwipeScreenChanger } from "../widgets/swipe-screen-changer";
 import { rSettingAction } from "../redux/slice-settings";
 
 interface FeedEventProps extends PropsWithRedux, FeedRootProps { }
@@ -20,7 +20,7 @@ function _FeedEvent(props: FeedEventProps) {
 
   useEffect(() => {
     if (!loading && !props.event.initialized) {
-      fetchEvents(props.dispatch, { sort: 'date', order: 1, skip: 0, limit: 3 });
+      fetchEvents(props.dispatch, { sort: 'date', order: 1, skip: 0, limit: 6 });
     }
 
     if(props.setting.appearance == 'dark') {

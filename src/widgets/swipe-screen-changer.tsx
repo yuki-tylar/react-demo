@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Component, createRef, PropsWithChildren } from "react";
-import { Axis, Direction } from "../../definition/general";
-import { gestureService } from "../../service/gesture-service";
+import { Axis, Direction } from "../definition/general";
+import { gestureService } from "../service/gesture-service";
 
 const variants = {
   enter: (data: { direction: number, width: number }) => {

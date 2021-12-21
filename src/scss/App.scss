@@ -4,17 +4,20 @@
 @import './spacing';
 @import './positioning';
 @import './box_shape';
+@import './form';
+@import './button';
 @import './color';
 
 $appearanceTransitionDuration: 500ms;
 
-body {
-  width: 100vw;
-
-
+html {
+  min-height: 100%;
   background: #0F2027;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+body {
+  width: 100vw;
   -webkit-overflow-scrolling: touch;
 }
 
@@ -22,6 +25,8 @@ body {
   position: fixed;
   width: min(100%, $maxWidth);
   height: 100vh;
+  left: 0;
+  right: 0;
   margin: 0 auto;
 
   transition-property: background-color, color;
@@ -134,5 +139,35 @@ body {
     .icon path{
       fill: $colorGsWhite!important;  
     }  
+  }
+}
+
+.snackbar {
+  position: fixed;
+  z-index: 10000;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;  
+  // transform: translateX(-50%);
+  width: min(400px, calc(100vw - 30px));
+  padding: 10px 15px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background: $colorGsBlack;
+  color: white;
+  box-shadow: 0 0 3px $colorGsPlaceholder;
+
+  &.error {
+    background: $colorErrorLight;
+    box-shadow: 0 0 3px rgba($colorErrorLight,0.3);
+    color: $colorErrorDark;
+    border: solid 1px rgba($colorErrorDark, 0.6);
+  }
+  &.success {
+    background: $colorSuccessLight;
+    box-shadow: 0 0 3px ($colorSuccessLight, 0.3);
+    color: $colorSuccessDark;
+    border: solid 1px rgba($colorSuccessDark, 0.6);
   }
 }
