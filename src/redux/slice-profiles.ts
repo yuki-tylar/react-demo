@@ -9,7 +9,6 @@ interface StoreEventState extends StoreState {
 const initialState: StoreEventState = {
   selected: null,
   loading: false,
-  error: null,
   initialized: false,
   data: [],
 }
@@ -23,10 +22,10 @@ export const profileSlice = createSlice({
     },
     fetchDone: (state, action: PayloadAction<{ data: any[] }>) => {
       const _data = state.data.concat(action.payload.data);
-      return { ...state, loading: false, initialized: true, data: _data, error: null }
+      return { ...state, loading: false, initialized: true, data: _data }
     },
     fetchError: (state) => {
-      return { ...state, loading: false, error: rProfileError.FETCH_ERROR }
+      return { ...state, loading: false }
     },
     select: (state, action: PayloadAction<{data: any}>) => {
       return { ...state, selected: action.payload.data }
@@ -57,7 +56,3 @@ export const fetchProfileById = async (dispatch: AppDispatch, id: string): Promi
 
 export const rProfileAction = profileSlice.actions;
 export const profileReducer = profileSlice.reducer;
-
-export const rProfileError = {
-  FETCH_ERROR: 'Could not get profiles',
-}

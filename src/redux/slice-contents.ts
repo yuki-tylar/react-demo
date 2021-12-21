@@ -5,7 +5,6 @@ import { AppDispatch, StoreState } from "./store";
 
 const initialState: StoreState = {
   loading: false,
-  error: null,
   initialized: false,
   data: [],
 }
@@ -19,10 +18,10 @@ export const contentSlice = createSlice({
     },
     fetchDone: (state, action: PayloadAction<{ data: any[] }>) => {
       const _data = state.data.concat(action.payload.data);
-      return { loading: false, initialized: true, data: _data, error: null }
+      return { loading: false, initialized: true, data: _data }
     },
     fetchError: (state) => {
-      return { ...state, loading: false, error: rContentError.FETCH_ERROR }
+      return { ...state, loading: false }
     },
   }
 });
@@ -45,7 +44,3 @@ export const fetchContents = async (dispatch: AppDispatch, query: {sort?: string
 
 export const rContentAction = contentSlice.actions;
 export const contentReducer = contentSlice.reducer;
-
-export const rContentError = {
-  FETCH_ERROR: 'Could not get events',
-}

@@ -5,7 +5,6 @@ import { AppDispatch, StoreState } from "./store";
 
 const initialState: StoreState = {
   loading: false,
-  error: null,
   initialized: false,
   data: [],
 }
@@ -19,10 +18,10 @@ export const eventSlice = createSlice({
     },
     fetchDone: (state, action: PayloadAction<{ data: any[] }>) => {
       const _data = state.data.concat(action.payload.data);
-      return { loading: false, initialized: true, data: _data, error: null }
+      return { loading: false, initialized: true, data: _data }
     },
     fetchError: (state) => {
-      return { ...state, loading: false, error: rEventError.FETCH_ERROR }
+      return { ...state, loading: false }
     },
     filter: (state, action: PayloadAction<{ sort?: string, order?: 1 | -1, laterThan?: Date, skip?: number, limit?: number }>) => {
       const newState = { ...state };

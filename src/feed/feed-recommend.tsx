@@ -7,8 +7,8 @@ import { rProfileAction } from '../redux/slice-profiles';
 import { connector, PropsWithRedux } from "../redux/store";
 import { gestureService } from "../service/gesture-service";
 import { Card } from "../widgets/card";
-import { FeedRootProps } from "../feed/base";
-import { SwipeScreenChanger } from "./feed/swipe-detector";
+import { FeedRootProps } from "./base";
+import { SwipeScreenChanger } from "../widgets/swipe-screen-changer";
 import { rSettingAction } from "../redux/slice-settings";
 
 

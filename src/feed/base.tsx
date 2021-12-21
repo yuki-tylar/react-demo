@@ -1,9 +1,9 @@
 import { createElement, useState } from "react";
 import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { AnimatePresence, motion } from "framer-motion";
-import { FeedRecommend } from "../pages/feed-recommend";
-import { FeedEvent } from "../pages/feed-event";
-import { FeedProfile } from "../pages/feed-profile";
+import { FeedRecommend } from "./feed-recommend";
+import { FeedEvent } from "./feed-event";
+import { FeedProfile } from "./feed-profile";
 import { RouteFeedItem, RouteItemWithComponent } from "../definition/routes";
 import { Direction } from "../definition/general";
 import { ChildView } from "../widgets/child-view-container";
@@ -73,7 +73,7 @@ export function Feed() {
           className={'headline4 headline3-md'}
           onClick={() => { changePage(1) }}
         >
-          {title}, {currentRoute.path}
+          {title}
         </h2>
       </motion.div>
 
