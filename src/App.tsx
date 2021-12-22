@@ -10,13 +10,13 @@ import { authenticate } from './redux/slice-auth';
 import { Login } from './auth/login';
 import { Snackbar } from './widgets/snackbar';
 import { MyProfile } from './dashboard/my-profile';
-import { NewPost } from './new-post/base';
+import { Editor } from './new-post/base';
 import { Message } from './message/base';
 
 const routes: RouteItem[] = [
   { path: '/*', element: <Feed /> },
   { path: '/explore/*', element: <Explore /> },
-  { path: '/new-post/*', element: <NewPost />},
+  { path: '/new/*', element: <Editor />},
   { path: '/message/*', element: <Message /> },
   { path: '/login/*', element: <Login /> },
   { path: '/my-profile', element: <MyProfile /> },

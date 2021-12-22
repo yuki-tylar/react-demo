@@ -121,6 +121,19 @@ body {
   .icon path{
     transition: fill $appearanceTransitionDuration;
   }
+
+  .post-menu {
+    left: 0;
+    right: 0;
+    margin: 0 auto 10px;
+  
+    background: rgba($colorGsWhite, 0.5);
+    border: solid 1px rgba($colorGsLine, 0.5);
+    .dark & {
+      background: rgba($colorGsBody, 0.5);
+      border: solid 1px rgba($colorGsLabel, 0.5);
+    }
+  }
 }
 
 
