@@ -83,7 +83,7 @@ export class UserItem extends Component<{ data: any }> {
     return (
       <div
         style={{ touchAction: 'pan-y' }}
-        className="rounded-8p overflow-hidden bg-black border-line"
+        className="rounded-8p overflow-hidden card"
       >
         <AspectRatio ratio={6 / 4}>
           <FittedBox.Img
@@ -104,7 +104,7 @@ export class EventItem extends Component<{ data: any }> {
     return (
       <div
         style={{ touchAction: 'pan-y' }}
-        className="rounded-8p overflow-hidden mx-15p bg-white border-line"
+        className="card rounded-8p overflow-hidden mx-15p"
       >
         <AspectRatio ratio={4 / 9}>
           <FittedBox.Img

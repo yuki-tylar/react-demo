@@ -5,11 +5,11 @@ type StoreState = {
   status: MessageStatus;
   message: string;
   duration: number;
-  style: MessageStyle;
+  style: SnackbarStyle;
   custom: CSSProperties | null;
 }
 
-export enum MessageStyle {
+export enum SnackbarStyle {
   error,
   success,
   warn,
@@ -24,7 +24,7 @@ export enum MessageStatus {
 
 const initialState: StoreState = {
   status: MessageStatus.hidden,
-  style: MessageStyle.none,
+  style: SnackbarStyle.none,
   duration: 3000,
   message: '',
   custom: null,
@@ -34,7 +34,7 @@ export const snackbarSlice = createSlice({
   name: 'snackbar',
   initialState,
   reducers: {
-    show: (state, action: PayloadAction<{message: string, duration?: number, style: MessageStyle, custom?: CSSProperties}>) => {
+    show: (state, action: PayloadAction<{message: string, duration?: number, style: SnackbarStyle, custom?: CSSProperties}>) => {
       return { 
         status: MessageStatus.shown ,
         style: action.payload.style, 
@@ -47,7 +47,7 @@ export const snackbarSlice = createSlice({
     hide: () => {
       return {
         status: MessageStatus.hidden,
-        style: MessageStyle.none,
+        style: SnackbarStyle.none,
         duration: 3000,
         message: '',
         custom: null,

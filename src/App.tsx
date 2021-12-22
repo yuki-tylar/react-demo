@@ -1,4 +1,4 @@
-import { Component, createElement, useEffect } from 'react';
+import { createElement, useEffect } from 'react';
 import './scss/App.scss';
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import { Feed } from './feed/base';
@@ -9,12 +9,14 @@ import { PropsWithReduxSetting, settingConnector } from './redux/store';
 import { authenticate } from './redux/slice-auth';
 import { Login } from './auth/login';
 import { Snackbar } from './widgets/snackbar';
+import { MyProfile } from './dashboard/my-profile';
 
 const routes: RouteItem[] = [
   { path: '/*', element: <Feed /> },
   { path: '/explore/*', element: <Explore /> },
   { path: '/message/*', element: <Explore /> },
   { path: '/login/*', element: <Login /> },
+  { path: '/my-profile', element: <MyProfile /> },
   { path: '/', element: <Navigate to='/recommend' /> }
 ];
 

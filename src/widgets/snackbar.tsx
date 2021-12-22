@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Component, createElement } from "react";
-import { MessageStatus, MessageStyle, rSnackbarAction } from "../redux/slice-snackbar";
+import { MessageStatus, SnackbarStyle, rSnackbarAction } from "../redux/slice-snackbar";
 import { PropsWithReduxSnackbar, snackbarConnector } from "../redux/store";
 import { gestureService } from "../service/gesture-service";
 
@@ -54,9 +54,9 @@ class __Snackbar extends Component<PropsWithReduxSnackbar> {
   render() {
     let theme: string;
     switch(this.props.snackbar.style) {
-      case MessageStyle.success: theme = 'success'; break;
-      case MessageStyle.error: theme = 'error'; break;
-      case MessageStyle.warn: theme = 'warn'; break;
+      case SnackbarStyle.success: theme = 'success'; break;
+      case SnackbarStyle.error: theme = 'error'; break;
+      case SnackbarStyle.warn: theme = 'warn'; break;
       default: theme = ''
     }
     return (

@@ -9,33 +9,47 @@ export function AppBarBottom() {
 export class _AppBarBottom extends Component<PropsWithReduxAuth> {
   render() {
     return (
-      <ul className="bottom-bar-inner d-flex main-axis-between list-unstyled px-30p">
-        <li className="text-center">
+      <ul className="bottom-bar-inner d-flex main-axis-between list-unstyled px-15p">
+        <li className="text-center" style={{ flex: '1 0 20%' }}>
           <AppBarBottomIcon linkTo="/" icon={iconStack} label="Explore" />
         </li>
-        <li className="text-center">
+        <li className="text-center" style={{ flex: '1 0 20%' }}>
           <AppBarBottomIcon linkTo="/explore" icon={iconSearch} label="Search" />
         </li>
-        <li className="text-center">
-          <AppBarBottomIcon linkTo="/explore" icon={iconPlus} label="Post" />
-        </li>
-        <li className="text-center">
+        {
+          this.props.auth.status === 'loggedIn' ?
+            <li className="text-center" style={{ flex: '1 0 20%' }}>
+              <AppBarBottomIcon linkTo="/explore" icon={iconPlus} label="Post" />
+            </li> :
+            null
+        }
+        <li className="text-center" style={{ flex: '1 0 20%' }}>
           <AppBarBottomIcon linkTo="/explore" icon={iconMessage} label="Message" />
         </li>
-        <li className="text-center">
-          <AppBarBottomIcon
-            linkTo="/login"
-            icon={this.props.auth.data?.profileImage ? null : iconProfile}
-            image={this.props.auth.data?.profileImage}
-            label={this.props.auth.status === 'loggedIn' && this.props.auth.data ? 'Profile' : 'Login'}
-          />
-        </li>
+        {
+          this.props.auth.status === 'loggedIn' ?
+            <li className="text-center" style={{ flex: '1 0 20%' }}>
+              <AppBarBottomIcon
+                linkTo="/my-profile"
+                icon={this.props.auth.data?.profileImage ? null : iconProfile}
+                image={this.props.auth.data?.profileImage}
+                label='Profile'
+              />
+            </li> :
+            <li className="text-center" style={{ flex: '1 0 20%' }}>
+              <AppBarBottomIcon
+                linkTo="/login"
+                icon={iconProfile}
+                label='Login'
+              />
+            </li>
+        }
       </ul>
     );
   }
 }
 
-class AppBarBottomIcon extends Component<{ linkTo: string; icon?: string|null; image?: string, label: string; }> {
+class AppBarBottomIcon extends Component<{ linkTo: string; icon?: string | null; image?: string, label: string; }> {
   render() {
     return (
       <Link to={this.props.linkTo} style={{ color: 'inherit' }}>
