@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CanActivateIfLoggedIn } from "../guards/can-activate-if-logged-in";
 import { logout } from "../redux/slice-auth";
 import { rSettingAction } from "../redux/slice-settings";
-import { authConnector, PropsWithReduxAuth, PropsWithReduxSetting, settingConnector } from "../redux/store";
+import { PropsWithReduxSetting, settingConnector } from "../redux/store";
 import { Switch } from "../widgets/switch";
 
 export function MyProfile() {
@@ -22,7 +22,10 @@ export function _MyProfile(props: PropsWithReduxSetting) {
       <div className="p-15p">
         <div className="mb-50p d-flex main-axis-between">
           <span className="subtitle1">Darkmode</span>
-          <Switch isOn={props.setting.appearance === 'dark'} onToggle={(isOn: boolean) => { changeAppearance(isOn); }}/>
+          <Switch 
+          isOn={props.setting.appearance === 'dark'} 
+          onToggle={(isOn: boolean) => { changeAppearance(isOn); }}
+          />
         </div>
         <div>
           <button 

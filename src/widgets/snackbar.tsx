@@ -5,10 +5,10 @@ import { PropsWithReduxSnackbar, snackbarConnector } from "../redux/store";
 import { gestureService } from "../service/gesture-service";
 
 export function Snackbar() {
-  return createElement(snackbarConnector(_Snackbar));
+  return createElement(snackbarConnector(_SnackbarController));
 }
 
-class _Snackbar extends Component<PropsWithReduxSnackbar> {
+class _SnackbarController extends Component<PropsWithReduxSnackbar> {
 
   render() {
     const isShown = this.props.snackbar.status === MessageStatus.shown;
@@ -16,7 +16,7 @@ class _Snackbar extends Component<PropsWithReduxSnackbar> {
       <AnimatePresence>
         {
           isShown ?
-            <__Snackbar dispatch={this.props.dispatch} snackbar={this.props.snackbar} /> :
+            <SnackbarElement dispatch={this.props.dispatch} snackbar={this.props.snackbar} /> :
             null
         }
       </AnimatePresence>
@@ -24,7 +24,7 @@ class _Snackbar extends Component<PropsWithReduxSnackbar> {
   }
 }
 
-class __Snackbar extends Component<PropsWithReduxSnackbar> {
+class SnackbarElement extends Component<PropsWithReduxSnackbar> {
   private timer: any;
 
   startTimer() {

@@ -31,7 +31,7 @@ export class SwipeScreenChanger extends Component<Props, States> {
     this.ref = createRef<HTMLDivElement>();
     this.state = {
       direction: props.direction,
-      axisLocked: props.allowAxis == 'x' ? 'y' : 'x'
+      axisLocked: props.allowAxis === 'x' ? 'y' : 'x'
     }
   }
 
@@ -73,7 +73,7 @@ export class SwipeScreenChanger extends Component<Props, States> {
             if (direction !== 0) {
               this.props.onSwipeDetected(direction);
             } else {
-              const axisLocked = this.state.axisLocked == 'x' ? 'y' : 'x';
+              const axisLocked = this.state.axisLocked === 'x' ? 'y' : 'x';
               this.lockAxis(axisLocked);
             }
           }

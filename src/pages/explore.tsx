@@ -1,6 +1,5 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { Component, PropsWithChildren } from "react";
-import { Link, Outlet } from "react-router-dom";
 
 export function Explore(props: PropsWithChildren<{}>) {
 

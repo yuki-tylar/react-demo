@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Component, createElement } from "react";
-import { readBuilderProgram } from "typescript";
 import { rSettingAction } from "../redux/slice-settings";
 import { PropsWithReduxSetting, settingConnector } from "../redux/store";
 
@@ -14,7 +13,7 @@ export function Switch(props: Props) {
 export class _Switch extends Component<_Props, { isOn: boolean }> {
   constructor(props: _Props) {
     super(props);
-    this.state = { isOn: props.isOn }
+    this.state = { isOn: props.isOn, }
   }
 
   toggle() {
@@ -26,9 +25,9 @@ export class _Switch extends Component<_Props, { isOn: boolean }> {
     const width: number = this.props.width || 70;
     const height: number = this.props.height || 40;
     const gap: number = this.props.gap || 5
-    const colorSwitch = this.props.setting.appearance == 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0,0,0,0.4)';
+    const colorSwitch = this.props.setting.appearance === 'dark' ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0,0,0,0.4)';
     const colorHandleOff = 'white';
-    const colorHandleOn = this.props.setting.appearance == 'dark' ? '#FDB813' : '#4264D0';
+    const colorHandleOn = this.props.setting.appearance === 'dark' ? '#FDB813' : '#4264D0';
 
     return (
       <div

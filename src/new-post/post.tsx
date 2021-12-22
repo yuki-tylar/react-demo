@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { useNavigate } from "react-router-dom";
 import { CanActivateIfLoggedIn } from "../guards/can-activate-if-logged-in";
 

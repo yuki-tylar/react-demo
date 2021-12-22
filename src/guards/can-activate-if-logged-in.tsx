@@ -16,10 +16,7 @@ function _CanActivateIfLoggedIn(props: PropsWithChildren<_Props>) {
   let canActivate = props.auth.status === 'loggedIn';
 
   useEffect(() => {
-    if(props.auth.status === 'notChecked' || props.auth.status === 'checking') {
-    } else if(props.auth.status === 'loggedIn') {
-      canActivate = true;
-    } else {
+    if(props.auth.status === 'notLoggedIn') {
       props.onGuard();
     }
   });
