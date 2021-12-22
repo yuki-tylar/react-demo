@@ -19,12 +19,12 @@ export class _AppBarBottom extends Component<PropsWithReduxAuth> {
         {
           this.props.auth.status === 'loggedIn' ?
             <li className="text-center" style={{ flex: '1 0 20%' }}>
-              <AppBarBottomIcon linkTo="/explore" icon={iconPlus} label="Post" />
+              <AppBarBottomIcon linkTo="/new-post" icon={iconPlus} label="Post" />
             </li> :
             null
         }
         <li className="text-center" style={{ flex: '1 0 20%' }}>
-          <AppBarBottomIcon linkTo="/explore" icon={iconMessage} label="Message" />
+          <AppBarBottomIcon linkTo="/message" icon={iconMessage} label="Message" />
         </li>
         {
           this.props.auth.status === 'loggedIn' ?

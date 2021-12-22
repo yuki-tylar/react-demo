@@ -5,25 +5,9 @@ import { Link, Outlet } from "react-router-dom";
 export function Explore(props: PropsWithChildren<{}>) {
 
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to="test">
-            <span>Link to explore/test</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="">
-            <span>Link to explore</span>
-
-          </Link>
-        </li>
-      </ul>
-      <AnimatePresence>
-        <div className="Test2">
-          <Outlet />
-        </div>
-      </AnimatePresence>
+    <div className="p-15p">
+      <h2>Explore</h2>
+      <p>Not implemented yet</p>
     </div>
   );
 }
