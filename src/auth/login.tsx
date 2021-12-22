@@ -3,7 +3,7 @@ import { createElement, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 import * as Yup from 'yup';
-import { GuardIfLoggedIn } from "../guards/guard-if-logged-in";
+import { CanActivateIfNotLoggedIn } from "../guards/can-activate-if-not-logged-in";
 import { authenticateByEmail } from "../redux/slice-auth";
 import { authConnector, PropsWithReduxAuth } from "../redux/store";
 
@@ -15,7 +15,7 @@ export function _Login(props: PropsWithReduxAuth) {
   const navigate = useNavigate();
 
   return (
-    <GuardIfLoggedIn onGuard={() => { navigate('/recommend', {replace: true})} }>
+    <CanActivateIfNotLoggedIn onGuard={() => { navigate('/recommend', {replace: true})} }>
       <div className="p-15p">
         <h2 className="mb-30p">Welocme!</h2>
         <Formik
@@ -87,7 +87,7 @@ export function _Login(props: PropsWithReduxAuth) {
           }
         </Formik>
       </div>
-    </GuardIfLoggedIn>
+    </CanActivateIfNotLoggedIn>
 
   );
 }

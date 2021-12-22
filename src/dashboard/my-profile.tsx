@@ -1,6 +1,6 @@
 import { createElement } from "react";
 import { useNavigate } from "react-router-dom";
-import { GuardIfNotLoggedIn } from "../guards/guard-if-not-logged-in";
+import { CanActivateIfLoggedIn } from "../guards/can-activate-if-logged-in";
 import { logout } from "../redux/slice-auth";
 import { rSettingAction } from "../redux/slice-settings";
 import { authConnector, PropsWithReduxAuth, PropsWithReduxSetting, settingConnector } from "../redux/store";
@@ -18,7 +18,7 @@ export function _MyProfile(props: PropsWithReduxSetting) {
   }
 
   return (
-    <GuardIfNotLoggedIn onGuard={() => { navigate('/login', {replace: true})}}>
+    <CanActivateIfLoggedIn onGuard={() => { navigate('/login', {replace: true})}}>
       <div className="p-15p">
         <div className="mb-50p d-flex main-axis-between">
           <span className="subtitle1">Darkmode</span>
@@ -31,6 +31,6 @@ export function _MyProfile(props: PropsWithReduxSetting) {
           >Logout</button>
         </div>
       </div>
-    </GuardIfNotLoggedIn>
+    </CanActivateIfLoggedIn>
   )
 }

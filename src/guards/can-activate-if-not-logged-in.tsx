@@ -8,14 +8,15 @@ type Props = {
 interface _Props extends PropsWithReduxAuth, Props { }
 
 
-export function GuardIfNotLoggedIn(props: PropsWithChildren<Props>) {
-  return createElement(authConnector(_GuardIfNotLoggedIn), props);
+export function CanActivateIfNotLoggedIn(props: PropsWithChildren<Props>) {
+  return createElement(authConnector(_CanActivateIfNotLoggedIn), props);
 }
 
-function _GuardIfNotLoggedIn(props: PropsWithChildren<_Props>) {
-  const guarded = props.auth.status !== 'loggedIn';
+function _CanActivateIfNotLoggedIn(props: PropsWithChildren<_Props>) {
+  let canActivate = props.auth.status !== 'loggedIn';
+
   useEffect(() => {
-    if (guarded) {
+    if(!canActivate) {
       props.onGuard();
     }
   });
@@ -23,7 +24,7 @@ function _GuardIfNotLoggedIn(props: PropsWithChildren<_Props>) {
   return (
     <>
       {
-        guarded ? null : props.children
+        canActivate ? props.children : null
       }
     </>
   )
