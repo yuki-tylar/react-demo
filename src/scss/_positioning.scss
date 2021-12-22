@@ -34,7 +34,6 @@ $stepPositioningPc: 2;
 .main-axis-item-2 { flex: 0 0 48%; }
 .main-axis-item-3 { flex: 0 0 32%; }
 
-
 @for $i from $iPositioningStart through $iPositioningEnd {
   .top-#{$i * $stepPositioningP}p {
     top: #{$i * $stepPositioningP}px;

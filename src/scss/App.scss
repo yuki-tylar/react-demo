@@ -35,7 +35,7 @@ body {
   color: $colorGsBody;
   background: $colorGsBackground;
   &.dark {
-    background: $colorGsBody;
+    background: $colorGsBlack;
     color: $colorGsWhite;
   }
 }
@@ -169,5 +169,15 @@ body {
     box-shadow: 0 0 3px ($colorSuccessLight, 0.3);
     color: $colorSuccessDark;
     border: solid 1px rgba($colorSuccessDark, 0.6);
+  }
+}
+
+.card {
+  background: $colorGsWhite;
+  border: solid 1px $colorGsLine;
+
+  .dark & {
+    background: $colorGsBody;
+    border: solid 1px $colorGsBlack;
   }
 }

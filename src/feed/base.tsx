@@ -70,7 +70,8 @@ export function Feed() {
         }}
       >
         <h2
-          className={'headline4 headline3-md'}
+          className={`headline4 headline3-md ${darkmode ? ' text-white' : ''}`}
+          style={{transition: 'color 300ms'}}
           onClick={() => { changePage(1) }}
         >
           {title}
