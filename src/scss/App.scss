@@ -1,11 +1,11 @@
 @import './variables';
 @import './base';
+@import './form';
+@import './button';
 @import './typography';
 @import './spacing';
 @import './positioning';
 @import './box_shape';
-@import './form';
-@import './button';
 @import './color';
 
 $appearanceTransitionDuration: 500ms;
@@ -101,7 +101,6 @@ body {
   left: 0;
   width: 100%;
   height: 70px;
-  backdrop-filter: blur(15px);
   @media (min-width: $breakpointMd) {
     height: 80px;
   }
@@ -116,6 +115,7 @@ body {
     max-width: $maxWidth;
     margin: auto;
     box-sizing: border-box;
+    backdrop-filter: blur(15px);
   }
 
   .icon path{
@@ -126,6 +126,7 @@ body {
     left: 0;
     right: 0;
     margin: 0 auto 10px;
+    backdrop-filter: blur(10px);
   
     background: rgba($colorGsWhite, 0.5);
     border: solid 1px rgba($colorGsLine, 0.5);

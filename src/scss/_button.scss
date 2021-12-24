@@ -26,32 +26,35 @@
 }
 
 [class*=btn] {
+  appearance: none;
   transition-property: background, color;
   transition-duration: 200ms;
+  border: none;
+  background: none;
 }
 
-.btn.btn-primary {
+.btn-primary {
   @include btn($colorGsWhite, $colorPrimary, $colorPrimaryDark);
 }
-.btn.btn-primary-dark {
+.btn-primary-dark {
   @include btn($colorGsWhite, $colorPrimaryDark, $colorPrimary);
 }
-.btn.btn-secondary {
+.btn-secondary {
   @include btn($colorGsWhite, $colorSecondary, $colorSecondaryDark);
 }
-.btn.btn-black {
+.btn-black {
   @include btn($colorGsWhite, $colorGsBlack, $colorGsBody);
 }
-.btn.btn-grey {
+.btn-grey {
   @include btn($colorGsWhite, $colorGsLabel, $colorGsPlaceholder);
 }
-.btn.btn-grey-light {
+.btn-grey-light {
   @include btn($colorGsLabel, $colorGsBackground, rgba($colorGsBackground, 0.7));
 }
-.btn.btn-google {
+.btn-google {
   @include btn($colorGsWhite, $colorGoogle, $colorGoogleLight);
 }
-.btn.btn-facebook {
+.btn-facebook {
   @include btn($colorGsWhite, $colorFacebook, $colorFacebookLight);
 }
 .btn-success {
@@ -60,7 +63,7 @@
 .btn-error {
   @include btn($colorGsWhite, $colorError, $colorErrorDark);
 }
-.btn.btn-inactive {
+.btn-inactive {
   @include btn($colorGsPlaceholder, $colorGsBackground, rgba($colorGsBackground, 0.7));
 }
 
@@ -76,25 +79,25 @@
   }
 }
 
-.btn.btn-outline {
+.btn-outline {
   @include btnOutline($colorPrimary, $colorGsWhite);
 }
-.btn.btn-outline-success {
+.btn-outline-success {
   @include btnOutline($colorSuccess, $colorGsWhite);
 }
-.btn.btn-outline-error {
+.btn-outline-error {
   @include btnOutline($colorError, $colorGsWhite);
 }
 
-.btn.btn-outline-body {
+.btn-outline-body {
   @include btnOutline($colorGsBody, $colorGsWhite);
 }
 
-.btn.btn-outline-grey {
+.btn-outline-grey {
   @include btnOutline($colorGsLabel, $colorGsWhite);
 }
 
-// .btn.btn-outline-secondary (if needed)
+// .btn-outline-secondary (if needed)
 
 @mixin btnText($color, $colorHover) {
   color: $color;
@@ -105,30 +108,30 @@
   }
 
 }
-.btn.btn-text {
+.btn-text {
   @include btnText($colorPrimary, $colorPrimaryDark);
 }
 
-.btn.btn-text-primary-dark {
+.btn-text-primary-dark {
   @include btnText($colorPrimaryDark, $colorPrimary);
 }
-.btn.btn-text-black,
-.btn.btn-text-body {
+.btn-text-black,
+.btn-text-body {
   @include btnText($colorGsBody, $colorGsBlack);
 }
-.btn.btn-text-grey {
+.btn-text-grey {
   @include btnText($colorGsLabel, $colorGsPlaceholder);
 }
-.btn.btn-text-lightgrey {
+.btn-text-lightgrey {
   @include btnText($colorGsBackground, white);
 }
-.btn.btn-text-error {
+.btn-text-error {
   @include btnText($colorError, $colorErrorDark);
 }
-.btn.btn-text-light {
+.btn-text-light {
   @include btnText($colorGsWhite, $colorGsLine);
 }
-.btn.btn-text-white {
+.btn-text-white {
   @include btnText($colorGsWhite, $colorGsBackground);
 }
 
@@ -148,53 +151,53 @@
   }
 }
 
-.btn.btn-icon {
+.btn-icon {
   @include btnIcon($colorPrimary)
 }
 
-.btn.btn-icon-grey {
+.btn-icon-grey {
   @include btnIcon($colorGsPlaceholder);
 }
-.btn.btn-icon-body {
+.btn-icon-body {
   @include btnIcon($colorGsBody);
 }
-.btn.btn-icon-success {
+.btn-icon-success {
   @include btnIcon($colorSuccess);
 }
-.btn.btn-icon-error {
+.btn-icon-error {
   @include btnIcon($colorError);
 }
 
-.btn.btn-icon-white {
+.btn-icon-white {
   @include btnIcon(white);
 }
 
 
-.btn:disabled {
+[class*=btn]:disabled {
   opacity: 0.7;
 }
 
-.btn:focus, .btn.focus,
-.btn:not(:disabled):not(.disabled).active:focus, 
-.btn:not(:disabled):not(.disabled):active:focus, 
-.show>.btn.dropdown-toggle:focus {
-  box-shadow: none;
-}
+// button:focus, button.focus,
+// button:not(:disabled):not(.disabled).active:focus, 
+// button:not(:disabled):not(.disabled):active:focus, 
+// .show>button.dropdown-toggle:focus {
+//   box-shadow: none;
+// }
 
-.btn {
-  >* {
-    vertical-align: middle;
-  }
+// .btn {
+//   >* {
+//     vertical-align: middle;
+//   }
 
-  i+span,
-  i+u,
-  i+b {
-    margin-left: 0.25em;
-  }
+//   i+span,
+//   i+u,
+//   i+b {
+//     margin-left: 0.25em;
+//   }
 
-  span+i,
-  u+i,
-  b+i {
-    margin-left: 0.25em; 
-  }
-}
+//   span+i,
+//   u+i,
+//   b+i {
+//     margin-left: 0.25em; 
+//   }
+// }

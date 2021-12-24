@@ -1,10 +1,10 @@
 import { createElement, useState } from "react";
-import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from "framer-motion";
 import { FeedRecommend } from "./feed-recommend";
 import { FeedEvent } from "./feed-event";
 import { FeedProfile } from "./feed-profile";
-import { RouteFeedItem, RouteItemWithComponent } from "../definition/routes";
+import { RouteFeedItem, RouteItem } from "../definition/routes";
 import { Direction } from "../definition/general";
 import { ChildView } from "../widgets/child-view-container";
 import { UserDetailInner } from "../widgets/user-detail-inner";
@@ -26,13 +26,15 @@ const routes: RouteFeedItem[] = [
   { path: 'profile', component: FeedProfile, data: { title: 'People' } },
 ];
 
-const routesChild: RouteItemWithComponent[] = [
-  { path: ':feedtype/user', component: UserDetailInner, },
+const routesChild: RouteItem[] = [
+  { path: ':feedtype/user', element: <ChildView><UserDetailInner /></ChildView>, },
 ]
 
 
 export function Feed() {
   const location = useLocation();
+  const background = location.state && (location.state as {background: any}).background;
+
   const navigate = useNavigate();
 
   const initialPage = routes.findIndex(route => location.pathname.match(new RegExp('^/' + route.path)));
@@ -49,7 +51,7 @@ export function Feed() {
 
   const currentRoute = routes[state.page > 0 ? state.page : 0];
 
-  const path = location.pathname.replace(/^\/|\/$/g, '').split('/');
+  const path = (background || location).pathname.replace(/^\/|\/$/g, '').split('/');
   const onRoot = path.length === 1;
 
   if (!onRoot && state.direction !== 0) {
@@ -80,7 +82,7 @@ export function Feed() {
 
       <div className="app-body-feed">
         <AnimatePresence initial={false} exitBeforeEnter>
-          <Routes location={location} key={currentRoute.path}>
+          <Routes location={background || location} key={currentRoute.path}>
             {routes.map(route =>
               <Route
                 key={`${route.path}`}
@@ -88,7 +90,7 @@ export function Feed() {
                 element={createElement(route.component, { changePage: changePage, direction: state.direction })}
               />
             )}
-            <Route path="*" element={<Navigate to="recommend"/>} />
+            {/* <Route path="*" element={<Navigate to="recommend"/>} /> */}
           </Routes>
         </AnimatePresence>
       </div>
@@ -100,11 +102,7 @@ export function Feed() {
               <Route 
                 key={route.path} 
                 path={route.path} 
-                element={
-                  <ChildView>
-                    {createElement(route.component)}
-                  </ChildView>
-                } 
+                element={route.element} 
               />
             )
           }

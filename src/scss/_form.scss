@@ -20,3 +20,14 @@
   background: $colorPrimaryLight;
   border: solid 1px rgba($color: $colorPrimary, $alpha: 0.25);
 }
+
+[class*=form-item-textarea] {
+  line-height: 1.5em;
+  resize: vertical;
+}
+
+@for $i from 3 through 6 {
+  .form-item-textarea-#{$i}line {
+    min-height: calc(1.5em * $i + 24px);
+  }  
+}
