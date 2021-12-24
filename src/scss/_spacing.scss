@@ -12,43 +12,43 @@ $stepSpacingPc: 10;
   .mt-#{$i * $stepSpacingP}p,
   .my-#{$i * $stepSpacingP}p,
   .m-#{$i * $stepSpacingP}p {
-    margin-top: #{$i * $stepSpacingP}px;
+    margin-top: #{$i * $stepSpacingP}px!important;
   }
   .mb-#{$i * $stepSpacingP}p,
   .my-#{$i * $stepSpacingP}p,
   .m-#{$i * $stepSpacingP}p {
-    margin-bottom: #{$i * $stepSpacingP}px;
+    margin-bottom: #{$i * $stepSpacingP}px!important;
   }
   .ml-#{$i * $stepSpacingP}p,
   .mx-#{$i * $stepSpacingP}p,
   .m-#{$i * $stepSpacingP}p {
-    margin-left: #{$i * $stepSpacingP}px;
+    margin-left: #{$i * $stepSpacingP}px!important;
   }
   .mr-#{$i * $stepSpacingP}p,
   .mx-#{$i * $stepSpacingP}p,
   .m-#{$i * $stepSpacingP}p {
-    margin-right: #{$i * $stepSpacingP}px;
+    margin-right: #{$i * $stepSpacingP}px!important;
   }
 
   .pt-#{$i * $stepSpacingP}p,
   .py-#{$i * $stepSpacingP}p,
   .p-#{$i * $stepSpacingP}p {
-    padding-top: #{$i * $stepSpacingP}px;
+    padding-top: #{$i * $stepSpacingP}px!important;
   }
   .pb-#{$i * $stepSpacingP}p,
   .py-#{$i * $stepSpacingP}p,
   .p-#{$i * $stepSpacingP}p {
-    padding-bottom: #{$i * $stepSpacingP}px;
+    padding-bottom: #{$i * $stepSpacingP}px!important;
   }
   .pl-#{$i * $stepSpacingP}p,
   .px-#{$i * $stepSpacingP}p,
   .p-#{$i * $stepSpacingP}p {
-    padding-left: #{$i * $stepSpacingP}px;
+    padding-left: #{$i * $stepSpacingP}px!important;
   }
   .pr-#{$i * $stepSpacingP}p,
   .px-#{$i * $stepSpacingP}p,
   .p-#{$i * $stepSpacingP}p {
-    padding-right: #{$i * $stepSpacingP}px;
+    padding-right: #{$i * $stepSpacingP}px!important;
   }
 }
 
@@ -57,43 +57,43 @@ $stepSpacingPc: 10;
   .mt-#{$i * $stepSpacingPc}pc,
   .my-#{$i * $stepSpacingPc}pc,
   .m-#{$i * $stepSpacingPc}pc {
-    margin-top: percentage(calc($i * $stepSpacingPc / 100));
+    margin-top: percentage(calc($i * $stepSpacingPc / 100))!important;
   }
   .mb-#{$i * $stepSpacingPc}pc,
   .my-#{$i * $stepSpacingPc}pc,
   .m-#{$i * $stepSpacingPc}pc {
-    margin-bottom: percentage(calc($i * $stepSpacingPc / 100));
+    margin-bottom: percentage(calc($i * $stepSpacingPc / 100))!important;
   }
   .ml-#{$i * $stepSpacingPc}pc,
   .mx-#{$i * $stepSpacingPc}pc,
   .m-#{$i * $stepSpacingPc}pc {
-    margin-left: percentage(calc($i * $stepSpacingPc / 100));
+    margin-left: percentage(calc($i * $stepSpacingPc / 100))!important;
   }
   .mr-#{$i * $stepSpacingPc}pc,
   .mx-#{$i * $stepSpacingPc}pc,
   .m-#{$i * $stepSpacingPc}pc {
-    margin-right: percentage(calc($i * $stepSpacingPc / 100));
+    margin-right: percentage(calc($i * $stepSpacingPc / 100))!important;
   }
 
   .pt-#{$i * $stepSpacingPc}pc,
   .py-#{$i * $stepSpacingPc}pc,
   .p-#{$i * $stepSpacingPc}pc {
-    padding-top: percentage(calc($i * $stepSpacingPc / 100));
+    padding-top: percentage(calc($i * $stepSpacingPc / 100))!important;
   }
   .pb-#{$i * $stepSpacingPc}pc,
   .py-#{$i * $stepSpacingPc}pc,
   .p-#{$i * $stepSpacingPc}pc {
-    padding-bottom: perpercentage(calc($i * $stepSpacingPc / 100));
+    padding-bottom: perpercentage(calc($i * $stepSpacingPc / 100))!important;
   }
   .pl-#{$i * $stepSpacingPc}pc,
   .px-#{$i * $stepSpacingPc}pc,
   .p-#{$i * $stepSpacingPc}pc {
-    padding-left: percentage(calc($i * $stepSpacingPc / 100));
+    padding-left: percentage(calc($i * $stepSpacingPc / 100))!important;
   }
   .pr-#{$i * $stepSpacingPc}pc,
   .px-#{$i * $stepSpacingPc}pc,
   .p-#{$i * $stepSpacingPc}pc {
-    padding-right: percentage(calc($i * $stepSpacingPc / 100));
+    padding-right: percentage(calc($i * $stepSpacingPc / 100))!important;
   }
 }
 
@@ -102,43 +102,43 @@ $stepSpacingPc: 10;
     .mt-md-#{$i * $stepSpacingP}p,
     .my-md-#{$i * $stepSpacingP}p,
     .m-md-#{$i * $stepSpacingP}p {
-      margin-top: #{$i * $stepSpacingP}px;
+      margin-top: #{$i * $stepSpacingP}px!important;
     }
     .mb-md-#{$i * $stepSpacingP}p,
     .my-md-#{$i * $stepSpacingP}p,
     .m-md-#{$i * $stepSpacingP}p {
-      margin-bottom: #{$i * $stepSpacingP}px;
+      margin-bottom: #{$i * $stepSpacingP}px!important;
     }
     .ml-md-#{$i * $stepSpacingP}p,
     .mx-md-#{$i * $stepSpacingP}p,
     .m-md-#{$i * $stepSpacingP}p {
-      margin-left: #{$i * $stepSpacingP}px;
+      margin-left: #{$i * $stepSpacingP}px!important;
     }
     .mr-md-#{$i * $stepSpacingP}p,
     .mx-md-#{$i * $stepSpacingP}p,
     .m-md-#{$i * $stepSpacingP}p {
-      margin-right: #{$i * $stepSpacingP}px;
+      margin-right: #{$i * $stepSpacingP}px!important;
     }
 
     .pt-md-#{$i * $stepSpacingP}p,
     .py-md-#{$i * $stepSpacingP}p,
     .p-md-#{$i * $stepSpacingP}p {
-      padding-top: #{$i * $stepSpacingP}px;
+      padding-top: #{$i * $stepSpacingP}px!important;
     }
     .pb-md-#{$i * $stepSpacingP}p,
     .py-md-#{$i * $stepSpacingP}p,
     .p-md-#{$i * $stepSpacingP}p {
-      padding-bottom: #{$i * $stepSpacingP}px;
+      padding-bottom: #{$i * $stepSpacingP}px!important;
     }
     .pl-md-#{$i * $stepSpacingP}p,
     .px-md-#{$i * $stepSpacingP}p,
     .p-md-#{$i * $stepSpacingP}p {
-      padding-left: #{$i * $stepSpacingP}px;
+      padding-left: #{$i * $stepSpacingP}px!important;
     }
     .pr-md-#{$i * $stepSpacingP}p,
     .px-md-#{$i * $stepSpacingP}p,
     .p-md-#{$i * $stepSpacingP}p {
-      padding-right: #{$i * $stepSpacingP}px;
+      padding-right: #{$i * $stepSpacingP}px!important;
     }
   }
 
@@ -146,43 +146,43 @@ $stepSpacingPc: 10;
     .mt-md-#{$i * $stepSpacingPc}pc,
     .my-md-#{$i * $stepSpacingPc}pc,
     .m-md-#{$i * $stepSpacingPc}pc {
-      margin-top: percentage(calc($i * $stepSpacingPc / 100));
+      margin-top: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .mb-md-#{$i * $stepSpacingPc}pc,
     .my-md-#{$i * $stepSpacingPc}pc,
     .m-md-#{$i * $stepSpacingPc}pc {
-      margin-bottom: percentage(calc($i * $stepSpacingPc / 100));
+      margin-bottom: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .ml-md-#{$i * $stepSpacingPc}pc,
     .mx-md-#{$i * $stepSpacingPc}pc,
     .m-md-#{$i * $stepSpacingPc}pc {
-      margin-left: percentage(calc($i * $stepSpacingPc / 100));
+      margin-left: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .mr-md-#{$i * $stepSpacingPc}pc,
     .mx-md-#{$i * $stepSpacingPc}pc,
     .m-md-#{$i * $stepSpacingPc}pc {
-      margin-right: percentage(calc($i * $stepSpacingPc / 100));
+      margin-right: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
 
     .pt-md-#{$i * $stepSpacingPc}pc,
     .py-md-#{$i * $stepSpacingPc}pc,
     .p-md-#{$i * $stepSpacingPc}pc {
-      padding-top: percentage(calc($i * $stepSpacingPc / 100));
+      padding-top: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pb-md-#{$i * $stepSpacingPc}pc,
     .py-md-#{$i * $stepSpacingPc}pc,
     .p-md-#{$i * $stepSpacingPc}pc {
-      padding-bottom: percentage(calc($i * $stepSpacingPc / 100));
+      padding-bottom: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pl-md-#{$i * $stepSpacingPc}pc,
     .px-md-#{$i * $stepSpacingPc}pc,
     .p-md-#{$i * $stepSpacingPc}pc {
-      padding-left: percentage(calc($i * $stepSpacingPc / 100));
+      padding-left: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pr-md-#{$i * $stepSpacingPc}pc,
     .px-md-#{$i * $stepSpacingPc}pc,
     .p-md-#{$i * $stepSpacingPc}pc {
-      padding-right: percentage(calc($i * $stepSpacingPc / 100));
+      padding-right: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
   }
 }
@@ -192,43 +192,43 @@ $stepSpacingPc: 10;
     .mt-lg-#{$i * $stepSpacingP}p,
     .my-lg-#{$i * $stepSpacingP}p,
     .m-lg-#{$i * $stepSpacingP}p {
-      margin-top: #{$i * $stepSpacingP}px;
+      margin-top: #{$i * $stepSpacingP}px!important;
     }
     .mb-lg-#{$i * $stepSpacingP}p,
     .my-lg-#{$i * $stepSpacingP}p,
     .m-lg-#{$i * $stepSpacingP}p {
-      margin-bottom: #{$i * $stepSpacingP}px;
+      margin-bottom: #{$i * $stepSpacingP}px!important;
     }
     .ml-lg-#{$i * $stepSpacingP}p,
     .mx-lg-#{$i * $stepSpacingP}p,
     .m-lg-#{$i * $stepSpacingP}p {
-      margin-left: #{$i * $stepSpacingP}px;
+      margin-left: #{$i * $stepSpacingP}px!important;
     }
     .mr-lg-#{$i * $stepSpacingP}p,
     .mx-lg-#{$i * $stepSpacingP}p,
     .m-lg-#{$i * $stepSpacingP}p {
-      margin-right: #{$i * $stepSpacingP}px;
+      margin-right: #{$i * $stepSpacingP}px!important;
     }
 
     .pt-lg-#{$i * $stepSpacingP}p,
     .py-lg-#{$i * $stepSpacingP}p,
     .p-lg-#{$i * $stepSpacingP}p {
-      padding-top: #{$i * $stepSpacingP}px;
+      padding-top: #{$i * $stepSpacingP}px!important;
     }
     .pb-lg-#{$i * $stepSpacingP}p,
     .py-lg-#{$i * $stepSpacingP}p,
     .p-lg-#{$i * $stepSpacingP}p {
-      padding-bottom: #{$i * $stepSpacingP}px;
+      padding-bottom: #{$i * $stepSpacingP}px!important;
     }
     .pl-lg-#{$i * $stepSpacingP}p,
     .px-lg-#{$i * $stepSpacingP}p,
     .p-lg-#{$i * $stepSpacingP}p {
-      padding-left: #{$i * $stepSpacingP}px;
+      padding-left: #{$i * $stepSpacingP}px!important;
     }
     .pr-lg-#{$i * $stepSpacingP}p,
     .px-lg-#{$i * $stepSpacingP}p,
     .p-lg-#{$i * $stepSpacingP}p {
-      padding-right: #{$i * $stepSpacingP}px;
+      padding-right: #{$i * $stepSpacingP}px!important;
     }
   }
 
@@ -236,43 +236,43 @@ $stepSpacingPc: 10;
     .mt-lg-#{$i * $stepSpacingPc}pc,
     .my-lg-#{$i * $stepSpacingPc}pc,
     .m-lg-#{$i * $stepSpacingPc}pc {
-      margin-top: percentage(calc($i * $stepSpacingPc / 100));
+      margin-top: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .mb-lg-#{$i * $stepSpacingPc}pc,
     .my-lg-#{$i * $stepSpacingPc}pc,
     .m-lg-#{$i * $stepSpacingPc}pc {
-      margin-bottom: percentage(calc($i * $stepSpacingPc / 100));
+      margin-bottom: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .ml-lg-#{$i * $stepSpacingPc}pc,
     .mx-lg-#{$i * $stepSpacingPc}pc,
     .m-lg-#{$i * $stepSpacingPc}pc {
-      margin-left: percentage(calc($i * $stepSpacingPc / 100));
+      margin-left: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .mr-lg-#{$i * $stepSpacingPc}pc,
     .mx-lg-#{$i * $stepSpacingPc}pc,
     .m-lg-#{$i * $stepSpacingPc}pc {
-      margin-right: percentage(calc($i * $stepSpacingPc / 100));
+      margin-right: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
 
     .pt-lg-#{$i * $stepSpacingPc}pc,
     .py-lg-#{$i * $stepSpacingPc}pc,
     .p-lg-#{$i * $stepSpacingPc}pc {
-      padding-top: percentage(calc($i * $stepSpacingPc / 100));
+      padding-top: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pb-lg-#{$i * $stepSpacingPc}pc,
     .py-lg-#{$i * $stepSpacingPc}pc,
     .p-lg-#{$i * $stepSpacingPc}pc {
-      padding-bottom: percentage(calc($i * $stepSpacingPc / 100));
+      padding-bottom: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pl-lg-#{$i * $stepSpacingPc}pc,
     .px-lg-#{$i * $stepSpacingPc}pc,
     .p-lg-#{$i * $stepSpacingPc}pc {
-      padding-left: percentage(calc($i * $stepSpacingPc / 100));
+      padding-left: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pr-lg-#{$i * $stepSpacingPc}pc,
     .px-lg-#{$i * $stepSpacingPc}pc,
     .p-lg-#{$i * $stepSpacingPc}pc {
-      padding-right: percentage(calc($i * $stepSpacingPc / 100));
+      padding-right: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
   }
 }
@@ -282,43 +282,43 @@ $stepSpacingPc: 10;
     .mt-xl-#{$i * $stepSpacingP}p,
     .my-xl-#{$i * $stepSpacingP}p,
     .m-xl-#{$i * $stepSpacingP}p {
-      margin-top: #{$i * $stepSpacingP}px;
+      margin-top: #{$i * $stepSpacingP}px!important;
     }
     .mb-xl-#{$i * $stepSpacingP}p,
     .my-xl-#{$i * $stepSpacingP}p,
     .m-xl-#{$i * $stepSpacingP}p {
-      margin-bottom: #{$i * $stepSpacingP}px;
+      margin-bottom: #{$i * $stepSpacingP}px!important;
     }
     .ml-xl-#{$i * $stepSpacingP}p,
     .mx-xl-#{$i * $stepSpacingP}p,
     .m-xl-#{$i * $stepSpacingP}p {
-      margin-left: #{$i * $stepSpacingP}px;
+      margin-left: #{$i * $stepSpacingP}px!important;
     }
     .mr-xl-#{$i * $stepSpacingP}p,
     .mx-xl-#{$i * $stepSpacingP}p,
     .m-xl-#{$i * $stepSpacingP}p {
-      margin-right: #{$i * $stepSpacingP}px;
+      margin-right: #{$i * $stepSpacingP}px!important;
     }
 
     .pt-xl-#{$i * $stepSpacingP}p,
     .py-xl-#{$i * $stepSpacingP}p,
     .p-xl-#{$i * $stepSpacingP}p {
-      padding-top: #{$i * $stepSpacingP}px;
+      padding-top: #{$i * $stepSpacingP}px!important;
     }
     .pb-xl-#{$i * $stepSpacingP}p,
     .py-xl-#{$i * $stepSpacingP}p,
     .p-xl-#{$i * $stepSpacingP}p {
-      padding-bottom: #{$i * $stepSpacingP}px;
+      padding-bottom: #{$i * $stepSpacingP}px!important;
     }
     .pl-xl-#{$i * $stepSpacingP}p,
     .px-xl-#{$i * $stepSpacingP}p,
     .p-xl-#{$i * $stepSpacingP}p {
-      padding-left: #{$i * $stepSpacingP}px;
+      padding-left: #{$i * $stepSpacingP}px!important;
     }
     .pr-xl-#{$i * $stepSpacingP}p,
     .px-xl-#{$i * $stepSpacingP}p,
     .p-xl-#{$i * $stepSpacingP}p {
-      padding-right: #{$i * $stepSpacingP}px;
+      padding-right: #{$i * $stepSpacingP}px!important;
     }
   }
 
@@ -326,43 +326,43 @@ $stepSpacingPc: 10;
     .mt-xl-#{$i * $stepSpacingPc}pc,
     .my-xl-#{$i * $stepSpacingPc}pc,
     .m-xl-#{$i * $stepSpacingPc}pc {
-      margin-top: percentage(calc($i * $stepSpacingPc / 100));
+      margin-top: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .mb-xl-#{$i * $stepSpacingPc}pc,
     .my-xl-#{$i * $stepSpacingPc}pc,
     .m-xl-#{$i * $stepSpacingPc}pc {
-      margin-bottom: percentage(calc($i * $stepSpacingPc / 100));
+      margin-bottom: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .ml-xl-#{$i * $stepSpacingPc}pc,
     .mx-xl-#{$i * $stepSpacingPc}pc,
     .m-xl-#{$i * $stepSpacingPc}pc {
-      margin-left: percentage(calc($i * $stepSpacingPc / 100));
+      margin-left: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .mr-xl-#{$i * $stepSpacingPc}pc,
     .mx-xl-#{$i * $stepSpacingPc}pc,
     .m-xl-#{$i * $stepSpacingPc}pc {
-      margin-right: percentage(calc($i * $stepSpacingPc / 100));
+      margin-right: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
 
     .pt-xl-#{$i * $stepSpacingPc}pc,
     .py-xl-#{$i * $stepSpacingPc}pc,
     .p-xl-#{$i * $stepSpacingPc}pc {
-      padding-top: percentage(calc($i * $stepSpacingPc / 100));
+      padding-top: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pb-xl-#{$i * $stepSpacingPc}pc,
     .py-xl-#{$i * $stepSpacingPc}pc,
     .p-xl-#{$i * $stepSpacingPc}pc {
-      padding-bottom: percentage(calc($i * $stepSpacingPc / 100));
+      padding-bottom: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pl-xl-#{$i * $stepSpacingPc}pc,
     .px-xl-#{$i * $stepSpacingPc}pc,
     .p-xl-#{$i * $stepSpacingPc}pc {
-      padding-left: percentage(calc($i * $stepSpacingPc / 100));
+      padding-left: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
     .pr-xl-#{$i * $stepSpacingPc}pc,
     .px-xl-#{$i * $stepSpacingPc}pc,
     .p-xl-#{$i * $stepSpacingPc}pc {
-      padding-right: percentage(calc($i * $stepSpacingPc / 100));
+      padding-right: percentage(calc($i * $stepSpacingPc / 100))!important;
     }
   }
 }

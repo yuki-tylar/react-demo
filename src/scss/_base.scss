@@ -2,6 +2,7 @@
 
 * {
   -webkit-tap-highlight-color: transparent;
+  box-sizing: border-box;
 }
 
 a{
@@ -12,6 +13,10 @@ a{
 .disable-drag {
   user-select: none;
   -webkit-user-drag: none;
+}
+
+.blur {
+  backdrop-filter: blur(10px);
 }
 
 .overflow-hidden { overflow: hidden;}

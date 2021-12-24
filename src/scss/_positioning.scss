@@ -7,219 +7,223 @@ $stepPositioningP: 5;
 $stepPositioningPc: 2;
 
 @mixin displayFlex() {
-  display: flex;
+  display: flex!important;
   align-items: center;
 }
 
-.d-block { display: block; }
-.d-inline { display: inline; }
-.d-inline-block { display: inline-block; }
+.d-block { display: block!important; }
+.d-inline { display: inline!important; }
+.d-inline-block { display: inline-block!important; }
 .d-flex { @include displayFlex(); }
+.d-none { display: none!important; }
 
-.pos-relative { position: relative; }
-.pos-absolute { position: absolute; }
-.pos-fixed { position: fixed; }
-[class*=pos-sticky] { position: sticky; top: 0; }
+.pos-relative { position: relative!important; }
+.pos-absolute { position: absolute!important; }
+.pos-fixed { position: fixed!important; }
+[class*=pos-sticky] { position: sticky!important; top: 0; }
 .pos-sticky-bottom { bottom: 0;}
 
-.main-axis-start { justify-content: start; }
-.cross-axis-start { align-items: start; }
-.main-axis-center { justify-content: center; }
-.cross-axis-center { align-items: center; }
-.main-axis-stretch { justify-content: stretch; }
-.cross-axis-stretch { align-items: stretch; }
-.main-axis-end { justify-content: end; }
-.cross-axis-end { align-items: end; }
-.main-axis-between { justify-content: space-between; }
+.main-axis-start { justify-content: start!important; }
+.cross-axis-start { align-items: start!important; }
+.main-axis-center { justify-content: center!important; }
+.cross-axis-center { align-items: center!important; }
+.main-axis-stretch { justify-content: stretch!important; }
+.cross-axis-stretch { align-items: stretch!important; }
+.main-axis-end { justify-content: end!important; }
+.cross-axis-end { align-items: end!important; }
+.main-axis-between { justify-content: space-between!important; }
 .main-axis-item-2 { flex: 0 0 48%; }
 .main-axis-item-3 { flex: 0 0 32%; }
 
 @for $i from $iPositioningStart through $iPositioningEnd {
   .top-#{$i * $stepPositioningP}p {
-    top: #{$i * $stepPositioningP}px;
+    top: #{$i * $stepPositioningP}px!important;
   }
   .left-#{$i * $stepPositioningP}p {
-    left: #{$i * $stepPositioningP}px;
+    left: #{$i * $stepPositioningP}px!important;
   }
   .right-#{$i * $stepPositioningP}p {
-    right: #{$i * $stepPositioningP}px;
+    right: #{$i * $stepPositioningP}px!important;
   }
   .bottom-#{$i * $stepPositioningP}p {
-    bottom: #{$i * $stepPositioningP}px;
+    bottom: #{$i * $stepPositioningP}px!important;
   }
   .top-#{$i * $stepPositioningPc}pc {
-    top: percentage(calc($i * $stepPositioningPc / 100));
+    top: percentage(calc($i * $stepPositioningPc / 100))!important;
   }
   .left-#{$i * $stepPositioningPc}pc {
-    left: percentage(calc($i * $stepPositioningPc / 100));
+    left: percentage(calc($i * $stepPositioningPc / 100))!important;
   }
   .right-#{$i * $stepPositioningPc}pc {
-    right: percentage(calc($i * $stepPositioningPc / 100));
+    right: percentage(calc($i * $stepPositioningPc / 100))!important;
   }
   .bottom-#{$i * $stepPositioningPc}pc {
-    bottom: percentage(calc($i * $stepPositioningPc / 100));
+    bottom: percentage(calc($i * $stepPositioningPc / 100))!important;
   }
 }
 
 @media (min-width: $breakpointMd) {
-  .d-md-block { display: block; }
-  .d-md-inline { display: inline; }
-  .d-md-inline-block { display: inline-block; }
+  .d-md-block { display: block!important; }
+  .d-md-inline { display: inline!important; }
+  .d-md-inline-block { display: inline-block!important; }
   .d-md-flex { @include displayFlex(); }
+  .d-md-none { display: none!important; }
 
-  .pos-md-relative { position: relative; }
-  .pos-md-absolute { position: absolute; }
-  .pos-md-fixed { position: fixed; }
-  [class*=pos-md-sticky] { position: sticky; top: 0; }
+  .pos-md-relative { position: relative!important; }
+  .pos-md-absolute { position: absolute!important; }
+  .pos-md-fixed { position: fixed!important; }
+  [class*=pos-md-sticky] { position: sticky!important; top: 0; }
   .pos-md-sticky-bottom { bottom: 0;}
 
-  .main-axis-md-start { justify-content: start; }
-  .cross-axis-md-start { align-items: start; }
-  .main-axis-md-center { justify-content: center; }
-  .cross-axis-md-center { align-items: center; }
-  .main-axis-md-stretch { justify-content: stretch; }
-  .cross-axis-md-stretch { align-items: stretch; }
-  .main-axis-md-end { justify-content: end; }
-  .cross-axis-md-end { align-items: end; }
-  .main-axis-md-between { justify-content: space-between; }
+  .main-axis-md-start { justify-content: start!important; }
+  .cross-axis-md-start { align-items: start!important; }
+  .main-axis-md-center { justify-content: center!important; }
+  .cross-axis-md-center { align-items: center!important; }
+  .main-axis-md-stretch { justify-content: stretch!important; }
+  .cross-axis-md-stretch { align-items: stretch!important; }
+  .main-axis-md-end { justify-content: end!important; }
+  .cross-axis-md-end { align-items: end!important; }
+  .main-axis-md-between { justify-content: space-between!important; }
 
   .main-axis-item-md-2 { flex: 0 0 48%; }
   .main-axis-item-md-3 { flex: 0 0 32%; }
 
-  .text-md-left { text-align: left; }
-  .text-md-center { text-align: center; }
-  .text-md-right { text-align: right; }
+  .text-md-left { text-align: left!important; }
+  .text-md-center { text-align: center!important; }
+  .text-md-right { text-align: right!important; }
 
   @for $i from $iPositioningStart through $iPositioningEnd {
     .top-md-#{$i * $stepPositioningP}p {
-      top: #{$i * $stepPositioningP}px;
+      top: #{$i * $stepPositioningP}px!important;
     }
     .left-md-#{$i * $stepPositioningP}p {
-      left: #{$i * $stepPositioningP}px;
+      left: #{$i * $stepPositioningP}px!important;
     }
     .right-md-#{$i * $stepPositioningP}p {
-      right: #{$i * $stepPositioningP}px;
+      right: #{$i * $stepPositioningP}px!important;
     }
     .bottom-md-#{$i * $stepPositioningP}p {
-      bottom: #{$i * $stepPositioningP}px;
+      bottom: #{$i * $stepPositioningP}px!important;
     }
     .top-md-#{$i * $stepPositioningPc}pc {
-      top: percentage(calc($i * $stepPositioningPc / 100));
+      top: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .left-md-#{$i * $stepPositioningPc}pc {
-      left: percentage(calc($i * $stepPositioningPc / 100));
+      left: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .right-md-#{$i * $stepPositioningPc}pc {
-      right: percentage(calc($i * $stepPositioningPc / 100));
+      right: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .bottom-md-#{$i * $stepPositioningPc}pc {
-      bottom: percentage(calc($i * $stepPositioningPc / 100));
+      bottom: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
   }
 }
 
 @media (min-width: $breakpointLg) {
-  .d-lg-block { display: block; }
-  .d-lg-inline { display: inline; }
-  .d-lg-inline-block { display: inline-block; }
+  .d-lg-block { display: block!important; }
+  .d-lg-inline { display: inline!important; }
+  .d-lg-inline-block { display: inline-block!important; }
   .d-lg-flex { @include displayFlex(); }
+  .d-lg-none { display: none!important; }
 
-  .pos-lg-relative { position: relative; }
-  .pos-lg-absolute { position: absolute; }
-  .pos-lg-fixed { position: fixed; }
-  [class*=pos-lg-sticky] { position: sticky; top: 0; }
+  .pos-lg-relative { position: relative!important; }
+  .pos-lg-absolute { position: absolute!important; }
+  .pos-lg-fixed { position: fixed!important; }
+  [class*=pos-lg-sticky] { position: sticky!important; top: 0; }
   .pos-lg-sticky-bottom { bottom: 0;}
 
-  .main-axis-lg-start { justify-content: start; }
-  .cross-axis-lg-start { align-items: start; }
-  .main-axis-lg-center { justify-content: center; }
-  .cross-axis-lg-center { align-items: center; }
-  .main-axis-lg-stretch { justify-content: stretch; }
-  .cross-axis-lg-stretch { align-items: stretch; }
-  .main-axis-lg-end { justify-content: end; }
-  .cross-axis-lg-end { align-items: end; }
-  .main-axis-lg-between { justify-content: space-between; }
+  .main-axis-lg-start { justify-content: start!important; }
+  .cross-axis-lg-start { align-items: start!important; }
+  .main-axis-lg-center { justify-content: center!important; }
+  .cross-axis-lg-center { align-items: center!important; }
+  .main-axis-lg-stretch { justify-content: stretch!important; }
+  .cross-axis-lg-stretch { align-items: stretch!important; }
+  .main-axis-lg-end { justify-content: end!important; }
+  .cross-axis-lg-end { align-items: end!important; }
+  .main-axis-lg-between { justify-content: space-between!important; }
 
   .main-axis-item-lg-2 { flex: 0 0 48%; }
   .main-axis-item-lg-3 { flex: 0 0 32%; }
 
   @for $i from $iPositioningStart through $iPositioningEnd {
     .top-lg-#{$i * $stepPositioningP}p {
-      top: #{$i * $stepPositioningP}px;
+      top: #{$i * $stepPositioningP}px!important;
     }
     .left-lg-#{$i * $stepPositioningP}p {
-      left: #{$i * $stepPositioningP}px;
+      left: #{$i * $stepPositioningP}px!important;
     }
     .right-lg-#{$i * $stepPositioningP}p {
-      right: #{$i * $stepPositioningP}px;
+      right: #{$i * $stepPositioningP}px!important;
     }
     .bottom-lg-#{$i * $stepPositioningP}p {
-      bottom: #{$i * $stepPositioningP}px;
+      bottom: #{$i * $stepPositioningP}px!important;
     }
     .top-lg-#{$i * $stepPositioningPc}pc {
-      top: percentage(calc($i * $stepPositioningPc / 100));
+      top: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .left-lg-#{$i * $stepPositioningPc}pc {
-      left: percentage(calc($i * $stepPositioningPc / 100));
+      left: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .right-lg-#{$i * $stepPositioningPc}pc {
-      right: percentage(calc($i * $stepPositioningPc / 100));
+      right: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .bottom-lg-#{$i * $stepPositioningPc}pc {
-      bottom: percentage(calc($i * $stepPositioningPc / 100));
+      bottom: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
   }
 }
 
 @media (min-width: $breakpointXl) {
-  .d-xl-block { display: block; }
-  .d-xl-inline { display: inline; }
-  .d-xl-inline-block { display: inline-block; }
+  .d-xl-block { display: block!important; }
+  .d-xl-inline { display: inline!important; }
+  .d-xl-inline-block { display: inline-block!important; }
   .d-xl-flex { @include displayFlex(); }
+  .d-xl-none { display: none!important; }
 
-  .pos-xl-relative { position: relative; }
-  .pos-xl-absolute { position: absolute; }
-  .pos-xl-fixed { position: fixed; }
-  [class*=pos-xl-sticky] { position: sticky; top: 0; }
+  .pos-xl-relative { position: relative!important; }
+  .pos-xl-absolute { position: absolute!important; }
+  .pos-xl-fixed { position: fixed!important; }
+  [class*=pos-xl-sticky] { position: sticky!important; top: 0; }
   .pos-xl-sticky-bottom { bottom: 0;}
 
-  .main-axis-xl-start { justify-content: start; }
-  .cross-axis-xl-start { align-items: start; }
-  .main-axis-xl-center { justify-content: center; }
-  .cross-axis-xl-center { align-items: center; }
-  .main-axis-xl-stretch { justify-content: stretch; }
-  .cross-axis-xl-stretch { align-items: stretch; }
-  .main-axis-xl-end { justify-content: end; }
-  .cross-axis-xl-end { align-items: end; }
-  .main-axis-lg-between { justify-content: space-between; }
+  .main-axis-xl-start { justify-content: start!important; }
+  .cross-axis-xl-start { align-items: start!important; }
+  .main-axis-xl-center { justify-content: center!important; }
+  .cross-axis-xl-center { align-items: center!important; }
+  .main-axis-xl-stretch { justify-content: stretch!important; }
+  .cross-axis-xl-stretch { align-items: stretch!important; }
+  .main-axis-xl-end { justify-content: end!important; }
+  .cross-axis-xl-end { align-items: end!important; }
+  .main-axis-lg-between { justify-content: space-between!important; }
 
   .main-axis-item-xl-2 { flex: 0 0 48%; }
   .main-axis-item-xl-3 { flex: 0 0 32%; }
 
   @for $i from $iPositioningStart through $iPositioningEnd {
     .top-xl-#{$i * $stepPositioningP}p {
-      top: #{$i * $stepPositioningP}px;
+      top: #{$i * $stepPositioningP}px!important;
     }
     .left-xl-#{$i * $stepPositioningP}p {
-      left: #{$i * $stepPositioningP}px;
+      left: #{$i * $stepPositioningP}px!important;
     }
     .right-xl-#{$i * $stepPositioningP}p {
-      right: #{$i * $stepPositioningP}px;
+      right: #{$i * $stepPositioningP}px!important;
     }
     .bottom-xl-#{$i * $stepPositioningP}p {
-      bottom: #{$i * $stepPositioningP}px;
+      bottom: #{$i * $stepPositioningP}px!important;
     }
     .top-xl-#{$i * $stepPositioningPc}pc {
-      top: percentage(calc($i * $stepPositioningPc / 100));
+      top: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .left-xl-#{$i * $stepPositioningPc}pc {
-      left: percentage(calc($i * $stepPositioningPc / 100));
+      left: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .right-xl-#{$i * $stepPositioningPc}pc {
-      right: percentage(calc($i * $stepPositioningPc / 100));
+      right: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
     .bottom-xl-#{$i * $stepPositioningPc}pc {
-      bottom: percentage(calc($i * $stepPositioningPc / 100));
+      bottom: percentage(calc($i * $stepPositioningPc / 100))!important;
     }
   }
 }
