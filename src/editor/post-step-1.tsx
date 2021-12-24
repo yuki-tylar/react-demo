@@ -1,38 +1,15 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { mediaService } from "../service/media-service";
-import { icons } from "../_temp/icons";
 import { PropsPostEditorChild } from "./post";
-
+import { BiFolder } from 'react-icons/bi';
+import { MdOutlineFlipCameraAndroid } from 'react-icons/md';
 
 
 export function PostStep1(props: PropsPostEditorChild) {
   const ref = useRef<HTMLVideoElement>(null);
   const refFile = useRef<HTMLInputElement>(null);
 
-  const [state, setState] = useState({ isCameraAvailable: mediaService.hasGetUserMedia(), facingMode: 'user' })
-
-  if (mediaService.hasGetUserMedia()) {
-    navigator.mediaDevices.getUserMedia({
-      audio: false,
-      video: {
-        width: { min: 1280 },
-        height: { min: 960 },
-        facingMode: { exact: state.facingMode },
-      }
-    }).then((stream) => {
-        const el = ref.current;
-        if (el) {
-          el.srcObject = stream;
-          el.onloadedmetadata = (e) => {
-            el.play();
-          };
-        }
-      })
-      .catch((err) => {
-        setState({ ...state, isCameraAvailable: false });
-      });
-  }
-
+  const [state, setState] = useState<{ isCameraAvailable: boolean, facingMode: 'user' | 'environment' }>({ isCameraAvailable: mediaService.hasGetUserMedia(), facingMode: 'environment' })
 
   const openGallery = () => {
     const el = refFile.current;
@@ -42,13 +19,17 @@ export function PostStep1(props: PropsPostEditorChild) {
   }
 
   const toggleFacingMode = () => {
-    setState({ ...state, facingMode: state.facingMode == 'user' ? 'environment' : 'user' });
+    const el = ref.current;
+    if (el) {
+      el.pause();
+      setState({ ...state, facingMode: state.facingMode == 'user' ? 'environment' : 'user' });
+    }
   }
 
-  const setMedia = async (media: string|Blob) => {
+  const setMedia = async (media: string | Blob) => {
     const imageShrink = await mediaService.shrinkImageByFixedSize(media, { axis: 'x', size: 800 });
     props.changeStep(1, { media: imageShrink });
-  } 
+  }
 
   const onShutter = () => {
     const el = ref.current;
@@ -66,6 +47,32 @@ export function PostStep1(props: PropsPostEditorChild) {
       setMedia(file);
     }
   }
+
+  useEffect(() => {
+    if (state.isCameraAvailable) {
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          // width: { min: 1280 },
+          // height: { min: 960 },
+          facingMode: state.facingMode,
+        }
+      }).then((stream) => {
+        const el = ref.current;
+        if (el) {
+          el.srcObject = stream;
+          el.onloadedmetadata = (e) => {
+            el.play();
+          };
+        }
+      })
+        .catch((err) => {
+          if (state.isCameraAvailable) {
+            setState({ ...state, isCameraAvailable: false });
+          }
+        });
+    }
+  });
 
 
   return (
@@ -87,10 +94,11 @@ export function PostStep1(props: PropsPostEditorChild) {
       <div className="pos-absolute bottom-0pc left-0pc w-100pc p-15p d-flex main-axis-between">
         <div className="left main-axis-item-3">
           <button
-            className="btn-icon small"
+            className="circle"
+            style={{ border: 'solid 2px white', borderRadius: '1000px', width: '45px', height: '45px', background: 'none', }}
             onClick={() => { openGallery() }}
           >
-            <span className="d-inline-block w-30p" dangerouslySetInnerHTML={{ __html: icons.photos }}></span>
+            <BiFolder style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" />
           </button>
           <input
             ref={refFile}
@@ -104,10 +112,11 @@ export function PostStep1(props: PropsPostEditorChild) {
           {
             state.isCameraAvailable ?
               <button
-                className="btn-icon small"
+                className="circle"
+                style={{ border: 'solid 2px white', borderRadius: '1000px', width: '60px', height: '60px', background: 'none', }}
                 onClick={() => { onShutter(); }}
               >
-                <span className="d-inline-block w-40p" dangerouslySetInnerHTML={{ __html: icons.shutter }}></span>
+                <div className="pos-absolute circle bg-white" style={{ top: '4px', left: '4px', width: '48px', }}></div>
               </button> : null
           }
         </div>
@@ -115,10 +124,11 @@ export function PostStep1(props: PropsPostEditorChild) {
           {
             state.isCameraAvailable ?
               <button
-                className="btn-icon small"
+                className="circle"
+                style={{ border: 'solid 2px white', borderRadius: '1000px', width: '45px', height: '45px', background: 'none', }}
                 onClick={() => { toggleFacingMode() }}
               >
-                <span className="d-inline-block w-40p" dangerouslySetInnerHTML={{ __html: icons.shutter }}></span>
+                <MdOutlineFlipCameraAndroid style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" />
               </button> : null
           }
         </div>

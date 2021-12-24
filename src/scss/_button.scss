@@ -25,12 +25,14 @@
   }
 }
 
+button,
 [class*=btn] {
   appearance: none;
   transition-property: background, color;
   transition-duration: 200ms;
   border: none;
   background: none;
+  padding: 0;
 }
 
 .btn-primary {
@@ -139,9 +141,15 @@
 
 
 /** primary icon button */
-@mixin btnIcon($color) {
+@mixin btnIcon($color, $colorDark: null) {
   padding: 16.5px;
   color: $color;
+
+  @if $colorDark {
+    .dark & { 
+      color: $colorDark; 
+    }
+  }
 
   &.large {
     padding: 21.5px;
@@ -152,14 +160,11 @@
 }
 
 .btn-icon {
-  @include btnIcon($colorPrimary)
+  @include btnIcon($colorPrimary, $colorGsWhite)
 }
 
-.btn-icon-grey {
-  @include btnIcon($colorGsPlaceholder);
-}
 .btn-icon-body {
-  @include btnIcon($colorGsBody);
+  @include btnIcon($colorGsBody, $colorGsWhite);
 }
 .btn-icon-success {
   @include btnIcon($colorSuccess);

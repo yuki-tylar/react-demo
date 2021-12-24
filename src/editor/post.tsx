@@ -1,10 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { createElement, useEffect, useState } from "react";
 import { Location, useLocation, useNavigate } from "react-router-dom";
-import { Direction } from "readline";
-import { icons } from "../_temp/icons";
+import { Direction } from "../definition/general";
 import { PostStep1 } from "./post-step-1";
 import { PostStep2 } from "./post-step-2";
+import { BiArrowBack } from 'react-icons/bi';
+import { FaTimes } from 'react-icons/fa'
 
 export type PostFormData = {
   media?: string | null,
@@ -83,10 +84,15 @@ export function PostEditor() {
 
   return (
     <>
-      <div className='pos-fixed top-0p w-100pc h-50p d-flex main-axis-between blur' style={{ zIndex: 10 }}>
+      <div className='pos-fixed top-0p w-100pc h-50p d-flex main-axis-between blur' style={{ zIndex: 10, background: 'rgba(255,255,255,0.4)' }}>
         {
-          <button className="btn-icon small" onClick={() => { changeStep(-1); }}>
-            <div className="w-20p d-inline-block" dangerouslySetInnerHTML={{ __html: state.step == 0 ? icons.cancel : icons.arrowLeft }}></div>
+          <button className="btn-icon-body py-5p" onClick={() => { changeStep(-1); }}>
+            {
+              state.step == 0 ?
+                <FaTimes /> :
+                <BiArrowBack />
+            }
+
           </button>
         }
         <button

@@ -3,7 +3,8 @@ import { Component, createElement, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { authConnector, PropsWithReduxAuth } from "./redux/store";
 import { FittedBox } from "./widgets/box";
-import { icons } from "./_temp/icons";
+import { BiCard, BiCalendarPlus, BiEdit, BiSearch, BiPlusCircle, BiMessageSquareDetail, BiUser, BiLogIn } from "react-icons/bi";
+import { IconType } from 'react-icons';
 
 export function AppBarBottom() {
   return createElement(authConnector(_AppBarBottom));
@@ -22,8 +23,8 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
         {
           state.isPostMenuShown ?
             <motion.div
-              className="post-menu pos-absolute bottom-100pc h-60p mb-10p rounded-8p overflow-hidden"
-              style={{ width: '140px' }}
+              className="post-menu pos-absolute bottom-100pc h-80p mb-10p rounded-8p overflow-hidden"
+              style={{ width: '170px' }}
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
@@ -35,7 +36,7 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
                     onClick={() => { togglePostMenu(); }}
                     state={{ background: location }}
                   >
-                    <AppBarBottomIcon icon={icons.newPost} label="Moment"></AppBarBottomIcon>
+                    <AppBarBottomIcon icon={BiEdit} label="Moment"></AppBarBottomIcon>
                   </Link>
                 </li>
                 <li style={{ flex: '0 0 50%' }}>
@@ -44,7 +45,7 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
                     style={{ color: 'inherit' }}
                     onClick={() => { togglePostMenu(); }}
                   >
-                    <AppBarBottomIcon icon={icons.newEvent} label="Event"></AppBarBottomIcon>
+                    <AppBarBottomIcon icon={BiCalendarPlus} label="Event"></AppBarBottomIcon>
                   </Link>
                 </li>
               </ul>
@@ -55,12 +56,12 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
       <ul className="bottom-bar-inner d-flex main-axis-between list-unstyled px-15p">
         <li className="text-center" style={{ flex: '1 0 20%' }}>
           <Link to='/' style={{ color: 'inherit' }}>
-            <AppBarBottomIcon icon={icons.stack} label="Explore" />
+            <AppBarBottomIcon icon={BiCard} label="Explore" />
           </Link>
         </li>
         <li className="text-center" style={{ flex: '1 0 20%' }}>
           <Link to='/explore' style={{ color: 'inherit' }}>
-            <AppBarBottomIcon icon={icons.search} label="Search" />
+            <AppBarBottomIcon icon={BiSearch} label="Search" />
           </Link>
         </li>
         {
@@ -69,14 +70,14 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
               <div
                 onClick={() => { togglePostMenu(); }}
               >
-                <AppBarBottomIcon icon={icons.plus} label="Post" />
+                <AppBarBottomIcon icon={BiPlusCircle} label="Post" />
               </div>
             </li> :
             null
         }
         <li className="text-center" style={{ flex: '1 0 20%' }}>
           <Link to='/message' style={{ color: 'inherit' }}>
-            <AppBarBottomIcon icon={icons.message} label="Message" />
+            <AppBarBottomIcon icon={BiMessageSquareDetail} label="Message" />
           </Link>
         </li>
         {
@@ -84,7 +85,7 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
             <li className="text-center" style={{ flex: '1 0 20%' }}>
               <Link to='/my-profile' style={{ color: 'inherit' }}>
                 <AppBarBottomIcon
-                  icon={props.auth.data?.profileImage ? null : icons.profile}
+                  icon={props.auth.data?.profileImage ? null : BiUser}
                   image={props.auth.data?.profileImage}
                   label='Profile'
                 />
@@ -93,7 +94,7 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
             <li className="text-center" style={{ flex: '1 0 20%' }}>
               <Link to='/login' style={{ color: 'inherit' }}>
                 <AppBarBottomIcon
-                  icon={icons.profile}
+                  icon={BiLogIn}
                   label='Login'
                 />
               </Link>
@@ -105,16 +106,13 @@ export function _AppBarBottom(props: PropsWithReduxAuth) {
 
 }
 
-class AppBarBottomIcon extends Component<{ icon?: string | null; image?: string, label: string; }> {
+class AppBarBottomIcon extends Component<{ icon?: IconType | null; image?: string, label: string; }> {
   render() {
     return (
       <div className="text-center">
         {
           this.props.icon ?
-            <div
-              className="d-inline-block w-20p icon"
-              dangerouslySetInnerHTML={{ __html: this.props.icon }}
-            ></div> : null
+            createElement(this.props.icon, {style:{fontSize: '22px'}} ) : null
         }
         {
           this.props.image ?
@@ -122,7 +120,7 @@ class AppBarBottomIcon extends Component<{ icon?: string | null; image?: string,
               <FittedBox.Img image={this.props.image}></FittedBox.Img>
             </div> : null
         }
-        <div className="caption body-small-md" style={{ userSelect: 'none' }}>{this.props.label}</div>
+        <div className="body-small" style={{ userSelect: 'none' }}>{this.props.label}</div>
       </div>
     );
   }
