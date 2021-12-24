@@ -142,17 +142,9 @@ body {
   color: $colorGsBody;
   background: rgba($color: $colorGsWhite, $alpha: 0.4);
 
-  .icon path {
-    fill: $colorGsBody!important;
-  }
-
   .dark & {
     color: $colorGsWhite;
-    background: rgba($colorGsBody, 0.4);
-  
-    .icon path{
-      fill: $colorGsWhite!important;  
-    }  
+    background: rgba($colorGsBody, 0.4);  
   }
 }
 
