@@ -5,11 +5,71 @@ import { BiFolder } from 'react-icons/bi';
 import { MdOutlineFlipCameraAndroid } from 'react-icons/md';
 
 
+type State = {
+  isCameraAvailable: boolean;
+  facingMode: string;
+}
+
 export function PostStep1(props: PropsPostEditorChild) {
   const ref = useRef<HTMLVideoElement>(null);
   const refFile = useRef<HTMLInputElement>(null);
 
-  const [state, setState] = useState<{ isCameraAvailable: boolean, facingMode: 'user' | 'environment' }>({ isCameraAvailable: mediaService.hasGetUserMedia(), facingMode: 'environment' })
+  const [state, setState] = useState<State>({ 
+    isCameraAvailable: mediaService.hasGetUserMedia(), 
+    facingMode: 'user' 
+  });
+
+  let currentStream: MediaStream | null = null;
+
+  function stopStreaming() {
+    if (currentStream) {
+      currentStream.getTracks().forEach(track => {
+        track.stop();
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (mediaService.hasGetUserMedia()) {
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+          width: { 
+            ideal: 1650,
+            min: 800,
+            max: 1900,
+          },
+          height: { 
+            min: 900,
+
+          },
+          facingMode: { exact: state.facingMode },
+        }
+      }).then((stream) => {
+        currentStream = stream;
+        const el = ref.current;
+        if (el) {
+          el.srcObject = stream;
+          el.onloadedmetadata = (e) => {
+            el.play();
+          };
+        }
+      })
+        .catch((err) => {
+          console.log(err);
+          stopStreaming();
+          if(state.isCameraAvailable == true) {
+            setState({ ...state, isCameraAvailable: false });
+          }
+        });
+    }
+
+    return () => {
+      stopStreaming()
+    }
+  })
+
+
 
   const openGallery = () => {
     const el = refFile.current;
@@ -80,6 +140,9 @@ export function PostStep1(props: PropsPostEditorChild) {
       <video
         ref={ref}
         className="bg-body w-100pc h-100pc pos-absolute"
+        style={{
+          transform: state.facingMode == 'user' ? 'rotateY(-180deg)' : undefined,
+      }}
       ></video>
 
       {
