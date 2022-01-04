@@ -12,6 +12,7 @@ $iSizeEndPc: 5;
 $stepSizePc: 20;
 
 .square {
+  position: relative;
   &:after {
     display: block;
     content: '';

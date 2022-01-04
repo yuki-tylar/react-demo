@@ -8,7 +8,10 @@ import { BiArrowBack } from 'react-icons/bi';
 import { FaTimes } from 'react-icons/fa'
 
 export type PostFormData = {
-  media?: string | null,
+  media?: {
+    url: string;
+    type: 'image' | 'video';
+  }
   body?: string,
 }
 
@@ -50,7 +53,6 @@ export function PostEditor() {
   const [state, setState] = useState<{ step: number, data: PostFormData }>({
     step: 0,
     data: {
-      media: null,
       body: ''
     }
   });

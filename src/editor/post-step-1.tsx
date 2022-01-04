@@ -1,27 +1,33 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { mediaService } from "../service/media-service";
 import { PropsPostEditorChild } from "./post";
-import { BiFolder } from 'react-icons/bi';
+import { BiCamera, BiFolder, BiVideo } from 'react-icons/bi';
 import { MdOutlineFlipCameraAndroid } from 'react-icons/md';
+import { motion } from "framer-motion";
+import { ButtonCameraShutter, ButtonCameraShutterAction } from "./button-camera-shutter";
 
 
 type State = {
   isCameraAvailable: boolean;
-  facingMode: string;
+  videoMode: boolean;
+  facingUserMode: boolean;
 }
 
 export function PostStep1(props: PropsPostEditorChild) {
   const ref = useRef<HTMLVideoElement>(null);
   const refFile = useRef<HTMLInputElement>(null);
 
-  const [state, setState] = useState<State>({ 
-    isCameraAvailable: mediaService.hasGetUserMedia(), 
-    facingMode: 'user' 
+  const [state, setState] = useState<State>({
+    isCameraAvailable: mediaService.hasGetUserMedia(),
+    videoMode: true,
+    facingUserMode: true
   });
 
   let currentStream: MediaStream | null = null;
+  let recorder: MediaRecorder;
+  let chunks: Blob[] = [];
 
-  function stopStreaming() {
+  const stopStreaming = () => {
     if (currentStream) {
       currentStream.getTracks().forEach(track => {
         track.stop();
@@ -29,47 +35,16 @@ export function PostStep1(props: PropsPostEditorChild) {
     }
   }
 
-  useEffect(() => {
-    if (mediaService.hasGetUserMedia()) {
-      navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: {
-          width: { 
-            ideal: 1650,
-            min: 800,
-            max: 1900,
-          },
-          height: { 
-            min: 900,
-
-          },
-          facingMode: { exact: state.facingMode },
-        }
-      }).then((stream) => {
-        currentStream = stream;
-        const el = ref.current;
-        if (el) {
-          el.srcObject = stream;
-          el.onloadedmetadata = (e) => {
-            el.play();
-          };
-        }
-      })
-        .catch((err) => {
-          console.log(err);
-          stopStreaming();
-          if(state.isCameraAvailable == true) {
-            setState({ ...state, isCameraAvailable: false });
-          }
-        });
+  function setRecorder(stream: MediaStream) {
+    recorder = new MediaRecorder(stream);
+    recorder.ondataavailable = (e) => {
+      chunks.push(e.data);
     }
-
-    return () => {
-      stopStreaming()
+    recorder.onstop = () => {
+      let blob = new Blob(chunks, { type: 'video/webm' });
+      props.changeStep(1, { media: {url: URL.createObjectURL(blob), type: 'video', } });
     }
-  })
-
-
+  }
 
   const openGallery = () => {
     const el = refFile.current;
@@ -78,25 +53,38 @@ export function PostStep1(props: PropsPostEditorChild) {
     }
   }
 
+  const toggleVideoMode = () => {
+    setState({ ...state, videoMode: !state.videoMode });
+  }
+
   const toggleFacingMode = () => {
     const el = ref.current;
     if (el) {
       el.pause();
-      setState({ ...state, facingMode: state.facingMode == 'user' ? 'environment' : 'user' });
+      setState({ ...state, facingUserMode: !state.facingUserMode });
     }
   }
 
-  const setMedia = async (media: string | Blob) => {
+  const setImage = async (media: string | Blob) => {
     const imageShrink = await mediaService.shrinkImageByFixedSize(media, { axis: 'x', size: 800 });
-    props.changeStep(1, { media: imageShrink });
+    props.changeStep(1, { media: { url: imageShrink, type: 'image', } });
   }
 
-  const onShutter = () => {
+  const onShutter = (status: ButtonCameraShutterAction) => {
     const el = ref.current;
-    if (el) {
+    if (!el) {
+      console.log('video elment is not ready');
+      return;
+    }
+
+    if (status == 'snapshot') {
       el.pause();
       const base64 = mediaService.getScreenshotFromVideo(el);
-      setMedia(base64);
+      setImage(base64);
+    } else if (status == 'startRecording') {
+      recorder.start();
+    } else if (status == 'stopRecording') {
+      recorder.stop();
     }
   }
 
@@ -104,35 +92,52 @@ export function PostStep1(props: PropsPostEditorChild) {
     const files = e.target.files
     if (files && files.length > 0) {
       const file = files[0];
-      setMedia(file);
+      setImage(file);
     }
   }
 
   useEffect(() => {
-    if (state.isCameraAvailable) {
+    if (mediaService.hasGetUserMedia()) {
       navigator.mediaDevices.getUserMedia({
         audio: false,
         video: {
-          // width: { min: 1280 },
-          // height: { min: 960 },
-          facingMode: state.facingMode,
+          width: {
+            ideal: 1650,
+            min: 800,
+            max: 1900,
+          },
+          height: {
+            min: 900,
+
+          },
+          facingMode: { exact: state.facingUserMode ? 'user' : 'environment' },
         }
       }).then((stream) => {
+        currentStream = stream;
+        if(state.videoMode) {
+          setRecorder(stream);
+        }
         const el = ref.current;
         if (el) {
           el.srcObject = stream;
-          el.onloadedmetadata = (e) => {
+          el.onloadedmetadata = () => {
             el.play();
           };
         }
       })
         .catch((err) => {
-          if (state.isCameraAvailable) {
+          console.log(err);
+          stopStreaming();
+          if (state.isCameraAvailable == true) {
             setState({ ...state, isCameraAvailable: false });
           }
         });
     }
-  });
+
+    return () => {
+      stopStreaming();
+    }
+  })
 
 
   return (
@@ -141,8 +146,8 @@ export function PostStep1(props: PropsPostEditorChild) {
         ref={ref}
         className="bg-body w-100pc h-100pc pos-absolute"
         style={{
-          transform: state.facingMode == 'user' ? 'rotateY(-180deg)' : undefined,
-      }}
+          transform: state.facingUserMode ? 'rotateY(-180deg)' : undefined,
+        }}
       ></video>
 
       {
@@ -154,15 +159,34 @@ export function PostStep1(props: PropsPostEditorChild) {
           >Cannot access to camera</div>
       }
 
-      <div className="pos-absolute bottom-0pc left-0pc w-100pc p-15p d-flex main-axis-between">
+      <div className="pos-absolute bottom-0pc left-0pc w-100pc p-15p d-flex main-axis-between cross-axis-end">
         <div className="left main-axis-item-3">
-          <button
-            className="circle"
-            style={{ border: 'solid 2px white', borderRadius: '1000px', width: '45px', height: '45px', background: 'none', }}
-            onClick={() => { openGallery() }}
-          >
-            <BiFolder style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" />
-          </button>
+
+          <div className="mb-15p">
+            <button
+              className="circle"
+              style={{ border: 'solid 2px white', borderRadius: '1000px', width: '45px', height: '45px', background: 'none', }}
+              onClick={toggleVideoMode}
+            >
+              {
+                state.videoMode ?
+                  <BiCamera style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" /> :
+                  <BiVideo style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" />
+              }
+            </button>
+          </div>
+
+          <div>
+            <button
+              className="circle"
+              style={{ border: 'solid 2px white', borderRadius: '1000px', width: '45px', height: '45px', background: 'none', }}
+              onClick={() => { openGallery() }}
+            >
+              <BiFolder style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" />
+            </button>
+
+          </div>
+
           <input
             ref={refFile}
             type="file"
@@ -172,16 +196,7 @@ export function PostStep1(props: PropsPostEditorChild) {
           />
         </div>
         <div className="center d-flex main-axis-center main-axis-item-3">
-          {
-            state.isCameraAvailable ?
-              <button
-                className="circle"
-                style={{ border: 'solid 2px white', borderRadius: '1000px', width: '60px', height: '60px', background: 'none', }}
-                onClick={() => { onShutter(); }}
-              >
-                <div className="pos-absolute circle bg-white" style={{ top: '4px', left: '4px', width: '48px', }}></div>
-              </button> : null
-          }
+          <ButtonCameraShutter isVideoMode={state.videoMode} onTap={onShutter} />
         </div>
         <div className="right main-axis-item-3 d-flex main-axis-end">
           {

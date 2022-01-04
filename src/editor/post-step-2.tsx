@@ -8,16 +8,6 @@ export function PostStep2(props: PropsPostEditorChild) {
 
   return (
     <div className="mt-50p p-15p">
-      <div>
-        {
-          props.data.media ?
-            <img
-              className="w-100pc mb-30p"
-              style={{ objectFit: 'contain', maxHeight: '300px' }}
-              src={props.data.media} alt=""
-            /> : null
-        }
-      </div>
       <Formik
         initialValues={{ body: '' }}
         onSubmit={(values) => {
@@ -44,6 +34,27 @@ export function PostStep2(props: PropsPostEditorChild) {
           )
         }
       </Formik>
+
+      {
+        <div className="mt-30p">
+          {
+            props.data.media?.type == 'image' ?
+              <img
+                className="w-100pc"
+                style={{ objectFit: 'contain', maxHeight: '300px' }}
+                src={props.data.media.url} alt=""
+              /> :
+              props.data.media?.type == 'video' ?
+                <video
+                  className="w-100pc"
+                  style={{ maxHeight: '300px' }}
+                  src={props.data.media.url}
+                  controls
+                ></video>
+                : null
+          }
+        </div>
+      }
     </div>
   )
 }
