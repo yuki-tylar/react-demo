@@ -3,6 +3,10 @@
   border: none;
   background: none;
 
+  background: $colorPrimaryLight;
+  border: solid 1px rgba($color: $colorPrimary, $alpha: 0.25);
+  border-radius: 8px;
+
   &:focus, &:active {
     outline: none;
   }
@@ -12,13 +16,9 @@
   width: 100%;
   padding: 12px 10px;
   box-sizing: border-box;
-  border-radius: 8px;
   
   font-size: 16px;
   line-height: 1em;
-
-  background: $colorPrimaryLight;
-  border: solid 1px rgba($color: $colorPrimary, $alpha: 0.25);
 }
 
 [class*=form-item-textarea] {

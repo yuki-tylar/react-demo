@@ -1,0 +1,71 @@
+@import './variables';
+
+.react-calendar__navigation {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+
+  .react-calendar__navigation__prev2-button,
+  .react-calendar__navigation__prev-button,
+  .react-calendar__navigation__next-button,
+  .react-calendar__navigation__next2-button,
+  .react-calendar__navigation__label__labelText {
+    margin: 0 15px;
+  }
+}
+
+.react-calendar__month-view__weekdays {
+  margin: 10px 0;
+  .react-calendar__month-view__weekdays__weekday {
+    text-align: center;;
+  }
+  abbr {
+    text-decoration: none;
+  }
+}
+
+.react-calendar__tile {
+  &.selected {
+    position: relative;
+    color: $colorPrimary;
+    border-radius: 100px;
+    background: $colorPrimaryLight;
+  
+    abbr {
+      font-weight: bold;
+    }
+  }
+
+  &.disabled {
+    abbr {
+      color: $colorGsPlaceholder;
+    }
+  }
+}
+
+.time-picker {
+  .slot {
+    border-radius: 10px;
+    border: solid 1px rgba($colorPrimary,0.25);
+    position: relative;
+    width: 55px;
+    background: linear-gradient(0deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.3) 33%, rgba(255,255,255,0) 34%, rgba(255,255,255,0) 65%, rgba(255,255,255,0.3) 66%, rgba(255,255,255,0.3) 100%);
+    background-color: $colorPrimaryLight;
+  }
+
+  .ampm {
+    padding: 12px 20px;
+
+    cursor: pointer;
+    background: $colorPrimaryLight;
+    border: solid 1px rgba($colorPrimary,0.25);
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    &.selected {
+      background: $colorPrimary;
+      color: white;
+      border: none;
+    }
+  }
+}

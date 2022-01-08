@@ -3,7 +3,6 @@ import { mediaService } from "../service/media-service";
 import { PropsPostEditorChild } from "./post";
 import { BiCamera, BiFolder, BiVideo } from 'react-icons/bi';
 import { MdOutlineFlipCameraAndroid } from 'react-icons/md';
-import { motion } from "framer-motion";
 import { ButtonCameraShutter, ButtonCameraShutterAction } from "./button-camera-shutter";
 
 
@@ -23,13 +22,13 @@ export function PostStep1(props: PropsPostEditorChild) {
     facingUserMode: true
   });
 
-  let currentStream: MediaStream | null = null;
+  const mediaStream = useRef<MediaStream|null>(null);
   let recorder: MediaRecorder;
   let chunks: Blob[] = [];
 
   const stopStreaming = () => {
-    if (currentStream) {
-      currentStream.getTracks().forEach(track => {
+    if (mediaStream.current) {
+      mediaStream.current.getTracks().forEach(track => {
         track.stop();
       });
     }
@@ -77,13 +76,13 @@ export function PostStep1(props: PropsPostEditorChild) {
       return;
     }
 
-    if (status == 'snapshot') {
+    if (status === 'snapshot') {
       el.pause();
       const base64 = mediaService.getScreenshotFromVideo(el);
       setImage(base64);
-    } else if (status == 'startRecording') {
+    } else if (status === 'startRecording') {
       recorder.start();
-    } else if (status == 'stopRecording') {
+    } else if (status === 'stopRecording') {
       recorder.stop();
     }
   }
@@ -113,7 +112,7 @@ export function PostStep1(props: PropsPostEditorChild) {
           facingMode: { exact: state.facingUserMode ? 'user' : 'environment' },
         }
       }).then((stream) => {
-        currentStream = stream;
+         mediaStream.current = stream;
         if(state.videoMode) {
           setRecorder(stream);
         }
@@ -128,7 +127,7 @@ export function PostStep1(props: PropsPostEditorChild) {
         .catch((err) => {
           console.log(err);
           stopStreaming();
-          if (state.isCameraAvailable == true) {
+          if (state.isCameraAvailable === true) {
             setState({ ...state, isCameraAvailable: false });
           }
         });
