@@ -32,6 +32,7 @@ export default function App() {
 function _App(props: PropsWithReduxSetting) {
   const location = useLocation();
   const background = location.state && (location.state as { background: any }).background;
+  
   useEffect(() => {
     if (props.auth.status === 'notChecked') {
       authenticate(props.dispatch);

@@ -31,6 +31,24 @@ $stepSizePc: 20;
   }
 }
 
+[class*=aspect-ratio] {
+  position: relative;
+  &:after {
+    content: '';
+    display: block;
+  }
+}
+.aspect-ratio-50pc {
+  &:after {
+    padding-top: 50%;
+  }
+}
+.aspect-ratio-35pc {
+  &:after {
+    padding-top: 35%;
+  }
+}
+
 @for $i from $iRoundedStart through $iRoundedEnd {
   .rounded-#{$i * $stepRoundedP}p { border-radius: #{$i * $stepRoundedP}px; }  
 }

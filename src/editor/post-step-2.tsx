@@ -1,7 +1,7 @@
 import { Field, Form, Formik } from "formik";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import { PropsPostEditorChild } from "./post";
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 
 export function PostStep2(props: PropsPostEditorChild) {
   let timer: any;
@@ -38,13 +38,13 @@ export function PostStep2(props: PropsPostEditorChild) {
       {
         <div className="mt-30p">
           {
-            props.data.media?.type == 'image' ?
+            props.data.media?.type === 'image' ?
               <img
                 className="w-100pc"
                 style={{ objectFit: 'contain', maxHeight: '300px' }}
                 src={props.data.media.url} alt=""
               /> :
-              props.data.media?.type == 'video' ?
+              props.data.media?.type === 'video' ?
                 <video
                   className="w-100pc"
                   style={{ maxHeight: '300px' }}

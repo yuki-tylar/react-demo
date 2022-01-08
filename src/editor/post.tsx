@@ -78,10 +78,9 @@ export function PostEditor() {
   }
 
   useEffect(() => {
-    // window.onbeforeunload = () => true;
-    // return () => {
-    //   window.onbeforeunload = null;
-    // }
+    if(state.data.body !== '' || !!state.data.media) {
+      window.onbeforeunload = () => true;      
+    }
   });
 
   return (
@@ -90,7 +89,7 @@ export function PostEditor() {
         {
           <button className="btn-icon-body py-5p" onClick={() => { changeStep(-1); }}>
             {
-              state.step == 0 ?
+              state.step === 0 ?
                 <FaTimes /> :
                 <BiArrowBack />
             }
