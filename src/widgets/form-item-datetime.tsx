@@ -120,7 +120,7 @@ export class FormItemDateTime extends Component<Props, State> {
               >
                 <Calendar
                   calendarType='US'
-                  locale="us"
+                  locale="en"
                   tileClassName={tileClassName}
                   tileDisabled={this.tileDisabled}
                   value={this.state.selected}

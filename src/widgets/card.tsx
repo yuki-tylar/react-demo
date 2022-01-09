@@ -132,7 +132,7 @@ export class EventItem extends Component<{ data: any }> {
           </div>
           <div className="pos-absolute w-100pc bottom-0p px-15p pb-15p" style={{ boxSizing: 'border-box' }}>
             <div className="subtitle2 mb-10p text-white">
-              {moment(this.props.data.date).format('MMM DD YYYY hh:mm')}
+              {moment(this.props.data.date).format('MMM DD YYYY, hh:mm a')}
             </div>
             <h6 className="clamp-2line text-white">
               {this.props.data.name}
@@ -145,13 +145,13 @@ export class EventItem extends Component<{ data: any }> {
           </p>
           <div className="mt-10p">
             <div className="d-flex">
-              <div>
+              <div className='d-flex'>
                 {
                   this.props.data.attendees.map((attendee: { id: string, name: string, profileImage: string }, i: number) => {
                     if (i < 4) {
                       return (
-                        <div key={attendee.id} className="w-15p d-inline-block">
-                          <div className="pos-absolute circle w-30p border-label">
+                        <div key={attendee.id} className="w-15p">
+                          <div className="pos-absolute circle w-30p border-label" style={{marginTop: '-15px'}}>
                             <FittedBox.Img image={attendee.profileImage} style={{ position: 'absolute', objectFit: 'cover' }} />
                           </div>
                         </div>
