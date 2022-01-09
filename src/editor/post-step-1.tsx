@@ -22,7 +22,7 @@ export function PostStep1(props: PropsPostEditorChild) {
     facingUserMode: true
   });
 
-  const mediaStream = useRef<MediaStream|null>(null);
+  const mediaStream = useRef<MediaStream | null>(null);
   let recorder: MediaRecorder;
   let chunks: Blob[] = [];
 
@@ -41,7 +41,7 @@ export function PostStep1(props: PropsPostEditorChild) {
     }
     recorder.onstop = () => {
       let blob = new Blob(chunks, { type: 'video/webm' });
-      props.changeStep(1, { media: {url: URL.createObjectURL(blob), type: 'video', } });
+      props.changeStep(1, { media: { url: URL.createObjectURL(blob), type: 'video', } });
     }
   }
 
@@ -112,8 +112,8 @@ export function PostStep1(props: PropsPostEditorChild) {
           facingMode: { exact: state.facingUserMode ? 'user' : 'environment' },
         }
       }).then((stream) => {
-         mediaStream.current = stream;
-        if(state.videoMode) {
+        mediaStream.current = stream;
+        if (state.videoMode) {
           setRecorder(stream);
         }
         const el = ref.current;
@@ -153,7 +153,7 @@ export function PostStep1(props: PropsPostEditorChild) {
         state.isCameraAvailable ?
           null :
           <div
-            className="h5 pos-absolute top-50pc left-50pc text-center"
+            className="h5 pos-absolute top-50pc left-50pc text-center text-white"
             style={{ transform: 'translate(-50%, -50%)' }}
           >Cannot access to camera</div>
       }
@@ -161,19 +161,22 @@ export function PostStep1(props: PropsPostEditorChild) {
       <div className="pos-absolute bottom-0pc left-0pc w-100pc p-15p d-flex main-axis-between cross-axis-end">
         <div className="left main-axis-item-3">
 
-          <div className="mb-15p">
-            <button
-              className="circle"
-              style={{ border: 'solid 2px white', borderRadius: '1000px', width: '45px', height: '45px', background: 'none', }}
-              onClick={toggleVideoMode}
-            >
-              {
-                state.videoMode ?
-                  <BiCamera style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" /> :
-                  <BiVideo style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" />
-              }
-            </button>
-          </div>
+          {
+            state.isCameraAvailable ?
+            <div className="mb-15p">
+              <button
+                className="circle"
+                style={{ border: 'solid 2px white', borderRadius: '1000px', width: '45px', height: '45px', background: 'none', }}
+                onClick={toggleVideoMode}
+              >
+                {
+                  state.videoMode ?
+                    <BiCamera style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" /> :
+                    <BiVideo style={{ fontSize: '29px', color: 'white', top: '6px', left: '6px' }} className="pos-absolute" />
+                }
+              </button>
+            </div> : null
+          }
 
           <div>
             <button
@@ -194,9 +197,13 @@ export function PostStep1(props: PropsPostEditorChild) {
             accept='.jpg, .jpeg, .png'
           />
         </div>
-        <div className="center d-flex main-axis-center main-axis-item-3">
-          <ButtonCameraShutter isVideoMode={state.videoMode} onTap={onShutter} />
-        </div>
+        {
+          state.isCameraAvailable ?
+            <div className="center d-flex main-axis-center main-axis-item-3">
+              <ButtonCameraShutter isVideoMode={state.videoMode} onTap={onShutter} />
+            </div> : null
+
+        }
         <div className="right main-axis-item-3 d-flex main-axis-end">
           {
             state.isCameraAvailable ?
