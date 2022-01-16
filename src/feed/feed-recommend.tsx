@@ -19,10 +19,8 @@ export function FeedRecommend(props: FeedRootProps) {
 }
 function _FeedRecommend(props: FeedRecommendProps) {
   let [state, setState] = useState({ scrollable: true });
-
-  const location = useLocation();
   const navigate = useNavigate();
-
+  const location = useLocation();
   let loading: boolean = props.content.loading;
   let currentIndex = 0;
 
