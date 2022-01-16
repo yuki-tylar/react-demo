@@ -1,6 +1,6 @@
-import { Component, createElement, useState } from "react";
+import { Component, createElement } from "react";
 import { Routes, Route, useLocation, useNavigate, Location, NavigateFunction } from 'react-router-dom';
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { FeedRecommend } from "./feed-recommend";
 import { FeedEvent } from "./feed-event";
 import { FeedProfile } from "./feed-profile";
@@ -67,9 +67,9 @@ class FeedRootView extends Component<FeedBaseProps, { direction: Direction }> {
   }
 
   shouldComponentUpdate(nextProps: FeedBaseProps) {
-    const nextLocation: Location = nextProps.location.state && (nextProps.location.state as { background: any }).background || nextProps.location;
-    const currentLocation: Location = this.props.location.state && (this.props.location.state as { background: any }).background || this.props.location;
-    return nextLocation.pathname != currentLocation.pathname
+    const nextLocation: Location = (nextProps.location.state && (nextProps.location.state as { background: any }).background) || nextProps.location;
+    const currentLocation: Location = (this.props.location.state && (this.props.location.state as { background: any }).background) || this.props.location;
+    return nextLocation.pathname !== currentLocation.pathname
   }
 
   render() {

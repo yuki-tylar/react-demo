@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Component, createRef, RefObject, useEffect, useRef, useState } from "react";
+import { Component, createRef, RefObject } from "react";
 
 type Props = {
   initialValue?: Date;
@@ -58,17 +58,16 @@ export class TimePicker extends Component<Props, { isPM: boolean }> {
     let def = 0;
     for (let i = 1; i < children.length - 1; i++) {
       const defFromCenter = (children[i].getBoundingClientRect().top - parentY) - this.tileSize;
-      const val = this.hours[i - 1].value;
       if (minDistance > Math.abs(defFromCenter)) {
         minDistance = Math.abs(defFromCenter);
         def = defFromCenter;
-        closest = (type == 'hour' ? this.hours : this.mins)[i - 1];
+        closest = (type === 'hour' ? this.hours : this.mins)[i - 1];
       }
     }
 
-    if (type == 'hour') {
+    if (type === 'hour') {
       this.time.hour = closest!.value
-    } else if (type == 'minute') {
+    } else if (type === 'minute') {
       this.time.min = closest!.value
     }
 
@@ -89,13 +88,13 @@ export class TimePicker extends Component<Props, { isPM: boolean }> {
     const elH = this.refH.current;
     if (elH) {
 
-      const idx = this.hours.findIndex(el => el.value == this.time.hour);
+      const idx = this.hours.findIndex(el => el.value === this.time.hour);
       elH.scrollTop = idx * this.tileSize;
     }
 
     const elM = this.refM.current;
     if (elM) {
-      const idx = this.mins.findIndex(el => el.value == this.time.min);
+      const idx = this.mins.findIndex(el => el.value === this.time.min);
       elM.scrollTop = idx * this.tileSize;
     }
   }
@@ -182,17 +181,17 @@ function _createCandidates(type: 'minute' | 'hour', step: number = 1, view24: bo
   let num = 0;
   let len = 0;
 
-  if (type == 'hour') {
+  if (type === 'hour') {
     len = view24 ? 24 : 12;
 
-  } else if (type == 'minute') {
+  } else if (type === 'minute') {
     len = 60;
   }
 
   while (i < len) {
     candidates.push({
-      label: type == 'hour' && isPM && num == 0 ? 12 : num,
-      value: type == 'hour' && isPM ? num + 12 : num,
+      label: type === 'hour' && isPM && num === 0 ? 12 : num,
+      value: type === 'hour' && isPM ? num + 12 : num,
     })
     num = num + step;
     i = i + step

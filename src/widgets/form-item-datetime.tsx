@@ -1,9 +1,7 @@
-import { formatDistance, isAfter, isBefore, isSameDay, isToday } from 'date-fns';
-import { motion } from 'framer-motion';
+import { isAfter, isBefore, isSameDay, isToday } from 'date-fns';
 import moment from 'moment';
-import { Component, useState } from 'react';
+import { Component } from 'react';
 import Calendar, { CalendarTileProperties, OnChangeDateCallback } from 'react-calendar';
-import { FaTimes } from 'react-icons/fa';
 import { TimePicker } from './time-picker';
 
 type Props = {
@@ -24,7 +22,6 @@ export class FormItemDateTime extends Component<Props, State> {
 
   private minDate: Date | null = null;
   private maxDate: Date | null = null;
-  private selectedTime: Date;
 
   constructor(props: Props) {
     super(props);
@@ -33,8 +30,6 @@ export class FormItemDateTime extends Component<Props, State> {
       selected: props.initialValue || new Date(),
       ...props.initialValue && { value: props.initialValue },
     }
-
-    this.selectedTime = props.initialValue || new Date();
 
     const tm = props.minTime;
     if (tm) {
