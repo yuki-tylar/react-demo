@@ -1,5 +1,5 @@
-import { createElement, useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Component, createElement, useState } from "react";
+import { Routes, Route, useLocation, useNavigate, Location, NavigateFunction } from 'react-router-dom';
 import { AnimatePresence, motion } from "framer-motion";
 import { FeedRecommend } from "./feed-recommend";
 import { FeedEvent } from "./feed-event";
@@ -8,14 +8,10 @@ import { RouteFeedItem, RouteItem } from "../definition/routes";
 import { Direction } from "../definition/general";
 import { ChildView } from "../widgets/child-view-container";
 import { UserDetailInner } from "../widgets/user-detail-inner";
+import { TabView } from "../widgets/tab-view/tab-view";
+import { TabBar } from "./tab-bar";
 
-
-interface State {
-  direction: Direction;
-  page: number;
-}
-
-export interface FeedRootProps {
+export type FeedRootProps = {
   direction: Direction;
   changePage: (direction: Direction) => void;
 }
@@ -30,84 +26,112 @@ const routesChild: RouteItem[] = [
   { path: ':feedtype/user', element: <ChildView><UserDetailInner /></ChildView>, },
 ]
 
+type FeedBaseProps = {
+  location: Location;
+  navigate: NavigateFunction;
+}
 
 export function Feed() {
-  const location = useLocation();
-  const background = location.state && (location.state as {background: any}).background;
-
-  const navigate = useNavigate();
-
-  const initialPage = routes.findIndex(route => location.pathname.match(new RegExp('^/' + route.path)));
-  const [state, setState] = useState<State>({
-    direction: 0,
-    page: initialPage || 0,
-  });
-
-  const changePage = (direction: Direction) => {
-    const nextPage = (state.page + direction + routes.length) % routes.length;
-    setState({ ...state, direction: direction, page: nextPage });
-    navigate(routes[nextPage].path)
-  }
-
-  const currentRoute = routes[state.page > 0 ? state.page : 0];
-
-  const path = (background || location).pathname.replace(/^\/|\/$/g, '').split('/');
-  const onRoot = path.length === 1;
-
-  if (!onRoot && state.direction !== 0) {
-    setState({ ...state, direction: 0 })
-  }
-
-  const title = currentRoute.data.title;
-  const darkmode = currentRoute.data.darkmode;
-
   return (
     <>
-      <motion.div
-        className="app-bar-feed d-flex main-axis-center"
-        animate={onRoot ? 'shown' : 'hidden'}
-        variants={{
-          shown: { transform: 'translateY(0%)' },
-          hidden: { transform: 'translateY(-100%)' }
-        }}
-      >
-        <h2
-          className={`headline4 headline3-md ${darkmode ? ' text-white' : ''}`}
-          style={{transition: 'color 300ms'}}
-          onClick={() => { changePage(1) }}
+      <FeedRootView location={useLocation()} navigate={useNavigate()} />
+      <FeedChildView location={useLocation()} navigate={useNavigate()} />
+    </>
+  );
+}
+
+class FeedRootView extends Component<FeedBaseProps, { direction: Direction }> {
+  private currentRouteIndex: number = 0;
+
+  constructor(props: FeedBaseProps) {
+    super(props);
+
+    this.state = {
+      direction: 0,
+    }
+
+    const location = this.getCurrentLocation();
+    this.currentRouteIndex = routes.findIndex(route => location.pathname.match(new RegExp('/' + route.path))) || 0;
+  }
+
+  getCurrentLocation(): Location {
+    const background: Location = this.props.location.state && (this.props.location.state as { background: any }).background;
+    return background || this.props.location;
+  }
+
+  private changePage = (direction: Direction) => {
+    this.setState({ ...this.state, direction: direction });
+    this.currentRouteIndex = (this.currentRouteIndex + direction + routes.length) % 3;
+    const next = (this.currentRouteIndex + routes.length) % routes.length;
+    this.props.navigate(routes[next].path);
+  }
+
+  shouldComponentUpdate(nextProps: FeedBaseProps) {
+    const nextLocation: Location = nextProps.location.state && (nextProps.location.state as { background: any }).background || nextProps.location;
+    const currentLocation: Location = this.props.location.state && (this.props.location.state as { background: any }).background || this.props.location;
+    return nextLocation.pathname != currentLocation.pathname
+  }
+
+  render() {
+    const location = this.getCurrentLocation();
+    const currentRoute = routes[this.currentRouteIndex];
+    const title = currentRoute.data.title;
+    const darkmode = !!currentRoute.data.darkmode;
+
+    return (
+      <>
+        <TabView
+          responsive={true}
+          classNameBody='bg-background pb-0p'
+          classNameTabBar='bg-white text-body border-line'
+          tabBar={createElement(TabBar)}
         >
-          {title}
-        </h2>
-      </motion.div>
 
-      <div className="app-body-feed">
-        <AnimatePresence initial={false} exitBeforeEnter>
-          <Routes location={background || location} key={currentRoute.path}>
-            {routes.map(route =>
-              <Route
-                key={`${route.path}`}
-                path={`${route.path}/*`}
-                element={createElement(route.component, { changePage: changePage, direction: state.direction })}
-              />
-            )}
-            {/* <Route path="*" element={<Navigate to="recommend"/>} /> */}
-          </Routes>
-        </AnimatePresence>
-      </div>
+          <div className="app-bar-feed d-flex main-axis-center">
+            <h2
+              className={`headline4 headline3-md ${darkmode ? ' text-white' : ''}`}
+              style={{ transition: 'color 300ms' }}
+              onClick={() => { this.changePage(1) }}
+            >
+              {title}
+            </h2>
+          </div>
 
+          <div className="app-body-feed">
+            <AnimatePresence initial={false} exitBeforeEnter>
+              <Routes location={location} key={currentRoute.path}>
+                {routes.map(route =>
+                  <Route
+                    key={`${route.path}`}
+                    path={`${route.path}/*`}
+                    element={createElement(route.component, { changePage: this.changePage, direction: this.state.direction })}
+                  />
+                )}
+              </Routes>
+            </AnimatePresence>
+          </div>
+        </TabView>
+      </>
+    );
+  }
+}
+
+class FeedChildView extends Component<FeedBaseProps> {
+  render() {
+    return (
       <AnimatePresence>
-        <Routes location={location} key={location.pathname}>
+        <Routes location={this.props.location} key={this.props.location.pathname}>
           {
-            routesChild.map(route => 
-              <Route 
-                key={route.path} 
-                path={route.path} 
-                element={route.element} 
+            routesChild.map(route =>
+              <Route
+                key={route.path}
+                path={route.path}
+                element={route.element}
               />
             )
           }
         </Routes>
       </AnimatePresence>
-    </>
-  );
+    );
+  }
 }

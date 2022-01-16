@@ -43,7 +43,7 @@ const events = [
   {
     id: 'e1',
     name: 'A EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2021, 11, 31, 12),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
@@ -57,7 +57,7 @@ const events = [
   {
     id: 'e2',
     name: 'B EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2022, 5, 12, 15),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
@@ -71,7 +71,7 @@ const events = [
   {
     id: 'e3',
     name: 'C EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2022, 2, 15, 16),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
@@ -85,7 +85,7 @@ const events = [
   {
     id: 'e4',
     name: 'D EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2021, 1, 1, 12),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
@@ -100,7 +100,7 @@ const events = [
   {
     id: 'e5',
     name: 'E EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2022, 1, 18, 5),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
@@ -115,7 +115,7 @@ const events = [
   {
     id: 'e6',
     name: 'F EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2022, 9, 12, 10),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
@@ -129,7 +129,7 @@ const events = [
   {
     id: 'e7',
     name: 'G EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2022, 8, 11, 5),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
@@ -143,7 +143,7 @@ const events = [
   {
     id: 'e8',
     name: 'H EVENT',
-    image: 'assets/sample.png',
+    image: '/assets/sample.png',
     date: new Date(2022, 8, 9, 2),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
