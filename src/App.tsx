@@ -4,7 +4,6 @@ import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { Feed } from './feed/base';
 import { Explore } from './pages/explore';
 import { RouteItem } from './definition/routes';
-import { TabBar } from './feed/tab-bar';
 import { PropsWithReduxSetting, settingConnector } from './redux/store';
 import { authenticate } from './redux/slice-auth';
 import { Login } from './auth/login';
@@ -13,7 +12,6 @@ import { MyProfile } from './dashboard/my-profile';
 import { Editor } from './editor/base';
 import { Message } from './message/base';
 import { ChildViewOverlay } from './widgets/child-view-overlay';
-import { TabView } from './widgets/tab-view/tab-view';
 
 
 const routes: RouteItem[] = [

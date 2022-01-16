@@ -35,7 +35,7 @@ export class TabView extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-    const containerClass = ['yt-tab-view', ... props.responsive ? ['yt-tab-view-responsive'] : []];
+    const containerClass = ['yt-tab-view', ...props.responsive ? ['yt-tab-view-responsive'] : []];
     this.containerClassName = getClassNameList(containerClass, this.props.className);
     this.tabBarClassName = getClassNameList(['yt-tab-view__tab-bar'], this.props.classNameTabBar);
     this.bodyClassName = getClassNameList(['yt-tab-view__body'], this.props.classNameBody);

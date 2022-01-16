@@ -1,6 +1,5 @@
 import moment from 'moment';
 import { Component, createRef } from 'react';
-import { Link } from 'react-router-dom';
 import { AspectRatio, FittedBox } from './box';
 
 interface IFeedItemProps {
@@ -60,10 +59,6 @@ export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: b
           >{this.props.data.description}</p>
         </div>
         <div className="pos-absolute right-15p top-36pc">
-          {/* <Link
-            to='user'
-            onClick={this.props.selectUser}
-          > */}
           <div
             className="circle w-45p w-md-60p"
             onClick={this.props.selectUser}
@@ -73,9 +68,7 @@ export class FeedItem extends Component<IFeedItemProps, { isDescriptionOpened: b
               image={this.props.data.user.profileImage}
             />
           </div>
-          {/* </Link> */}
         </div>
-
       </div>
     );
   }

@@ -1,6 +1,5 @@
 import { createElement, useEffect } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { ScaleLoader } from "react-spinners";
+import { useLocation, useNavigate } from "react-router-dom";
 import { fetchProfiles, rProfileAction } from "../redux/slice-profiles";
 import { profileConnector, PropsWithReduxProfile } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
@@ -25,7 +24,7 @@ function _FeedProfile(props: FeedProfileProps) {
     if (!loading && !props.profile.initialized) {
       fetchProfiles(props.dispatch, { sort: 'name', order: -1, skip: 0, limit: 8 })
     }
-  })
+  });
 
   return (
     <>

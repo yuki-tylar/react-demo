@@ -1,5 +1,4 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
-import { ChangeEvent, Component, useRef } from "react";
 import { FaTimes } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 import { FormItemDateTime } from "../widgets/form-item-datetime";
@@ -82,7 +81,7 @@ export function EventEditor() {
                       setTouched(Object.assign({}, ...Object.keys(values).map(k => ({ [k]: true }))));
 
                       validateForm().then(errors => {
-                        if (Object.keys(errors).length == 0) {
+                        if (Object.keys(errors).length === 0) {
                           submitForm();
                         } else {
                         }
