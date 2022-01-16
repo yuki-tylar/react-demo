@@ -9,6 +9,7 @@ import { gestureService } from "../service/gesture-service";
 import { Card } from "../widgets/card";
 import { FeedRootProps } from "./base";
 import { SwipeScreenChanger } from "../widgets/swipe-screen-changer";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 interface FeedRecommendProps extends PropsWithReduxContent, FeedRootProps { }
@@ -18,7 +19,8 @@ export function FeedRecommend(props: FeedRootProps) {
 }
 function _FeedRecommend(props: FeedRecommendProps) {
   let [state, setState] = useState({ scrollable: true });
-
+  const navigate = useNavigate();
+  const location = useLocation();
   let loading: boolean = props.content.loading;
   let currentIndex = 0;
 
@@ -88,7 +90,10 @@ function _FeedRecommend(props: FeedRecommendProps) {
                   <Card.FeedItem
                     key={content.id}
                     data={content}
-                    selectUser={() => { props.dispatch(rProfileAction.select({ data: content.user })); }}
+                    selectUser={() => { 
+                      props.dispatch(rProfileAction.select({ data: content.user })); 
+                      navigate('user', {state: {background: location}})
+                    }}
                   />
                 );
               })
