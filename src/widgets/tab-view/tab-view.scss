@@ -1,0 +1,50 @@
+$breakpointMd: 768px;
+$widthSidebar: 250px;
+
+.yt-tab-view {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+
+  &__body {
+    position: relative;
+    padding-bottom: 100px;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  &__tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+  }
+}
+
+@media (min-width: $breakpointMd) {
+  .yt-tab-view-responsive {
+    display: grid;
+    grid-template-columns: $widthSidebar 1fr;
+    overflow: hidden;
+
+    .yt-tab-view {
+      &__body {
+        grid-row: 1 / span 1;
+        grid-column: 2 / span 1;
+        height: 100%;
+        padding-bottom: 0;
+        overflow: auto;
+      }
+  
+      &__tab-bar {
+        position: relative;
+        width: auto;
+        grid-row: 1 / span 1;
+        grid-column: 1 / span 1;
+        height: 100%;
+        overflow: auto;
+      }  
+    }
+  }
+}

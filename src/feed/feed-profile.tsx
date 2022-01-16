@@ -1,5 +1,5 @@
 import { createElement, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { ScaleLoader } from "react-spinners";
 import { fetchProfiles, rProfileAction } from "../redux/slice-profiles";
 import { profileConnector, PropsWithReduxProfile } from "../redux/store";
@@ -7,6 +7,7 @@ import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
 import { FeedRootProps } from "./base";
 import { SwipeScreenChanger } from "../widgets/swipe-screen-changer";
+import { MyLoader } from "../widgets/loader";
 
 interface FeedProfileProps extends PropsWithReduxProfile, FeedRootProps { }
 
@@ -16,6 +17,8 @@ export function FeedProfile(props: FeedRootProps) {
 
 function _FeedProfile(props: FeedProfileProps) {
   let loading: boolean = props.profile.loading;
+  const navigate = useNavigate();
+  const location = useLocation();
 
 
   useEffect(() => {
@@ -36,11 +39,8 @@ function _FeedProfile(props: FeedProfileProps) {
           {
             <div className="mt-45p mt-md-60p mb-80p mb-md-100p">
               {
-                loading ?
-                  <div className="text-center subtitle1 pt-25p">
-                    <ScaleLoader color='#838790'></ScaleLoader>
-                  </div> :
-
+                loading ? 
+                  <MyLoader></MyLoader> :
                   props.profile.data.length === 0 ?
                     <div
                       className="pt-25p"
@@ -63,10 +63,15 @@ function _FeedProfile(props: FeedProfileProps) {
                       {
                         props.profile.data.map((profile: any) => {
                           return (
-                            <div key={profile.id} className="main-axis-item-2 main-axis-item-md-3 mb-15p mb-md-20p">
-                              <Link to='user' onClick={() => { props.dispatch(rProfileAction.select({ data: profile })) }}>
-                                <Card.UserItem data={profile}></Card.UserItem>
-                              </Link>
+                            <div
+                              key={profile.id}
+                              className="main-axis-item-2 main-axis-item-md-3 mb-15p mb-md-20p"
+                              onClick={() => {
+                                props.dispatch(rProfileAction.select({ data: profile }))
+                                navigate('user', { state: { background: location } })
+                              }}
+                            >
+                              <Card.UserItem data={profile}></Card.UserItem>
                             </div>
                           );
                         })

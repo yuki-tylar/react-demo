@@ -4,7 +4,7 @@ import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { Feed } from './feed/base';
 import { Explore } from './pages/explore';
 import { RouteItem } from './definition/routes';
-import { AppBarBottom } from './app-bar-bottom';
+import { TabBar } from './feed/tab-bar';
 import { PropsWithReduxSetting, settingConnector } from './redux/store';
 import { authenticate } from './redux/slice-auth';
 import { Login } from './auth/login';
@@ -13,16 +13,17 @@ import { MyProfile } from './dashboard/my-profile';
 import { Editor } from './editor/base';
 import { Message } from './message/base';
 import { ChildViewOverlay } from './widgets/child-view-overlay';
+import { TabView } from './widgets/tab-view/tab-view';
 
 
 const routes: RouteItem[] = [
-  { path: '/*', element: <Feed /> },
-  { path: '/explore/*', element: <Explore /> },
+  { path: '/explore/*', element: <Feed /> },
+  { path: '/search/*', element: <Explore /> },
   // { path: '/new/*', element: <Editor /> },
   { path: '/message/*', element: <Message /> },
   { path: '/login/*', element: <Login /> },
   { path: '/my-profile', element: <MyProfile /> },
-  { path: '/', element: <Navigate to='/recommend' /> }
+  { path: '/', element: <Navigate to='/explore/recommend' /> }
 ];
 
 export default function App() {
@@ -32,7 +33,7 @@ export default function App() {
 function _App(props: PropsWithReduxSetting) {
   const location = useLocation();
   const background = location.state && (location.state as { background: any }).background;
-  
+
   useEffect(() => {
     if (props.auth.status === 'notChecked') {
       authenticate(props.dispatch);
@@ -41,10 +42,6 @@ function _App(props: PropsWithReduxSetting) {
 
   return (
     <>
-      <div
-        className={`app-container ${props.setting.appearance}`}
-        style={{ height: window.innerHeight + 'px' }}
-      >
         <Routes location={background || location}>
           {
             routes.map(route =>
@@ -57,14 +54,9 @@ function _App(props: PropsWithReduxSetting) {
           }
         </Routes>
 
-        <div className="bottom-bar">
-          <AppBarBottom />
-        </div>
-
         <Routes>
           <Route path="/new/*" element={<ChildViewOverlay><Editor></Editor></ChildViewOverlay>}></Route>
         </Routes>
-      </div>
       <Snackbar />
     </>
   );
