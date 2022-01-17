@@ -146,7 +146,7 @@ export class EventItem extends Component<{ data: any }> {
                   this.props.data.attendees.map((attendee: { id: string, name: string, profileImage: string }, i: number) => {
                     if (i < 4) {
                       return (
-                        <div key={attendee.id} className="w-15p">
+                        <div key={this.props.data.id + '-' + attendee.id} className="w-15p">
                           <div className="pos-absolute circle w-30p border-label" style={{ marginTop: '-15px' }}>
                             <FittedBox.Img image={attendee.profileImage} style={{ position: 'absolute', objectFit: 'cover' }} />
                           </div>
