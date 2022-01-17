@@ -3,7 +3,6 @@ import { createElement, useEffect, useState } from "react";
 import { ScaleLoader } from "react-spinners";
 import { Axis, Direction } from "../definition/general";
 import { fetchContents } from "../redux/slice-contents";
-import { rProfileAction } from '../redux/slice-profiles';
 import { contentConnector, PropsWithReduxContent } from "../redux/store";
 import { gestureService } from "../service/gesture-service";
 import { Card } from "../widgets/card";
@@ -91,8 +90,7 @@ function _FeedRecommend(props: FeedRecommendProps) {
                     key={content.id}
                     data={content}
                     selectUser={() => { 
-                      props.dispatch(rProfileAction.select({ data: content.user })); 
-                      navigate('user', {state: {background: location}})
+                      navigate(`/user/${content.user.id}`, {state: {background: location}})
                     }}
                   />
                 );

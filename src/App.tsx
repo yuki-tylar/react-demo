@@ -12,6 +12,9 @@ import { MyProfile } from './dashboard/my-profile';
 import { Editor } from './editor/base';
 import { Message } from './message/base';
 import { ChildViewOverlay } from './widgets/child-view-overlay';
+import { UserDetail } from './user-detail/user-detail';
+import { AnimatePresence } from 'framer-motion';
+import { ChildView } from './widgets/child-view-container';
 
 
 const routes: RouteItem[] = [
@@ -40,21 +43,28 @@ function _App(props: PropsWithReduxSetting) {
 
   return (
     <>
-        <Routes location={background || location}>
-          {
-            routes.map(route =>
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            )
-          }
-        </Routes>
+      <Routes location={background || location}>
+        {
+          routes.map(route =>
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.element}
+            />
+          )
+        }
+      </Routes>
 
-        <Routes>
-          <Route path="/new/*" element={<ChildViewOverlay><Editor></Editor></ChildViewOverlay>}></Route>
-        </Routes>
+      <AnimatePresence>
+        {
+          background ?
+            <Routes location={location} key={location.pathname}>
+              <Route path="/new/*" element={<ChildViewOverlay><Editor></Editor></ChildViewOverlay>}></Route>
+              <Route path="user/:id" element={<ChildView><UserDetail/></ChildView>}></Route>
+            </Routes> : null
+        }
+      </AnimatePresence>
+
       <Snackbar />
     </>
   );
