@@ -1,6 +1,6 @@
 import { createElement, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchProfiles, rProfileAction } from "../redux/slice-profiles";
+import { fetchProfiles } from "../redux/slice-profiles";
 import { profileConnector, PropsWithReduxProfile } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
@@ -66,8 +66,7 @@ function _FeedProfile(props: FeedProfileProps) {
                               key={profile.id}
                               className="main-axis-item-2 main-axis-item-md-3 mb-15p mb-md-20p"
                               onClick={() => {
-                                props.dispatch(rProfileAction.select({ data: profile }))
-                                navigate('user', { state: { background: location } })
+                                navigate(`/user/${profile.id}`, { state: { background: location } })
                               }}
                             >
                               <Card.UserItem data={profile}></Card.UserItem>

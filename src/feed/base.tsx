@@ -4,10 +4,8 @@ import { AnimatePresence } from "framer-motion";
 import { FeedRecommend } from "./feed-recommend";
 import { FeedEvent } from "./feed-event";
 import { FeedProfile } from "./feed-profile";
-import { RouteFeedItem, RouteItem } from "../definition/routes";
+import { RouteFeedItem } from "../definition/routes";
 import { Direction } from "../definition/general";
-import { ChildView } from "../widgets/child-view-container";
-import { UserDetailInner } from "../widgets/user-detail-inner";
 import { TabView } from "../widgets/tab-view/tab-view";
 import { TabBar } from "./tab-bar";
 
@@ -22,10 +20,6 @@ const routes: RouteFeedItem[] = [
   { path: 'profile', component: FeedProfile, data: { title: 'People' } },
 ];
 
-const routesChild: RouteItem[] = [
-  { path: ':feedtype/user', element: <ChildView><UserDetailInner /></ChildView>, },
-]
-
 type FeedBaseProps = {
   location: Location;
   navigate: NavigateFunction;
@@ -35,7 +29,7 @@ export function Feed() {
   return (
     <>
       <FeedRootView location={useLocation()} navigate={useNavigate()} />
-      <FeedChildView location={useLocation()} navigate={useNavigate()} />
+      {/* <FeedChildView location={useLocation()} navigate={useNavigate()} /> */}
     </>
   );
 }
@@ -112,26 +106,6 @@ class FeedRootView extends Component<FeedBaseProps, { direction: Direction }> {
           </div>
         </TabView>
       </>
-    );
-  }
-}
-
-class FeedChildView extends Component<FeedBaseProps> {
-  render() {
-    return (
-      <AnimatePresence>
-        <Routes location={this.props.location} key={this.props.location.pathname}>
-          {
-            routesChild.map(route =>
-              <Route
-                key={route.path}
-                path={route.path}
-                element={route.element}
-              />
-            )
-          }
-        </Routes>
-      </AnimatePresence>
     );
   }
 }
