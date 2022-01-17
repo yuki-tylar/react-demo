@@ -1,4 +1,4 @@
-import { createElement, useEffect } from "react";
+import { createElement, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { fetchProfiles } from "../redux/slice-profiles";
 import { profileConnector, PropsWithReduxProfile } from "../redux/store";
@@ -15,14 +15,26 @@ export function FeedProfile(props: FeedRootProps) {
 }
 
 function _FeedProfile(props: FeedProfileProps) {
-  let loading: boolean = props.profile.loading;
   const navigate = useNavigate();
   const location = useLocation();
 
+  let [loading, setLoading] = useState<boolean>(false);
+  let [error, setError] = useState<string|null>(null);
 
   useEffect(() => {
-    if (!loading && !props.profile.initialized) {
-      fetchProfiles(props.dispatch, { sort: 'name', order: -1, skip: 0, limit: 8 })
+    async function fetchHandler () {
+      setLoading(true);
+      try {
+        await fetchProfiles(props.dispatch, { sort: 'name', order: -1, skip: 0, limit: 8 })
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setError(error as string);
+      }
+    }
+
+    if (!props.profile.initialized && !error) {
+      fetchHandler();
     }
   });
 
@@ -40,6 +52,8 @@ function _FeedProfile(props: FeedProfileProps) {
               {
                 loading ? 
                   <MyLoader></MyLoader> :
+                  error ?
+                  <div>ERROR: {error}</div> :
                   props.profile.data.length === 0 ?
                     <div
                       className="pt-25p"

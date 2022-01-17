@@ -4,44 +4,41 @@ import { _getProfileById, _getProfiles } from "../_temp/users";
 import { AppDispatch, StoreState } from "./store";
 
 interface StoreProfileState extends StoreState {
-  error: boolean;
 }
 
 const initialState: StoreProfileState = {
   loading: false,
   initialized: false,
   data: [],
-  error: false,
 }
 
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    fetchStart: (state) => {
-      return { ...state, loading: true }
-    },
-    fetchDone: (state, action: PayloadAction<{ data: any[] }>) => {
-      const _data = state.data.concat(action.payload.data);
-      return { ...state, loading: false, initialized: true, data: _data }
-    },
-    fetchError: (state) => {
-      return { ...state, loading: false }
-    },
     add: (state, action: PayloadAction<{ data: any[], markAsInitialized: boolean }>) => {
-      const _data = state.data.concat(action.payload.data);
-      return {...state, initialized: state.initialized || action.payload.markAsInitialized, data: _data};
+      const dataNext = Array.from(state.data);
+      action.payload.data.forEach(data => {
+        const idx = dataNext.findIndex(profile => profile.id == data.id);
+        console.log(idx)
+        if(idx >= 0) {
+          dataNext[idx] = {...state.data[idx], ...data} 
+        } else {
+          dataNext.push(data);
+        }
+      });
+      return {...state, initialized: state.initialized || action.payload.markAsInitialized, data: dataNext};
     }
   }
 });
 
-export const fetchProfiles = async (dispatch: AppDispatch, query: {sort?: string, order?: -1|1, limit?: number, skip?: number }): Promise<void> => {
-  dispatch(rProfileAction.fetchStart());
+export const fetchProfiles = async (dispatch: AppDispatch, query: {sort?: string, order?: -1|1, limit?: number, skip?: number }): Promise<any[]> => {
   try {
     const data = await _getProfiles(query);
-    dispatch(rProfileAction.fetchDone({ data }));
+    dispatch(rProfileAction.add({data: data, markAsInitialized: true}));
+    return data;
   } catch(error) {
-    dispatch(rProfileAction.fetchError());
+    throw snackbarMessage.ERROR;
   }
 }
 
