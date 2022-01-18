@@ -3,24 +3,40 @@ import { snackbarMessage } from "../definition/message";
 import { _getProfileById, _getProfiles } from "../_temp/users";
 import { AppDispatch, StoreState } from "./store";
 
+export type GetQuery = {
+  limit?: number;
+  skip?: number;
+  sort?: string;
+  order?: -1|1;
+}
+
+export type ProfileFilter = {
+  count: number,
+  sort: string, 
+  order: -1|1, 
+}
 interface StoreProfileState extends StoreState {
+  filter: ProfileFilter | null;
 }
 
 const initialState: StoreProfileState = {
   loading: false,
   initialized: false,
   data: [],
+  filter: null,
 }
 
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
+    updateFilter: (state, action: PayloadAction<ProfileFilter>) => {
+      return { ...state, filter: action.payload }
+    },
     add: (state, action: PayloadAction<{ data: any[], markAsInitialized: boolean }>) => {
       const dataNext = Array.from(state.data);
       action.payload.data.forEach(data => {
-        const idx = dataNext.findIndex(profile => profile.id == data.id);
-        console.log(idx)
+        const idx = dataNext.findIndex(profile => profile.id === data.id);
         if(idx >= 0) {
           dataNext[idx] = {...state.data[idx], ...data} 
         } else {
@@ -32,7 +48,7 @@ export const profileSlice = createSlice({
   }
 });
 
-export const fetchProfiles = async (dispatch: AppDispatch, query: {sort?: string, order?: -1|1, limit?: number, skip?: number }): Promise<any[]> => {
+export const fetchProfiles = async (dispatch: AppDispatch, query: GetQuery): Promise<any[]> => {
   try {
     const data = await _getProfiles(query);
     dispatch(rProfileAction.add({data: data, markAsInitialized: true}));

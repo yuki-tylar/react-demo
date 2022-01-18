@@ -12,7 +12,7 @@ import { MyProfile } from './dashboard/my-profile';
 import { Editor } from './editor/base';
 import { Message } from './message/base';
 import { ChildViewOverlay } from './widgets/child-view-overlay';
-import { UserDetail } from './user-detail/user-detail';
+import { Profile } from './user-detail/profile';
 import { AnimatePresence } from 'framer-motion';
 import { ChildView } from './widgets/child-view-container';
 
@@ -60,7 +60,7 @@ function _App(props: PropsWithReduxSetting) {
           background ?
             <Routes location={location} key={location.pathname}>
               <Route path="/new/*" element={<ChildViewOverlay><Editor></Editor></ChildViewOverlay>}></Route>
-              <Route path="user/:id" element={<ChildView><UserDetail/></ChildView>}></Route>
+              <Route path="user/:id" element={<ChildView><Profile/></ChildView>}></Route>
             </Routes> : null
         }
       </AnimatePresence>
