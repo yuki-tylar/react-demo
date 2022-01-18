@@ -6,7 +6,7 @@ type Props = {
   profile: any;
 }
 
-export class UserDetailUI extends Component<Props, {
+export class ProfileUI extends Component<Props, {
   imageFilterRatio: number;
   menuSticked: boolean;
 }>{

@@ -18,7 +18,7 @@ export function _getProfiles (query: {sort?: string, order?: -1|1, limit?: numbe
         });
       }
       
-      results = results.slice(query.skip || 0, query.limit || 10000);
+      results = results.slice(query.skip || 0, query.limit! + query.skip! || 10000);
       results = results.map(u => _removeCredential(u) );
       resolve(results);
     }, 1000);
