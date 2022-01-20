@@ -27,7 +27,10 @@ export function ButtonCameraShutter(props: PropsForButtonCameraShutter) {
       onClick={() => {
         const action = !props.isVideoMode ? 'snapshot' : state.isRecording ? 'stopRecording' : 'startRecording';
         props.onTap(action);
-        setState({ ...state, isRecording: !state.isRecording });
+
+        if(props.isVideoMode) {
+          setState({ ...state, isRecording: !state.isRecording });
+        }
       }}
     >
       <motion.div
