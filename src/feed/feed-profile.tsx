@@ -1,17 +1,17 @@
-import { createElement, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchProfiles, GetQuery, ProfileFilter, rProfileAction } from "../redux/slice-profiles";
-import { profileConnector, PropsWithReduxProfile, RootState } from "../redux/store";
+import { GetQuery, rProfileAction } from "../redux/slice-profiles";
+import { RootState } from "../redux/store";
 import { AspectRatio, FittedBox } from "../widgets/box";
 import { Card } from "../widgets/card";
 import { FeedRootProps } from "./base";
 import { SwipeScreenChanger } from "../widgets/swipe-screen-changer";
 import { MyLoader } from "../widgets/loader";
 import { useDispatch, useSelector } from "react-redux";
-import { _getProfileById, _getProfiles } from "../_temp/users";
+import { _getProfiles } from "../_temp/users";
 import { rSnackbarAction, SnackbarStyle } from "../redux/slice-snackbar";
 
-interface FeedProfileProps extends PropsWithReduxProfile, FeedRootProps { }
+// interface FeedProfileProps extends PropsWithReduxProfile, FeedRootProps { }
 
 export function FeedProfile(props: FeedRootProps) {
   const defaultLimit = 4;
@@ -87,7 +87,7 @@ export function FeedProfile(props: FeedRootProps) {
     if(!profileStore.initialized) {
       fetchHandler({ sort: defaultSort, order: defaultOrder, limit: defaultLimit });
     }
-  }, []);
+  });
 
   return (
     <SwipeScreenChanger
@@ -99,7 +99,7 @@ export function FeedProfile(props: FeedRootProps) {
       <div style={{ minHeight: '100%', touchAction: 'pan-y' }} >
         <div className="mt-45p mt-md-60p mb-80p mb-md-100p">
           {
-            profileStore.initialized && profiles?.length == 0 ?
+            profileStore.initialized && profiles?.length === 0 ?
               <div
                 className="pt-25p"
                 style={{ margin: 'auto', width: 'calc(100% - 30px)', maxWidth: '400px' }}

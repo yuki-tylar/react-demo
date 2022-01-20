@@ -15,7 +15,7 @@ export function _Login(props: PropsWithReduxAuth) {
   const navigate = useNavigate();
 
   return (
-    <CanActivateIfNotLoggedIn onGuard={() => { navigate('/recommend', {replace: true})} }>
+    <CanActivateIfNotLoggedIn onGuard={() => { navigate('/', {replace: true})} }>
       <div className="p-15p">
         <h2 className="mb-30p">Welocme!</h2>
         <Formik

@@ -44,7 +44,7 @@ export function Profile() {
         break;
       default:
     }
-  }, [status])
+  }, [status, dispatch, id])
 
   return (
     status === 'error' ?
