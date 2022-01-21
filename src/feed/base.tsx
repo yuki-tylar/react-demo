@@ -3,11 +3,11 @@ import { Routes, Route, useLocation, useNavigate, Location, NavigateFunction } f
 import { AnimatePresence } from "framer-motion";
 import { FeedRecommend } from "./feed-recommend";
 import { FeedEvent } from "./feed-event";
-import { FeedProfile } from "./feed-profile";
 import { RouteFeedItem } from "../definition/routes";
 import { Direction } from "../definition/general";
 import { TabView } from "../widgets/tab-view/tab-view";
 import { TabBar } from "./tab-bar";
+import { FeedProfile } from "./feed-profile";
 
 export type FeedRootProps = {
   direction: Direction;
@@ -27,10 +27,7 @@ type FeedBaseProps = {
 
 export function Feed() {
   return (
-    <>
-      <FeedRootView location={useLocation()} navigate={useNavigate()} />
-      {/* <FeedChildView location={useLocation()} navigate={useNavigate()} /> */}
-    </>
+    <FeedRootView location={useLocation()} navigate={useNavigate()} />
   );
 }
 
@@ -54,6 +51,7 @@ class FeedRootView extends Component<FeedBaseProps, { direction: Direction }> {
   }
 
   private changePage = (direction: Direction) => {
+    console.log(direction);
     this.setState({ ...this.state, direction: direction });
     this.currentRouteIndex = (this.currentRouteIndex + direction + routes.length) % 3;
     const next = (this.currentRouteIndex + routes.length) % routes.length;
@@ -99,6 +97,7 @@ class FeedRootView extends Component<FeedBaseProps, { direction: Direction }> {
                     key={`${route.path}`}
                     path={`${route.path}/*`}
                     element={createElement(route.component, { changePage: this.changePage, direction: this.state.direction })}
+
                   />
                 )}
               </Routes>

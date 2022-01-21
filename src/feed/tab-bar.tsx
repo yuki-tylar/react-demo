@@ -51,6 +51,7 @@ export function _TabBar(props: PropsWithReduxAuth) {
                       to='/new/event'
                       style={{ color: 'inherit' }}
                       onClick={() => { togglePostMenu(); }}
+                      state={{ background: location }}
                     >
                       <AppBarBottomIcon icon={BiCalendarPlus} label="Event"></AppBarBottomIcon>
                     </Link>

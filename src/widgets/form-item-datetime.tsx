@@ -1,5 +1,4 @@
-import { isAfter, isBefore, isSameDay, isToday } from 'date-fns';
-import moment from 'moment';
+import { format, isAfter, isBefore, isSameDay, isToday } from 'date-fns';
 import { Component } from 'react';
 import Calendar, { CalendarTileProperties, OnChangeDateCallback } from 'react-calendar';
 import { TimePicker } from './time-picker';
@@ -94,7 +93,7 @@ export class FormItemDateTime extends Component<Props, State> {
           type="text"
           className="form-item-textfield"
           name="startAt"
-          value={this.state.value ? moment(this.state.value).format('MMM DD YYYY hh:mm a') : ''}
+          value={this.state.value ? format(this.state.value, 'MMM dd yyyy hh:mm a') : ''}
           readOnly
           onClick={() => {
             this.setState({ ...this.state, isPopupShown: true })

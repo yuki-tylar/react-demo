@@ -1,12 +1,14 @@
+import { isAfter } from "date-fns";
+import { GetQuery } from "../redux/slice-profiles";
 import { _getProfilesById } from "./users";
 
-export function _getEvents(query: { sort?: string, order?: -1 | 1, limit?: number, skip?: number }): Promise<any[]> {
+export function _getEvents(query: GetQuery): Promise<any[]> {
   return new Promise((resolve, reject) => {
     setTimeout(async () => {
-      let results: any[] = events;
+      let results = Array.from(events);
       const sort = query.sort;
       if (sort) {
-        const order = query.order === -1 ? -1 : 1
+        const order = query.order === -1 ? -1 : 1;
         results = results.sort((a: any, b: any) => {
           if (a[sort] instanceof Date) {
             return (a[sort].getTime() - b[sort].getTime()) * order;
@@ -19,7 +21,14 @@ export function _getEvents(query: { sort?: string, order?: -1 | 1, limit?: numbe
           }
         });
       }
-      results = results.slice(query.skip || 0, query.limit || 10000);
+
+      results = results.filter(item => {
+        return query.laterThan ? isAfter(item.date, query.laterThan) : true;
+      });
+
+      const start = query.skip || 0;
+      const end = start + (query.limit || 10000);
+      results = results.slice(start, end);
 
       let idAttendees: any[] = [];
       results.forEach(item => {
@@ -29,7 +38,6 @@ export function _getEvents(query: { sort?: string, order?: -1 | 1, limit?: numbe
       const users = await _getProfilesById(idAttendees);
 
       results = results.map(item => {
-        // item.date = moment(item.date).format();
         item.attendees = users.filter(user => item.attendees.find((attendee: string) => attendee === user.id));
         return item;
       });
@@ -44,7 +52,7 @@ const events = [
     id: 'e1',
     name: 'A EVENT',
     image: '/assets/sample.png',
-    date: new Date(2021, 11, 31, 12),
+    date: new Date(2021, 11, 30, 12),
     description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic",
     tags: [
       { id: '79kudifer', name: 'test tag 1' },

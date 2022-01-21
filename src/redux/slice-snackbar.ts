@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { CSSProperties } from "react"
 
-type StoreState = {
+export type StoreStateSnackbar = {
   status: MessageStatus;
   message: string;
   duration: number;
@@ -22,7 +22,7 @@ export enum MessageStatus {
   shown,
 }
 
-const initialState: StoreState = {
+const initialState: StoreStateSnackbar = {
   status: MessageStatus.hidden,
   style: SnackbarStyle.none,
   duration: 3000,

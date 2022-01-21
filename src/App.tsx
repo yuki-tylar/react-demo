@@ -12,7 +12,7 @@ import { MyProfile } from './dashboard/my-profile';
 import { Editor } from './editor/base';
 import { Message } from './message/base';
 import { ChildViewOverlay } from './widgets/child-view-overlay';
-import { Profile } from './user-detail/profile';
+import { Profile } from './profiles/profile';
 import { AnimatePresence } from 'framer-motion';
 import { ChildView } from './widgets/child-view-container';
 
