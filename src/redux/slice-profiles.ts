@@ -8,6 +8,7 @@ export type GetQuery = {
   skip?: number;
   sort?: string;
   order?: -1|1;
+  laterThan?: Date;
 }
 
 export type ProfileFilter = {
@@ -58,16 +59,12 @@ export const fetchProfiles = async (dispatch: AppDispatch, query: GetQuery): Pro
   }
 }
 
-export const fetchProfileById = async (dispatch: AppDispatch, id: string): Promise<any> => {
-  // dispatch(rProfileAction.fetchStart());
+export const fetchProfileById = async (id: string): Promise<any> => {
   try {
     const data = await _getProfileById(id);
-    dispatch(rProfileAction.add({data: [data], markAsInitialized: false}));
     return data;
-    // dispatch(rProfileAction.fetchDone({data: [data]}));
   } catch(error) {
     throw snackbarMessage.FETCH_PROFILES_ERROR;
-    // dispatch(rProfileAction.fetchError());
   }
 }
 

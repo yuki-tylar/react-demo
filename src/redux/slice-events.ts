@@ -1,79 +1,71 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import moment from "moment";
+import { formatISO } from "date-fns";
+import { snackbarMessage } from "../definition/message";
 import { _getEvents } from "../_temp/events";
-import { AppDispatch, StoreState } from "./store";
+import { GetQuery } from "./slice-profiles";
+import { StoreState } from "./store";
 
-const initialState: StoreState = {
+export type EventFilter = {
+  count: number;
+  sort: string;
+  order: -1 | 1;
+  laterThan?: Date | null;
+}
+
+export interface EventFilterInStore extends Omit<EventFilter, 'laterThan'> {
+  laterThan: string | null;
+}
+interface StoreEventState extends StoreState {
+  filter: EventFilterInStore | null;
+}
+
+const initialState: StoreEventState = {
   loading: false,
   initialized: false,
   data: [],
+  filter: null,
 }
 
 export const eventSlice = createSlice({
   name: 'event',
   initialState,
   reducers: {
-    fetchStart: (state) => {
-      return { ...state, loading: true }
-    },
-    fetchDone: (state, action: PayloadAction<{ data: any[] }>) => {
-      const _data = state.data.concat(action.payload.data);
-      return { loading: false, initialized: true, data: _data }
-    },
-    fetchError: (state) => {
-      return { ...state, loading: false }
-    },
-    filter: (state, action: PayloadAction<{ sort?: string, order?: 1 | -1, laterThan?: Date, skip?: number, limit?: number }>) => {
-      const newState = { ...state };
-
-      let results = newState.data;
-      if (!!action.payload.laterThan) {
-        results = results.filter(item => item.date.getTime() - action.payload.laterThan!.getTime() >= 0);
+    updateFilter: (state, action: PayloadAction<EventFilterInStore>) => {
+      return { 
+        ...state, 
+        filter: action.payload 
       }
-      if (action.payload.sort) {
-        const sort = action.payload.sort;
-        const order = action.payload.order === -1 ? -1 : 1;
-        results = results.sort((a, b) => {
-          if (a[sort] instanceof Date) {
-            return (a[sort].getTime() - b[sort].getTime) * order;
-          } else if (typeof a[sort] === 'number') {
-            return (a[sort] - b[sort]) * order;
-          } else if (typeof a[sort] === 'string') {
-            return (a[sort].toUpperCase() - b[sort].toUpperCase()) * order;
-          } else {
-            return 1;
-          }
-        });
-      }
-      const skip = action.payload.skip || 0;
-      const limit = action.payload.limit || 10;
-      results = results.slice(skip, limit);
+    },
 
-      newState.data = results;
-      return newState;
+    add: (state, action: PayloadAction<{ data: any[], markAsInitialized: boolean }>) => {
+      const dataNext = Array.from(state.data);
+      action.payload.data.forEach(data => {
+        const idx = dataNext.findIndex(profile => profile.id === data.id);
+        if(idx >= 0) {
+          dataNext[idx] = {...state.data[idx], ...data} 
+        } else {
+          dataNext.push(data);
+        }
+      });
+      return {...state, initialized: state.initialized || action.payload.markAsInitialized, data: dataNext};
     },
   }
 });
 
-export const fetchEvents = async (dispatch: AppDispatch, query: {sort?: string, order?: -1|1, limit?: number, skip?: number } ): Promise<void> => {
-  dispatch(rEventAction.fetchStart());
+export const fetchEvents = async (query: GetQuery): Promise<any[]> => {
   try {
     let data = await _getEvents(query);
     data = data.map(item => {
-      item.date = moment(item.date).format();
-      return item;
+      return {
+        ...item,
+        date: formatISO(item.date),
+      }
     });
-
-    dispatch(rEventAction.fetchDone({ data }));  
-  } catch(error) {
-    console.log(error)
-    dispatch(rEventAction.fetchError());
+    return data;
+  } catch (error) {
+    throw snackbarMessage.ERROR
   }
 }
 
 export const rEventAction = eventSlice.actions;
 export const eventReducer = eventSlice.reducer;
-
-export const rEventError = {
-  FETCH_ERROR: 'Could not get events',
-}

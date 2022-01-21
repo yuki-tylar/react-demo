@@ -40,7 +40,9 @@ export class SwipeScreenChanger extends Component<Props, States> {
   private lockAxis(axisLocked: Axis) {
     if(axisLocked !== this.state.axisLocked) {
       this.setState({...this.state, axisLocked })
-      this.props.onAxisLocked(axisLocked);
+      if(this.props.onAxisLocked) {
+        this.props.onAxisLocked(axisLocked);
+      }
     }
   }
 
@@ -89,7 +91,7 @@ type Props = PropsWithChildren<{
   allowAxis: 'x'|'y'|false;
   direction: Direction;
   onSwipeDetected: (direction: Direction) => void;
-  onAxisLocked: (axis: Axis) => void;
+  onAxisLocked?: (axis: Axis) => void;
 }>
 
 type States = {
